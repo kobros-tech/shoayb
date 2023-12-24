@@ -13,4 +13,4 @@ I am Mohamed Alkobrosli who developed the custom modules of it.
     - My Linkedin [mohamed-alkobrosly](https://linkedin.com/in/mohamed-alkobrosly)
     - E-mail [alkobroslymohamed@gmail.com](mailto:alkobroslymohamed@gmail.com)
 
------------------------------ Thanks -----------------------------
+-------------------------------------------------------- Thanks --------------------------------------------------------
