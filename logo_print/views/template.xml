@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+
+    <!-- product_template_only_website_form_view -->
+
+    <!-- product_product_normal_website_form_view -->
+    <!-- product_product_view_form_easy_inherit_website_sale -->
+
+    <!-- product_template_form_view -->
+    <!-- product_template_form_view -->
+
+
+    <!-- Modal dialog form -->
+    <template id="product_logo_dialog" name="Modal Dialog">
+        <table class="table">
+            <tbody>
+                <tr id="custom-locactions">
+                    <td class="text-center" id="locationID18633" style="height: 50px;">
+                        <h4>Right Breast</h4>
+                        <button type="button" class="btn" style="background-color: Transparent; background-repeat:no-repeat; border: none; cursor:pointer; overflow: hidden;">
+                            <div class="img-hold">
+                                <img src="https://bulkworkwear.co.uk/image/catalog/common/logo-locations/right-breast_1552751100033.png" alt="..." class="img-responsive center-block" style="width: 200px;"/>
+                            </div>
+                        </button>
+                    </td>
+                    <td class="text-center" id="locationID18634" style="height: 50px;">
+                        <h4>Left Breast</h4>                                    
+                        <button type="button" class="btn" style="background-color: Transparent; background-repeat:no-repeat; border: none; cursor:pointer; overflow: hidden;">
+                            <div class="img-hold">
+                                <img src="https://bulkworkwear.co.uk/image/catalog/common/logo-locations/left-breast_1558445656726.png" alt="..." class="img-responsive center-block" style="width: 200px;"/>
+                            </div>
+                        </button>
+                    </td>
+                    <td class="text-center" id="locationID18635">
+                        <h4>Left Sleeve</h4>                                    
+                        <button type="button" class="btn" style="background-color: Transparent; background-repeat:no-repeat; border: none; cursor:pointer; overflow: hidden;">
+                            <div class="img-hold">
+                                <img src="https://bulkworkwear.co.uk/image/catalog/common/logo-locations/left-sleeve_1552921378852.png" alt="..." class="img-responsive center-block" style="width: 200px;"/>
+                                <span class="badge-corner hidden"><span class="glyphicon glyphicon-ok"></span></span>
+                            </div>
+                        </button>
+                    </td>
+                    <td class="text-center" id="locationID18636">
+                        <h4>Right Sleeve</h4>                                        
+                        <button type="button" class="btn" style="background-color: Transparent; background-repeat:no-repeat; border: none; cursor:pointer; overflow: hidden;">
+                            <div class="img-hold">
+                                <img src="https://bulkworkwear.co.uk/image/catalog/common/logo-locations/right-sleeve_1552921570490.png" alt="..." class="img-responsive center-block" style="width: 200px;"/>
+                            </div>
+                        </button>
+                    </td>
+                    <td class="text-center" id="locationID18638">
+                        <h4>Big Back</h4>                                        
+                        <button type="button" class="btn" style="background-color: Transparent; background-repeat:no-repeat; border: none; cursor:pointer; overflow: hidden;">
+                            <div class="img-hold">
+                                <img src="https://bulkworkwear.co.uk/image/catalog/common/logo-locations/big-back_1552920466548.png" alt="..." class="img-responsive center-block" style="width: 200px;"/>
+                                <span class="badge-corner hidden"><span class="glyphicon glyphicon-ok"></span></span>
+                            </div>
+                        </button>
+                    </td>
+                    <td class="text-center" id="locationID18639">
+                        <h4>Nape of Neck (Small)</h4>
+                        <button type="button" class="btn" style="background-color: Transparent; background-repeat:no-repeat; border: none; cursor:pointer; overflow: hidden;">
+                            <div class="img-hold">
+                                <img src="https://bulkworkwear.co.uk/image/catalog/common/logo-locations/nape-of-neck-back-_1552920471494.png" alt="..." class="img-responsive center-block" style="width: 200px;"/>
+                            </div>
+                        </button>
+                    </td>
+                    <td class="text-center" id="locationID27173">
+                        <h4>Big Rear Bottom</h4>
+                        
+                        <div class="remove-btn-holder">
+                            <button type="button" class="btn" style="background-color: Transparent; background-repeat:no-repeat; border: none; cursor:pointer; overflow: hidden;">
+                                <div class="img-hold">
+                                    <img src="https://bulkworkwear.co.uk/image/catalog/common/logo-locations/rear-bottom_1563735655406.png" alt="..." class="img-responsive center-block" style="width: 200px;"/>
+                                </div>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </template>
+
+    <!-- insert the dialog and choose the logo position -->
+    <template id="product_logo_inserting" inherit_id="website_sale.product" name="Uploading Logo">
+        <xpath expr="//div[@id='o_wsale_cta_wrapper']" position="before">
+            <dialog class="rounded">
+                <div>
+                    <h2>Choose the place of logo:</h2>
+                </div>
+                <br/>
+                <t t-call="logo_print.product_logo_dialog"></t>
+
+                <button id="close_dialog" class="btn btn-secondary">Close</button>
+            </dialog>
+            <div>
+                <button id="greeting_id" type="button" class="btn btn-primary">Choose logo position</button>
+            </div>
+            <br/>
+        </xpath>
+
+        <xpath expr="//div[@id='o_product_terms_and_share']" position="before" >
+            <div>
+                <form action="" method="post" enctype="">
+                    <div class="form-group">
+                        <h3 class="css_editable_mode_hidden">Insert Logo</h3>
+                        <input type="file" name="image"/>
+                    </div>
+                    <input class="btn btn-primary" type="submit" value="Submit"/>
+                </form>
+            </div>
+            <br/>
+      </xpath>
+    </template>
+
+    <!-- submit logo in cart template -->
+    <template id="submit_logo_in_cart" inherit_id="website_sale.cart_lines">
+        <xpath expr="//table[@id='cart_products']//thead//tr//th" position="before">
+            <th class="td-img">
+                Logo
+            </th>
+        </xpath>
+        <xpath expr="//table[@id='cart_products']//tbody//tr//td" position="before">
+            <td>
+
+                <form action="/logo/form/" method="post" enctype="multipart/form-data" data-force_action="sale.order" data-model_name="sale.order">
+                    
+                    <!-- CSRF Token -->
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"
+                    enctype="multipart/form-data" />
+
+                    <input type="hidden" name="order_logo" t-att-value="line" />
+                    <input type="hidden" name="product_logo" t-att-value="line.product_id" />
+                    
+                    <t t-set="description" t-value="line.get_description_following_lines()"/>
+                    
+                    <input type="hidden" name="describ_logo" t-att-value="description" /> 
+                        
+                    <input id="sale3" type="file" class="form-control col-xs-2 s_website_form_input" name="a_document" />
+                    <button type="submit" class="btn btn-primary">submit</button>
+                    
+                </form>
+            </td>
+            
+        </xpath>
+    </template>
+
+</odoo>
