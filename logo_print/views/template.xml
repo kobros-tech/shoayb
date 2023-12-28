@@ -13,70 +13,23 @@
 
     <!-- Modal dialog form -->
     <template id="product_logo_dialog" name="Modal Dialog">
+        <t t-set="positions" t-value="request.env['product.attribute.value'].search([('attribute_id.name', '=', 'Printing')])"/>
         <table class="table">
             <tbody>
                 <tr id="custom-locactions">
-                    <td class="text-center" id="locationID18633" style="height: 50px;">
-                        <h4>Right Breast</h4>
-                        <button type="button" class="btn" style="background-color: Transparent; background-repeat:no-repeat; border: none; cursor:pointer; overflow: hidden;">
-                            <div class="img-hold">
-                                <img src="https://bulkworkwear.co.uk/image/catalog/common/logo-locations/right-breast_1552751100033.png" alt="..." class="img-responsive center-block" style="width: 200px;"/>
-                            </div>
-                        </button>
-                    </td>
-                    <td class="text-center" id="locationID18634" style="height: 50px;">
-                        <h4>Left Breast</h4>                                    
-                        <button type="button" class="btn" style="background-color: Transparent; background-repeat:no-repeat; border: none; cursor:pointer; overflow: hidden;">
-                            <div class="img-hold">
-                                <img src="https://bulkworkwear.co.uk/image/catalog/common/logo-locations/left-breast_1558445656726.png" alt="..." class="img-responsive center-block" style="width: 200px;"/>
-                            </div>
-                        </button>
-                    </td>
-                    <td class="text-center" id="locationID18635">
-                        <h4>Left Sleeve</h4>                                    
-                        <button type="button" class="btn" style="background-color: Transparent; background-repeat:no-repeat; border: none; cursor:pointer; overflow: hidden;">
-                            <div class="img-hold">
-                                <img src="https://bulkworkwear.co.uk/image/catalog/common/logo-locations/left-sleeve_1552921378852.png" alt="..." class="img-responsive center-block" style="width: 200px;"/>
-                                <span class="badge-corner hidden"><span class="glyphicon glyphicon-ok"></span></span>
-                            </div>
-                        </button>
-                    </td>
-                    <td class="text-center" id="locationID18636">
-                        <h4>Right Sleeve</h4>                                        
-                        <button type="button" class="btn" style="background-color: Transparent; background-repeat:no-repeat; border: none; cursor:pointer; overflow: hidden;">
-                            <div class="img-hold">
-                                <img src="https://bulkworkwear.co.uk/image/catalog/common/logo-locations/right-sleeve_1552921570490.png" alt="..." class="img-responsive center-block" style="width: 200px;"/>
-                            </div>
-                        </button>
-                    </td>
-                    <td class="text-center" id="locationID18638">
-                        <h4>Big Back</h4>                                        
-                        <button type="button" class="btn" style="background-color: Transparent; background-repeat:no-repeat; border: none; cursor:pointer; overflow: hidden;">
-                            <div class="img-hold">
-                                <img src="https://bulkworkwear.co.uk/image/catalog/common/logo-locations/big-back_1552920466548.png" alt="..." class="img-responsive center-block" style="width: 200px;"/>
-                                <span class="badge-corner hidden"><span class="glyphicon glyphicon-ok"></span></span>
-                            </div>
-                        </button>
-                    </td>
-                    <td class="text-center" id="locationID18639">
-                        <h4>Nape of Neck (Small)</h4>
-                        <button type="button" class="btn" style="background-color: Transparent; background-repeat:no-repeat; border: none; cursor:pointer; overflow: hidden;">
-                            <div class="img-hold">
-                                <img src="https://bulkworkwear.co.uk/image/catalog/common/logo-locations/nape-of-neck-back-_1552920471494.png" alt="..." class="img-responsive center-block" style="width: 200px;"/>
-                            </div>
-                        </button>
-                    </td>
-                    <td class="text-center" id="locationID27173">
-                        <h4>Big Rear Bottom</h4>
-                        
-                        <div class="remove-btn-holder">
+                    <t t-foreach="positions" t-as="position">
+                        <td class="text-center" id="locationID18633" style="height: 50px;">
+                            <h4>
+                                <t t-out="position.name"/>
+                            </h4>
                             <button type="button" class="btn" style="background-color: Transparent; background-repeat:no-repeat; border: none; cursor:pointer; overflow: hidden;">
                                 <div class="img-hold">
-                                    <img src="https://bulkworkwear.co.uk/image/catalog/common/logo-locations/rear-bottom_1563735655406.png" alt="..." class="img-responsive center-block" style="width: 200px;"/>
+                                    <img t-attf-src="data:image/png;base64,{{position.collection_image}}" alt="avatar" class="img-responsive center-block" style="width: 100px"/>
+                                    <!-- class="img-responsive center-block" style="width: 200px; -->
                                 </div>
                             </button>
-                        </div>
-                    </td>
+                        </td>
+                    </t>
                 </tr>
             </tbody>
         </table>
@@ -89,6 +42,7 @@
                 <div>
                     <h2>Choose the place of logo:</h2>
                 </div>
+                <!-- <t t-out="product.product_variant_id"/> -->
                 <br/>
                 <t t-call="logo_print.product_logo_dialog"></t>
 

@@ -1,14 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
+    <record id="logo_print_library_view_form" model="ir.ui.view">
+        <field name="name">logo_print.library.form</field>
+        <field name="model">library</field>
+        <field name="arch" type="xml">
+            <form string="Customer Logo Details">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="date_time"/>
+                            <field name="name"/>
+                        </group>
+                        <group>
+                            <field name="image" widget="image"/>
+                        </group>
+                        <notebook>
+                            <page string="Description">
+                                <field name="product_description"/>
+                            </page>
+                            <page string="Orders">
+                                <field name="order_ids"/>
+                            </page>
+                            <page string="Products">
+                                <field name="product_ids"/>
+                            </page>
+                        </notebook>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
     <record id="logo_print_library_view_tree" model="ir.ui.view">
         <field name="name">logo_print.library.tree</field>
         <field name="model">library</field>
         <field name="arch" type="xml">
             <tree string="Logos" >
+                <field name="date_time"/>
+                <field name="order_ids"/>
+                <field name="product_ids"/>
                 <field name="name"/>
                 <field name="image" widget="image"/>
-                <field name="product_description"/>
             </tree>
         </field>
     </record>
@@ -20,10 +53,11 @@
             <search>
                 <field name="name"/>
                 <field name="product_description"/>
-                <!-- <field name="order_ids"/>
-                <field name="product_ids"/> -->
+                <field name="date_time"/>
+                <field name="order_ids"/>
+                <field name="product_ids"/>
                 
-                <!-- <filter string="Available" name="available" domain="[('name', '!=', '']"/> -->
+                <filter string="Available" name="available" context="{'group_by': 'order_ids'}"/>
                 <group expand="1" string="Group By">
                     <filter string="Order Quotation" name='order_ids' context="{'group_by':'order_ids'}"/>
                 </group>
