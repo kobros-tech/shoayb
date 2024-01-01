@@ -94,15 +94,20 @@ class LogoRecord(WebsiteSale):
 
         # sale order id
         order = request.website.sale_get_order()
+        print(order)
         print(order.name)
 
         # customer        
         user = request.env.user
         print(f"{user.name}: ")
 
+        # logo position
+        position = post.get("position_option")
+
         print("-----------------------load-----------------------------")
         print("----------------------------------------------------")
-        print("-------------------------post---------------------------")
+        print("-------------------------GET---------------------------")
+        print(post)
         print("----------------------------------------------------")
         print("----------------------------------------------------")
 

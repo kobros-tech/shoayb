@@ -13,19 +13,23 @@
 
     <!-- Modal dialog form -->
     <template id="product_logo_dialog" name="Modal Dialog">
-        <t t-set="positions" t-value="request.env['product.attribute.value'].search([('attribute_id.name', '=', 'Printing')])"/>
+        <input type="text" name="position_option" id="position_option" value="default"/>
+
+        <t t-set="ptals" t-value="product.valid_product_template_attribute_line_ids"/>
+        <t t-set="ptal_printing" t-value="ptals.filtered(lambda ptal: ptal.display_name == 'Printing')"/>
+        <t t-set="ptavs_printing"  t-value="ptal_printing.product_template_value_ids._only_active()" />
+            
         <table class="table">
             <tbody>
                 <tr id="custom-locactions">
-                    <t t-foreach="positions" t-as="position">
+                    <t t-foreach="ptavs_printing" t-as="ptav_printing">
                         <td class="text-center" id="locationID18633" style="height: 50px;">
                             <h4>
-                                <t t-out="position.name"/>
+                                <t t-out="ptav_printing.name"/>
                             </h4>
-                            <button type="button" class="btn" style="background-color: Transparent; background-repeat:no-repeat; border: none; cursor:pointer; overflow: hidden;">
+                            <button type="button" t-attf-value="{{ptav_printing}}" t-attf-onclick="choose_option({{ptav_printing.id}})" class="btn btn-dialog" style="background-color: Transparent; background-repeat:no-repeat; border: none; cursor:pointer; overflow: hidden;">
                                 <div class="img-hold">
-                                    <img t-attf-src="data:image/png;base64,{{position.collection_image}}" alt="avatar" class="img-responsive center-block" style="width: 100px"/>
-                                    <!-- class="img-responsive center-block" style="width: 200px; -->
+                                    <img t-attf-src="data:image/png;base64,{{ptav_printing.product_attribute_value_id.collection_image}}" alt="avatar" class="img-responsive center-block" style="width: 100px"/>
                                 </div>
                             </button>
                         </td>
@@ -33,12 +37,35 @@
                 </tr>
             </tbody>
         </table>
+        
+        <script>
+            var ptal_printing = "<t t-esc='ptal_printing.attribute_id.id'/>";
+            var product_variant_1 = "<t t-esc='ptavs_printing'/>"
+            
+            function choose_option (position, printing_attribute) {
+                console.log("clicked")
+
+                let selection = document.querySelector("#position_option");
+                selection.value = position;
+                console.log(selection.value);
+
+                let select_opt = document.querySelector("select");
+                alert(`${select_opt.dataset.attribute_id}---${ptal_printing}`);
+
+                // assign each selection it's value and hide it
+                if (select_opt.dataset.attribute_id === ptal_printing) {
+                    select_opt.value = position;
+                    console.log("equality");
+                }
+            }
+            
+        </script>
     </template>
 
     <!-- insert the dialog and choose the logo position -->
     <template id="product_logo_inserting" inherit_id="website_sale.product" name="Uploading Logo">
         <xpath expr="//div[@id='o_wsale_cta_wrapper']" position="before">
-            <dialog class="rounded">
+            <dialog class="rounded" id="dialog">
                 <div>
                     <h2>Choose the place of logo:</h2>
                 </div>
@@ -46,7 +73,7 @@
                 <br/>
                 <t t-call="logo_print.product_logo_dialog"></t>
 
-                <button id="close_dialog" class="btn btn-secondary">Close</button>
+                <button id="close_dialog" value="close" class="btn btn-secondary">Close</button>
             </dialog>
             <div>
                 <button id="greeting_id" type="button" class="btn btn-primary">Choose logo position</button>
@@ -55,7 +82,7 @@
         </xpath>
 
         <xpath expr="//div[@id='o_product_terms_and_share']" position="before" >
-            <div>
+            <!-- <div>
                 <form action="" method="post" enctype="">
                     <div class="form-group">
                         <h3 class="css_editable_mode_hidden">Insert Logo</h3>
@@ -63,7 +90,7 @@
                     </div>
                     <input class="btn btn-primary" type="submit" value="Submit"/>
                 </form>
-            </div>
+            </div> -->
             <br/>
       </xpath>
     </template>

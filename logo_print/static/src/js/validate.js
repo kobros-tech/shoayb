@@ -1,7 +1,10 @@
+
+
 odoo.define("logo.chooseLogoDialog", function(require) {
     "use strict";
 
     console.log("Hello kobrosly this is your first JS code in odoo: testing mode!");
+
 
     var publicwidget = require("web.public.widget");
 
@@ -20,13 +23,21 @@ odoo.define("logo.chooseLogoDialog", function(require) {
     publicwidget.registry.closeLogoDialog = publicwidget.Widget.extend({
         selector: "#close_dialog",
         events: {
-            'click': "_close_dialog",
+            'click': "_dialog",
         },
 
-        _close_dialog: function(evt) {
-            console.log("closing the dialog")
-            document.querySelector("dialog").close();
-            return false;
+        _dialog: function(evt) {
+            
+            // close the dialog button
+            if (evt.target.value === "close") {
+                console.log("closing the dialog")
+                document.querySelector("dialog").close();
+                return false;
+            }
+            
         },
-    })
+    });
+
+
+    
 });
