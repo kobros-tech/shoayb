@@ -13,86 +13,163 @@
 
     <!-- Modal dialog form -->
     <template id="product_logo_dialog" name="Modal Dialog">
-        <input type="text" name="position_option" id="position_option" value="default"/>
-
+        
+        <!-- variables for the basic logo  -->
         <t t-set="ptals" t-value="product.valid_product_template_attribute_line_ids"/>
         <t t-set="ptal_printing" t-value="ptals.filtered(lambda ptal: ptal.display_name == 'Printing')"/>
         <t t-set="ptavs_printing"  t-value="ptal_printing.product_template_value_ids._only_active()" />
-            
-        <table class="table">
-            <tbody>
-                <tr id="custom-locactions">
-                    <t t-foreach="ptavs_printing" t-as="ptav_printing">
-                        <td class="text-center" id="locationID18633" style="height: 50px;">
-                            <h4>
-                                <t t-out="ptav_printing.name"/>
-                            </h4>
-                            <button type="button" t-attf-value="{{ptav_printing}}" t-attf-onclick="choose_option({{ptav_printing.id}})" class="btn btn-dialog" style="background-color: Transparent; background-repeat:no-repeat; border: none; cursor:pointer; overflow: hidden;">
-                                <div class="img-hold">
-                                    <img t-attf-src="data:image/png;base64,{{ptav_printing.product_attribute_value_id.collection_image}}" alt="avatar" class="img-responsive center-block" style="width: 100px"/>
-                                </div>
-                            </button>
-                        </td>
-                    </t>
-                </tr>
-            </tbody>
-        </table>
+        
+        <!-- basic logo table -->
+        <div id="first_logo_table" >
+            <h2>Choose the place of logo:</h2>
+            <table class="table">
+                <tbody>
+                    <tr id="custom-locactions">
+                        <t t-foreach="ptavs_printing" t-as="ptav_printing">
+                            <td class="text-center" style="height: 50px;">
+                                <h4>
+                                    <t t-out="ptav_printing.name"/>
+                                </h4>
+                                <button type="button" t-attf-value="{{ptav_printing}}" t-attf-onclick="choose_option({{ptav_printing.id}})" class="btn btn-dialog" style="background-color: Transparent; background-repeat:no-repeat; border: none; cursor:pointer; overflow: hidden;">
+                                    <div class="img-hold">
+                                        <img t-attf-src="data:image/png;base64,{{ptav_printing.product_attribute_value_id.collection_image}}" alt="avatar" class="img-responsive center-block" style="width: 100px"/>
+                                    </div>
+                                </button>
+                            </td>
+                        </t>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- yes or no for extra printing attribute -->
+        <t t-set="ptal_extra_yes_no" t-value="ptals.filtered(lambda ptal: ptal.display_name == 'Extra_Printing')"/>
+        <t t-set="ptavs_extra_y_n_vals"  t-value="ptal_extra_yes_no.product_template_value_ids._only_active()" />
+        <t t-set="extra_logo_yes" t-value="ptavs_extra_y_n_vals.filtered(lambda vals: vals.name == 'yes' )" />
+        <t t-set="extra_logo_no" t-value="ptavs_extra_y_n_vals.filtered(lambda vals: vals.name == 'no' )" />
+
+        <!-- variables for the second logo  -->
+        <t t-set="ptal_extra_printing" t-value="ptals.filtered(lambda ptal: ptal.display_name == 'Extra_Printing_Choice')"/>
+        <t t-set="ptavs_extra_printing"  t-value="ptal_extra_printing.product_template_value_ids._only_active()" />
+
+        <!-- second logo table -->
+        <div id="second_logo_table" style="display: none;" >
+            <h2>Second logo place:</h2>
+            <table class="table">
+                <tbody>
+                    <tr id="custom-locactions">
+                        <t t-foreach="ptavs_extra_printing" t-as="ptav_extra_printing">
+                            <td class="text-center" style="height: 50px;">
+                                <h4>
+                                    <t t-out="ptav_extra_printing.name"/>
+                                </h4>
+                                <button type="button" t-attf-value="{{ptav_extra_printing}}" t-attf-onclick="choose_extra_option({{ptav_extra_printing.id}})" class="btn btn-dialog" style="background-color: Transparent; background-repeat:no-repeat; border: none; cursor:pointer; overflow: hidden;">
+                                    <div class="img-hold">
+                                        <img t-attf-src="data:image/png;base64,{{ptav_extra_printing.product_attribute_value_id.collection_image}}" alt="avatar" class="img-responsive center-block" style="width: 100px"/>
+                                    </div>
+                                </button>
+                            </td>
+                        </t>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
         
         <script>
-            var ptal_printing = "<t t-esc='ptal_printing.attribute_id.id'/>";
-            var product_variant_1 = "<t t-esc='ptavs_printing'/>"
-            
-            function choose_option (position, printing_attribute) {
-                console.log("clicked")
+                var ptal_printing_id = "<t t-esc='ptal_printing.attribute_id.id'/>";
+                var extra_y_n_attr_line_id = "<t t-esc='ptal_extra_yes_no.id'/>"
+                var extra_y_n_attr_id = "<t t-esc='ptal_extra_yes_no.attribute_id.id'/>";
+                var extra_yes_id = "<t t-esc='extra_logo_yes.id'/>"
+                var extra_no_id = "<t t-esc='extra_logo_no.id'/>"
+                console.log(`yes I need extra logo: ${extra_yes_id}`)
+                console.log(`no I don't need extra logo: ${extra_no_id}`)
 
-                let selection = document.querySelector("#position_option");
-                selection.value = position;
-                console.log(selection.value);
 
-                let select_opt = document.querySelector("select");
-                alert(`${select_opt.dataset.attribute_id}---${ptal_printing}`);
+                // hiding the attributes that are presented in the dialog
+                document.addEventListener('DOMContentLoaded', function() {
+                    document.querySelectorAll(".variant_attribute").forEach(function(attribute_element) {
+                        if (attribute_element.dataset.attribute_id === ptal_printing_id) {
+                            attribute_element.style.display = "block";
+                        }
+                    });
+                    
+                });
 
-                // assign each selection it's value and hide it
-                if (select_opt.dataset.attribute_id === ptal_printing) {
-                    select_opt.value = position;
-                    console.log("equality");
+                // set default of extra logo be no
+                document.querySelectorAll("select").forEach(function (element) {
+                    if (extra_y_n_attr_id === element.dataset.attribute_id) {
+                        element.value = extra_no_id;
+                    }
+                })
+                
+                function choose_option(position) {
+
+                    document.querySelector("#extra_logo_choice").style.display = "block";
+
+                    let select_opt = document.querySelector("select");
+
+                    // assign each selection it's value and hide it
+                    if (select_opt.dataset.attribute_id === ptal_printing_id) {
+                        select_opt.value = position;
+                    }
                 }
-            }
-            
-        </script>
+
+                document.addEventListener('DOMContentLoaded', function() {
+                    document.querySelector("#extra_logo_choice").onclick = function() {
+                        document.querySelector("#first_logo_table").style.display = "none";
+                        document.querySelector("#second_logo_table").style.display = "block";
+                        document.querySelector("#extra_logo_choice").style.display = "none";
+
+                        // set the value of extra logo attribute be yes
+                        document.querySelectorAll("select").forEach(function (element) {
+                            if (extra_y_n_attr_id === element.dataset.attribute_id) {
+                                
+                                console.log(element.value)
+                                element.value = extra_yes_id;
+                                
+                                console.log(`${element.dataset.attribute_name}  value  ${element.value}`)
+                            }
+                        })
+
+                        return false;
+                    }
+                });
+
+                function choose_extra_option(option) {
+                    document.querySelector("#extra_logo_choice").style.display = "none";
+                }
+                   
+                
+            </script>
+        
     </template>
 
     <!-- insert the dialog and choose the logo position -->
     <template id="product_logo_inserting" inherit_id="website_sale.product" name="Uploading Logo">
         <xpath expr="//div[@id='o_wsale_cta_wrapper']" position="before">
             <dialog class="rounded" id="dialog">
-                <div>
-                    <h2>Choose the place of logo:</h2>
-                </div>
+                
                 <!-- <t t-out="product.product_variant_id"/> -->
                 <br/>
                 <t t-call="logo_print.product_logo_dialog"></t>
 
-                <button id="close_dialog" value="close" class="btn btn-secondary">Close</button>
+                <div>
+                    <button id="extra_logo_choice" style="display: none;" class="btn btn-primary">Choose Extra Logo</button>
+                </div>
+                <br/>
+                <div>
+                    <button id="close_dialog" value="close" class="btn btn-secondary">Close</button>
+                </div>
             </dialog>
             <div>
                 <button id="greeting_id" type="button" class="btn btn-primary">Choose logo position</button>
             </div>
             <br/>
+        
+            <script>
+                
+            </script>
         </xpath>
-
-        <xpath expr="//div[@id='o_product_terms_and_share']" position="before" >
-            <!-- <div>
-                <form action="" method="post" enctype="">
-                    <div class="form-group">
-                        <h3 class="css_editable_mode_hidden">Insert Logo</h3>
-                        <input type="file" name="image"/>
-                    </div>
-                    <input class="btn btn-primary" type="submit" value="Submit"/>
-                </form>
-            </div> -->
-            <br/>
-      </xpath>
     </template>
 
     <!-- submit logo in cart template -->

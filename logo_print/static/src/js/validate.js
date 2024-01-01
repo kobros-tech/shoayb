@@ -3,8 +3,6 @@
 odoo.define("logo.chooseLogoDialog", function(require) {
     "use strict";
 
-    console.log("Hello kobrosly this is your first JS code in odoo: testing mode!");
-
 
     var publicwidget = require("web.public.widget");
 
@@ -15,7 +13,9 @@ odoo.define("logo.chooseLogoDialog", function(require) {
         },
 
         _dialog: function(evt) {
-            console.log("Hello kobrosly this is your first JS code in odoo");
+            document.querySelector("#first_logo_table").style.display = "block";
+            document.querySelector("#second_logo_table").style.display = "none";
+            document.querySelector("#extra_logo_choice").style.display = "none";
             document.querySelector("dialog").showModal();
         },
     });
@@ -23,21 +23,40 @@ odoo.define("logo.chooseLogoDialog", function(require) {
     publicwidget.registry.closeLogoDialog = publicwidget.Widget.extend({
         selector: "#close_dialog",
         events: {
-            'click': "_dialog",
+            'click': "_close_dialog",
         },
 
-        _dialog: function(evt) {
+        _close_dialog: function(evt) {
             
             // close the dialog button
             if (evt.target.value === "close") {
-                console.log("closing the dialog")
                 document.querySelector("dialog").close();
                 return false;
             }
-            
         },
     });
 
+    // publicwidget.registry.extraLogoDialog = publicwidget.Widget.extend({
+    //     selector: "#extra_logo_choice",
+    //     events: {
+    //         'click': "_extra_logo",
+    //     },
+        
+        // // add extra logo and stop submitting
+        // _extra_logo: function(evt) {
+        //     document.querySelector("#first_logo_table").style.display = "none";
+        //     document.querySelector("#second_logo_table").style.display = "block";
+        //     evt.target.style.display = "none";
 
-    
+        //     // set the value of extra logo attribute be yes
+        //     let exta_logo = document.getElementsByName(`ptal-${extra_y_n_attr_line_id}`)
+        //     console.log(exta_logo.value)
+        //     exta_logo.value = extra_yes_id
+        //     console.log(exta_logo.value)
+
+        //     return false;
+        // },
+    // })
+
+
 });

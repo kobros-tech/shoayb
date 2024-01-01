@@ -1,2 +1,4 @@
 id,name,display_type,create_variant,visibility
-1,"Printing","select","no_variant","visible"
+1,"Printing","select","no_variant","hidden"
+2,"Extra_Printing","select","no_variant","hidden"
+3,"Extra_Printing_Choice","select","no_variant","hidden"
