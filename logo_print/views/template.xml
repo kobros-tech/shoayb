@@ -76,24 +76,38 @@
         </div>
         
         <script>
+
+
                 var ptal_printing_id = "<t t-esc='ptal_printing.attribute_id.id'/>";
                 var extra_y_n_attr_line_id = "<t t-esc='ptal_extra_yes_no.id'/>"
                 var extra_y_n_attr_id = "<t t-esc='ptal_extra_yes_no.attribute_id.id'/>";
                 var extra_yes_id = "<t t-esc='extra_logo_yes.id'/>"
                 var extra_no_id = "<t t-esc='extra_logo_no.id'/>"
-                console.log(`yes I need extra logo: ${extra_yes_id}`)
-                console.log(`no I don't need extra logo: ${extra_no_id}`)
+                var ptal_extra_printing_id = "<t t-esc='ptal_extra_printing.attribute_id.id'/>"
 
 
                 // hiding the attributes that are presented in the dialog
                 document.addEventListener('DOMContentLoaded', function() {
                     document.querySelectorAll(".variant_attribute").forEach(function(attribute_element) {
+                        
+                        // hide printing attribute
                         if (attribute_element.dataset.attribute_id === ptal_printing_id) {
-                            attribute_element.style.display = "block";
+                            attribute_element.style.display = "none";
+                        }
+
+                        // hide extra printing attribute
+                        if (attribute_element.dataset.attribute_id === extra_y_n_attr_id) {
+                            attribute_element.style.display = "none";
+                        }
+
+                        // hide extra printing choice attribute
+                        if (attribute_element.dataset.attribute_id === ptal_extra_printing_id) {
+                            attribute_element.style.display = "none";
                         }
                     });
                     
                 });
+
 
                 // set default of extra logo be no
                 document.querySelectorAll("select").forEach(function (element) {
@@ -102,18 +116,8 @@
                     }
                 })
                 
-                function choose_option(position) {
 
-                    document.querySelector("#extra_logo_choice").style.display = "block";
-
-                    let select_opt = document.querySelector("select");
-
-                    // assign each selection it's value and hide it
-                    if (select_opt.dataset.attribute_id === ptal_printing_id) {
-                        select_opt.value = position;
-                    }
-                }
-
+                // This functionality is specific for "Choose Extra Logo" button
                 document.addEventListener('DOMContentLoaded', function() {
                     document.querySelector("#extra_logo_choice").onclick = function() {
                         document.querySelector("#first_logo_table").style.display = "none";
@@ -123,11 +127,7 @@
                         // set the value of extra logo attribute be yes
                         document.querySelectorAll("select").forEach(function (element) {
                             if (extra_y_n_attr_id === element.dataset.attribute_id) {
-                                
-                                console.log(element.value)
                                 element.value = extra_yes_id;
-                                
-                                console.log(`${element.dataset.attribute_name}  value  ${element.value}`)
                             }
                         })
 
@@ -135,8 +135,28 @@
                     }
                 });
 
-                function choose_extra_option(option) {
+
+                function choose_option(position) {
+                    document.querySelector("#extra_logo_choice").style.display = "block";
+
+                    // assign a correct value to the first logo attribute
+                    document.querySelectorAll("select").forEach(function (element) {
+                        if (ptal_printing_id === element.dataset.attribute_id) {
+                            element.value = position;
+                        }
+                    });
+                }
+
+
+                function choose_extra_option(position) {
                     document.querySelector("#extra_logo_choice").style.display = "none";
+
+                    // assign a correct value to the second logo attribute
+                    document.querySelectorAll("select").forEach(function(element) {
+                        if (element.dataset.attribute_id === ptal_extra_printing_id) {
+                            element.value = position;
+                        }
+                    });
                 }
                    
                 

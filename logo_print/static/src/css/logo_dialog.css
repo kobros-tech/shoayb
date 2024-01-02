@@ -55,8 +55,18 @@ dialog {
     background-color: #db6f30;
 }
 
+a.btn.btn-primary.btn_cta:hover {
+  color:white;
+  background-color: #2b2521;
+}
+
   .btn {
-    background-color: ;
+    background-color: #db6f30;
+}
+
+.btn:hover {
+  color:white;
+  background-color: #2b2521;
 }
 
 
@@ -64,8 +74,18 @@ dialog {
     background-color: #db6f30;
 }
 
+.btn-primary:hover {
+  color:white;
+  background-color: #2b2521;
+}
+
 .btn_cta {
     background-color: #db6f30;
+}
+
+.btn_cta:hover {
+  color:white;
+  background-color: #2b2521;
 }
 
 
@@ -73,11 +93,17 @@ dialog {
     color: darkgreen;
 }
 
+.fa.fa-plus:hover {
+  color: white;
+}
 
 .fa.fa-minus {
     color: darkgreen;
 }
-  
+
+.fa.fa-minus:hover {
+  color: white;
+}
 
 input.form-check-input:checked {
     background-color: darkgreen;
