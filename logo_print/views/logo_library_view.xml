@@ -25,6 +25,11 @@
                             <page string="Products">
                                 <field name="product_ids"/>
                             </page>
+                            <page string="Extra">
+                                <field name="extra1" widget="image"/>
+                                <field name="extra2" widget="image"/>
+                                <field name="extra3" widget="image"/>
+                            </page>
                         </notebook>
                     </group>
                 </sheet>

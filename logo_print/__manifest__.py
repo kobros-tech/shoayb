@@ -18,10 +18,11 @@
     'data': [
         'security/ir.model.access.csv',
         'data/product.attribute.csv',
-        'views/logo_library_menus.xml',
         'views/logo_library_view.xml',
         'views/printing_collection.xml',
+        'views/logo_library_menus.xml',
         'views/template.xml',
+        'views/order_logos.xml',
     ],
     'assets': {
         'web.assets_frontend':[            

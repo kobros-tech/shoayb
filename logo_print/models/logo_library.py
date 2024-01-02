@@ -16,6 +16,9 @@ class LogoLibrary(models.Model):
     name = fields.Char("Name")
     date_time= fields.Datetime(default=lambda s: fields.Datetime.now(),)
     image = fields.Image()
+    extra1 = fields.Image()
+    extra2 = fields.Image()
+    extra3 = fields.Image()
     product_description = fields.Html()
 
     # Relational
@@ -37,4 +40,16 @@ class PrintingAttribute(models.Model):
     collection_image = fields.Image()
 
 
+class SaleOrder(models.Model):
 
+    # ---------------------------------------- Private Attributes ---------------------------------
+
+    _inherit = "sale.order"
+
+    # ---------------------------------------- Default Methods ------------------------------------
+    
+    # --------------------------------------- Fields Declaration ----------------------------------
+
+    # Basic
+    library_ids = fields.Many2many("library", string="Library of Logos")
+    

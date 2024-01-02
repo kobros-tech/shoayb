@@ -21,7 +21,7 @@
         
         <!-- basic logo table -->
         <div id="first_logo_table" >
-            <h2>Choose the place of logo:</h2>
+            <h2>Choose Logo Location:</h2>
             <table class="table">
                 <tbody>
                     <tr id="custom-locactions">
@@ -117,7 +117,7 @@
                 })
                 
 
-                // This functionality is specific for "Choose Extra Logo" button
+                // This functionality is specific for "Add another Location" button
                 document.addEventListener('DOMContentLoaded', function() {
                     document.querySelector("#extra_logo_choice").onclick = function() {
                         document.querySelector("#first_logo_table").style.display = "none";
@@ -174,7 +174,7 @@
                 <t t-call="logo_print.product_logo_dialog"></t>
 
                 <div>
-                    <button id="extra_logo_choice" style="display: none;" class="btn btn-primary">Choose Extra Logo</button>
+                    <button id="extra_logo_choice" style="display: none;" class="btn btn-primary">Add another Location</button>
                 </div>
                 <br/>
                 <div>
@@ -200,7 +200,7 @@
             </th>
         </xpath>
         <xpath expr="//table[@id='cart_products']//tbody//tr//td" position="before">
-            <td>
+            <td id="submisiion_data">
 
                 <form action="/logo/form/" method="post" enctype="multipart/form-data" data-force_action="sale.order" data-model_name="sale.order">
                     
@@ -208,17 +208,51 @@
                     <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"
                     enctype="multipart/form-data" />
 
-                    <input type="hidden" name="order_logo" t-att-value="line" />
-                    <input type="hidden" name="product_logo" t-att-value="line.product_id" />
+                    <input type="hidden" name="order_logo" t-att-value="line.id" />
+                    <input type="hidden" name="product_logo" t-att-value="line.product_id.id" />
                     
                     <t t-set="description" t-value="line.get_description_following_lines()"/>
+                    <t t-set="choice" t-value="'Extra_Printing: yes' in description" />
                     
                     <input type="hidden" name="describ_logo" t-att-value="description" /> 
-                        
-                    <input id="sale3" type="file" class="form-control col-xs-2 s_website_form_input" name="a_document" />
-                    <button type="submit" class="btn btn-primary">submit</button>
+                    
+                    <div id="logo_submit">
+                        <input id="sale3" type="file" class="form-control col-xs-2 s_website_form_input" name="a_document" />
+                    </div>
+                    <br/>
+                    <div id="exra_submit" style="display: none;">
+                        <input id="sale4" type="file" class="form-control col-xs-2 s_website_form_input" name="b_document" />
+                    </div>
+                    <button id="button_submit" type="submit" onclick="hide_submission()" class="btn btn-primary">submit</button>
                     
                 </form>
+                    
+                <script>
+
+                    
+                    var describ_logo = "<t t-esc='description'/>";
+                    var choice = "<t t-esc='choice'/>";
+                    var logo_submit = "<t t-esc='logo_submit' />";
+
+                    document.addEventListener('DOMContentLoaded', function() {
+                        if ( "" === "") {
+                            document.querySelector("#submisiion_data").style.display = "block";
+                        }
+                    })
+
+                    console.log(choice)
+                    if (choice != "") {
+                        document.querySelector("#exra_submit").style.display = "block";
+                        console.log(describ_logo)
+                        console.log(choice)
+                    }
+
+                    function hide_submission() {
+                        document.querySelector("#submisiion_data").style.display = "none";
+
+                    }
+
+                </script>
             </td>
             
         </xpath>

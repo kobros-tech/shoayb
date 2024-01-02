@@ -102,12 +102,13 @@ class LogoRecord(WebsiteSale):
         print(f"{user.name}: ")
 
         # logo position
-        position = post.get("position_option")
+        position = post.get("order")
 
         print("-----------------------load-----------------------------")
         print("----------------------------------------------------")
         print("-------------------------GET---------------------------")
-        print(post)
+        print(order)
+        print(position)
         print("----------------------------------------------------")
         print("----------------------------------------------------")
 
@@ -118,53 +119,81 @@ class LogoRecord(WebsiteSale):
     @http.route(["/logo/form/"], type="http", method=["GET", "POST"], auth="user", website=True)
     def logo_upload(self, **kw):
         if request.httprequest.method == "POST":
+
+            order = None
+            order_line = None
+
+            # values to be recorded in a new library logo object
+            vals = {}
+
             # read the image file object and then convert it to base64 byte object
-            img = None
             try:    
                 img_file = kw.get('a_document')
                 img = base64.b64encode(img_file.read())
+                vals['image'] = img
 
                 print(img.decode('utf-8'))
             except:
                 pass
-
-            order = None
-            if kw.get('order'):
-                order = kw.get('order')
-            print(order)
-
-            product = None
-            if kw.get('product_logo'):
-                product = kw.get('product_logo')
-            print(product)
             
-            description = None
+
+            if kw.get('product_logo'):
+                # product_id = int(kw.get('product_logo'))
+                # vals['product_ids'] = product
+                print(kw.get('product_logo'))
+            
             if kw.get('describ_logo'):
                 description = kw.get('describ_logo')
-            print(description)
+                vals['product_description'] = description
+                print(description)
 
-            name = None
-            if order:
-                name = order.name_short
-            print(name)
+                
+            if kw.get('order_logo'):
+                order_line_str = kw.get('order_logo')
 
-            new_input = request.env["library"].create({
-                'name': name,
-                'image': img,
-                # 'order_ids': order,
-                # 'product_ids': [product],
-                'product_description': description,
-            })
+                # extra related to key value "yes"
+                order_line = request.env['sale.order.line'].browse(int(order_line_str))
+                print(order_line)
+
+                order = order_line.order_id
+                print(order)
+                
+                describ = order_line.get_description_following_lines()
+                
+                if "Extra_Printing: yes" in describ:
+                    try:    
+                        img2_file = kw.get('b_document')
+                        img2 = base64.b64encode(img2_file.read())
+                        vals['extra1'] = img2
+
+                        print(img2.decode('utf-8'))
+                    except:
+                        pass
+                
+                # add the order to the library of logos
+                
+                # vals['order_ids'] = [(4, [order.id])]
+                
+
+            print("-------------------------------------------------------------------")
+            print(vals)
+            new_input = request.env["library"].create(vals)
             print(new_input)
 
-            # lead.write({'meeting_ids': [(4, [event_id.id])] })
             
+            new_input.write({'order_ids': [(4, order_line.id)]})
+            
+            order.write({'library_ids': [(4, new_input.id)]})
+
             
             print("---------------------------------Success------------------------------------")
             print("---------------------------------Success------------------------------------")
             print("---------------------------------Success------------------------------------")
             print("---------------------------------Success------------------------------------")
+
             return request.redirect("/shop/cart")
 
         else:
             print("--------------------------GET Request")
+            
+            return request.redirect("/shop/cart")
