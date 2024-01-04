@@ -1,22 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
 
-
-    <!-- product_template_only_website_form_view -->
-
-    <!-- product_product_normal_website_form_view -->
-    <!-- product_product_view_form_easy_inherit_website_sale -->
-
-    <!-- product_template_form_view -->
-    <!-- product_template_form_view -->
-
-
     <!-- Modal dialog form -->
     <template id="product_logo_dialog" name="Modal Dialog">
         
         <!-- variables for the basic logo  -->
         <t t-set="ptals" t-value="product.valid_product_template_attribute_line_ids"/>
-        <t t-set="ptal_printing" t-value="ptals.filtered(lambda ptal: ptal.display_name == 'Printing')"/>
+        <!-- get the specific attribute according to it's external XMLID -->
+        <t t-set="ptal_printing" t-value="ptals.filtered(lambda ptal: ptal.attribute_id.get_metadata()[0].get('xmlid') == 'logo_print.product_attribute_logo_position')"/>
         <t t-set="ptavs_printing"  t-value="ptal_printing.product_template_value_ids._only_active()" />
         
         <!-- basic logo table -->
@@ -43,13 +34,13 @@
         </div>
         
         <!-- yes or no for extra printing attribute -->
-        <t t-set="ptal_extra_yes_no" t-value="ptals.filtered(lambda ptal: ptal.display_name == 'Extra_Printing')"/>
+        <t t-set="ptal_extra_yes_no" t-value="ptals.filtered(lambda ptal: ptal.attribute_id.get_metadata()[0].get('xmlid') == 'logo_print.product_attribute_extra1')"/>
         <t t-set="ptavs_extra_y_n_vals"  t-value="ptal_extra_yes_no.product_template_value_ids._only_active()" />
-        <t t-set="extra_logo_yes" t-value="ptavs_extra_y_n_vals.filtered(lambda vals: vals.name == 'yes' )" />
-        <t t-set="extra_logo_no" t-value="ptavs_extra_y_n_vals.filtered(lambda vals: vals.name == 'no' )" />
+        <t t-set="extra_logo_yes" t-value="ptavs_extra_y_n_vals.filtered(lambda val: val.product_attribute_value_id.get_metadata()[0].get('xmlid') == 'logo_print.product_attribute_extra1_yes')" />
+        <t t-set="extra_logo_no" t-value="ptavs_extra_y_n_vals.filtered(lambda val: val.product_attribute_value_id.get_metadata()[0].get('xmlid') == 'logo_print.product_attribute_extra1_no' )" />
 
         <!-- variables for the second logo  -->
-        <t t-set="ptal_extra_printing" t-value="ptals.filtered(lambda ptal: ptal.display_name == 'Extra_Printing_Choice')"/>
+        <t t-set="ptal_extra_printing" t-value="ptals.filtered(lambda ptal: ptal.attribute_id.get_metadata()[0].get('xmlid') == 'logo_print.product_attribute_logo_position_1')"/>
         <t t-set="ptavs_extra_printing"  t-value="ptal_extra_printing.product_template_value_ids._only_active()" />
 
         <!-- second logo table -->
@@ -77,12 +68,12 @@
         
         <script>
 
-
                 var ptal_printing_id = "<t t-esc='ptal_printing.attribute_id.id'/>";
                 var extra_y_n_attr_line_id = "<t t-esc='ptal_extra_yes_no.id'/>"
                 var extra_y_n_attr_id = "<t t-esc='ptal_extra_yes_no.attribute_id.id'/>";
                 var extra_yes_id = "<t t-esc='extra_logo_yes.id'/>"
                 var extra_no_id = "<t t-esc='extra_logo_no.id'/>"
+
                 var ptal_extra_printing_id = "<t t-esc='ptal_extra_printing.attribute_id.id'/>"
 
 
@@ -200,9 +191,9 @@
             </th>
         </xpath>
         <xpath expr="//table[@id='cart_products']//tbody//tr//td" position="before">
-            <td id="submisiion_data">
+            <td id="first_table_data">
 
-                <form action="/logo/form/" method="post" enctype="multipart/form-data" data-force_action="sale.order" data-model_name="sale.order">
+                <form id="submisiion_data" action="/logo/form/" method="post" enctype="multipart/form-data" data-force_action="sale.order" data-model_name="sale.order">
                     
                     <!-- CSRF Token -->
                     <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"
@@ -232,11 +223,15 @@
                     
                     var describ_logo = "<t t-esc='description'/>";
                     var choice = "<t t-esc='choice'/>";
-                    var logo_submit = "<t t-esc='logo_submit' />";
+                    var order_line = "<t t-esc='line' />";
+                    var order_submit = "<t t-esc='line.order_id.library_ids.mapped("id")' />"
 
                     document.addEventListener('DOMContentLoaded', function() {
-                        if ( "" === "") {
-                            document.querySelector("#submisiion_data").style.display = "block";
+                        if ( order_submit != "") {
+                            // document.querySelector("#submisiion_data").style.display = "none";
+                            // document.querySelector("#first_table_data").innerHTML = "Submitted";
+                            // document.querySelector("#first_table_data").style.color = "darkgreen";
+                            console.log("logos submitted successfully")
                         }
                     })
 

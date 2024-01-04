@@ -13,12 +13,15 @@
 
     'category':'Website',
     'depends': [
-        'website_sale', 'mail',
+        'mail',
+        'sale_management',
+        'website_sale',
     ],
     'data': [
         'security/ir.model.access.csv',
-        'data/product.attribute.csv',
+        'data/product_attribute.xml',
         'views/logo_library_view.xml',
+        'views/positions_view.xml',
         'views/printing_collection.xml',
         'views/logo_library_menus.xml',
         'views/template.xml',
@@ -26,7 +29,7 @@
     ],
     'assets': {
         'web.assets_frontend':[            
-            # 'logo_print/static/src/js/validate.js',
+            'logo_print/static/src/js/validate.js',
             'logo_print/static/**/*',
         ],  
     }

@@ -6,9 +6,16 @@
         <field name="model">product.attribute</field>
         <field name="inherit_id" ref="product.product_attribute_view_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='html_color']" position="after">
-                <field name="collection_image" widget="image" attrs="{'column_invisible': [('parent.name', 'not in', ['Printing', 'Color', 'Extra_Printing_Choice'])]}"/>
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="active" string="Active" invisible="1" />
+                <field name="relate" />
             </xpath>
+            <xpath expr="//field[@name='html_color']" position="after">
+                
+                <field name="position_id" attrs="{'column_invisible': [('parent.relate', '!=', True)] }"/>
+                <field name="collection_image" widget="image" attrs="{'column_invisible': [('parent.relate', '!=', True)] }"/>
+            </xpath>
+            
         </field>
     </record>
 

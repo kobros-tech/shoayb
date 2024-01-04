@@ -1,0 +1,151 @@
+<?xml version="1.0"?>
+<odoo noupdate="0">
+    <data>
+
+        <!-- Data for boolean choices of products attributes -->
+        <record model="product.attribute" id="product_attribute_color">
+            <field name="name">Color</field>
+            <field name="display_type">color</field>
+            <field name="create_variant">always</field>
+            <field name="sequence">0</field>
+        </record>
+
+        <record model="product.attribute" id="product_attribute_size">
+            <field name="name">Size</field>
+            <field name="display_type">radio</field>
+            <field name="create_variant">no_variant</field>
+            <field name="sequence">1</field>
+        </record>
+
+        <record model="product.attribute" id="product_attribute_emb_print">
+            <field name="name">Embroidery or print</field>
+            <field name="display_type">radio</field>
+            <field name="create_variant">no_variant</field>
+            <field name="sequence">2</field>
+        </record>
+        <record model="product.attribute.value" id="product_attribute_emb_choice">
+            <field name="attribute_id" ref="product_attribute_emb_print"/>
+            <field name="name">Embroidery</field>
+        </record>
+        <record model="product.attribute.value" id="product_attribute_print_choice">
+            <field name="attribute_id" ref="product_attribute_emb_print"/>
+            <field name="name">Print</field>
+        </record>
+
+        <record model="product.attribute" id="product_attribute_new_previous">
+            <field name="name">new logo or previous logo</field>
+            <field name="display_type">radio</field>
+            <field name="create_variant">no_variant</field>
+            <field name="sequence">3</field>
+        </record>
+        <record model="product.attribute.value" id="product_attribute_previous_choice">
+            <field name="attribute_id" ref="product_attribute_new_previous"/>
+            <field name="name">Print a previous logo</field>
+        </record>
+        <record model="product.attribute.value" id="product_attribute_new_choice">
+            <field name="attribute_id" ref="product_attribute_new_previous"/>
+            <field name="name">Print a new logo</field>
+        </record>
+
+        <record model="product.attribute" id="product_attribute_text_logo">
+            <field name="name">text or logo</field>
+            <field name="display_type">radio</field>
+            <field name="create_variant">no_variant</field>
+            <field name="sequence">4</field>
+        </record>
+        <record model="product.attribute.value" id="product_attribute_text_choice">
+            <field name="attribute_id" ref="product_attribute_text_logo"/>
+            <field name="name">Text</field>
+            <field name="sequence">0</field>
+        </record>
+        <record model="product.attribute.value" id="product_attribute_Logo_choice">
+            <field name="attribute_id" ref="product_attribute_text_logo"/>
+            <field name="name">Logo</field>
+            <field name="sequence">1</field>
+        </record>
+        <record model="product.attribute.value" id="product_attribute_text_logo_previous">
+            <field name="attribute_id" ref="product_attribute_text_logo"/>
+            <field name="name">Same as previous</field>
+            <field name="is_custom">1</field>
+            <field name="sequence">2</field>
+        </record>
+
+        <record model="product.attribute" id="product_attribute_logo_position">
+            <field name="name">logo position</field>
+            <field name="display_type">select</field>
+            <field name="create_variant">no_variant</field>
+            <field name="relate">1</field>
+            <field name="sequence">5</field>
+        </record>
+
+        <record model="product.attribute" id="product_attribute_extra1">
+            <field name="name">extra logo 1</field>
+            <field name="display_type">select</field>
+            <field name="create_variant">no_variant</field>
+            <field name="sequence">6</field>
+        </record>
+        <record model="product.attribute.value" id="product_attribute_extra1_no">
+            <field name="attribute_id" ref="product_attribute_extra1"/>
+            <field name="name">no</field>
+        </record>
+        <record model="product.attribute.value" id="product_attribute_extra1_yes">
+            <field name="attribute_id" ref="product_attribute_extra1"/>
+            <field name="name">yes</field>
+        </record>
+
+        <record model="product.attribute" id="product_attribute_logo_position_1">
+            <field name="name">extra logo position 1</field>
+            <field name="display_type">select</field>
+            <field name="create_variant">no_variant</field>
+            <field name="relate">1</field>
+            <field name="sequence">7</field>
+        </record>
+
+        <record model="product.attribute" id="product_attribute_extra2">
+            <field name="name">extra logo 2</field>
+            <field name="display_type">select</field>
+            <field name="create_variant">no_variant</field>
+            <field name="sequence">8</field>
+        </record>
+        <record model="product.attribute.value" id="product_attribute_extra2_no">
+            <field name="attribute_id" ref="product_attribute_extra2"/>
+            <field name="name">no</field>
+        </record>
+        <record model="product.attribute.value" id="product_attribute_extra2_yes">
+            <field name="attribute_id" ref="product_attribute_extra2"/>
+            <field name="name">yes</field>
+        </record>
+
+        <record model="product.attribute" id="product_attribute_logo_position_2">
+            <field name="name">extra logo position 2</field>
+            <field name="display_type">select</field>
+            <field name="create_variant">no_variant</field>
+            <field name="relate">1</field>
+            <field name="sequence">9</field>
+        </record>
+
+        <record model="product.attribute" id="product_attribute_extra3">
+            <field name="name">extra logo 3</field>
+            <field name="display_type">select</field>
+            <field name="create_variant">no_variant</field>
+            <field name="sequence">10</field>
+        </record>
+        <record model="product.attribute.value" id="product_attribute_extra3_no">
+            <field name="attribute_id" ref="product_attribute_extra3"/>
+            <field name="name">no</field>
+        </record>
+        <record model="product.attribute.value" id="product_attribute_extra3_yes">
+            <field name="attribute_id" ref="product_attribute_extra3"/>
+            <field name="name">yes</field>
+        </record>
+
+        <record model="product.attribute" id="product_attribute_logo_position_3">
+            <field name="name">extra logo position 3</field>
+            <field name="display_type">select</field>
+            <field name="create_variant">no_variant</field>
+            <field name="relate">1</field>
+            <field name="sequence">11</field>
+        </record>
+    
+    </data>
+</odoo>

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import fields, models
+from odoo import fields, models, api
 
 class LogoLibrary(models.Model):
 
@@ -26,30 +26,17 @@ class LogoLibrary(models.Model):
     product_ids = fields.Many2many("product.product", string="Related Products")
 
 
-class PrintingAttribute(models.Model):
+class PositionLibrary(models.Model):
 
     # ---------------------------------------- Private Attributes ---------------------------------
 
-    _inherit = "product.attribute.value"
+    _name = "library.positions"
+    _description = "Library of logo positions from which customers choose"
 
-    # ---------------------------------------- Default Methods ------------------------------------
-    
     # --------------------------------------- Fields Declaration ----------------------------------
 
     # Basic
-    collection_image = fields.Image()
+    name = fields.Char("Position")
+    image = fields.Image()
 
 
-class SaleOrder(models.Model):
-
-    # ---------------------------------------- Private Attributes ---------------------------------
-
-    _inherit = "sale.order"
-
-    # ---------------------------------------- Default Methods ------------------------------------
-    
-    # --------------------------------------- Fields Declaration ----------------------------------
-
-    # Basic
-    library_ids = fields.Many2many("library", string="Library of Logos")
-    

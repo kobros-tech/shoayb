@@ -16,10 +16,29 @@
         </field>
     </record>
 
+    <record id="logo_print_library_positions_action" model="ir.actions.act_window">
+        <field name="name">Library of Positions</field>
+        <field name="res_model">library.positions</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="context">{'search_default_available': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                view collection of logo positions
+            </p>
+            <p>
+                view and edit the collection of logo positions from which customers choose
+            </p>
+        </field>
+    </record>
+
     <!-- Top menu item -->
     <menuitem id="logo_print_menu_root" name="Logo Print Library">
-        <menuitem id="logo_print_library_menu" name="Library" sequence="0">
-            <menuitem id="logo_print_library_menu_action" action="logo_print_library_action" sequence="5"/>
+        <menuitem id="logo_print_library_menu" name="Customers Logos" 
+            action="logo_print_library_action" sequence="0">
+        </menuitem>
+
+        <menuitem id="logo_print_library_positions_menu" name="Positions Collection"
+            action="logo_print_library_positions_action" sequence="1">
         </menuitem>
     </menuitem>
 
