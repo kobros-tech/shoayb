@@ -15,7 +15,11 @@ odoo.define("logo.chooseLogoDialog", function(require) {
         _dialog: function(evt) {
             document.querySelector("#first_logo_table").style.display = "block";
             document.querySelector("#second_logo_table").style.display = "none";
+            document.querySelector("#third_logo_table").style.display = "none";
+            document.querySelector("#fourth_logo_table").style.display = "none";
             document.querySelector("#extra_logo_choice").style.display = "none";
+            document.querySelector("#extra2_logo_choice").style.display = "none";
+            document.querySelector("#extra3_logo_choice").style.display = "none";
             document.querySelector("dialog").showModal();
         },
     });

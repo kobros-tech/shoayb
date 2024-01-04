@@ -15,7 +15,7 @@
             <h2>Choose Logo Location:</h2>
             <table class="table">
                 <tbody>
-                    <tr id="custom-locactions">
+                    <tr id="custom-locactions-1">
                         <t t-foreach="ptavs_printing" t-as="ptav_printing">
                             <td class="text-center" style="height: 50px;">
                                 <h4>
@@ -48,7 +48,7 @@
             <h2>Second logo place:</h2>
             <table class="table">
                 <tbody>
-                    <tr id="custom-locactions">
+                    <tr id="custom-locactions-2">
                         <t t-foreach="ptavs_extra_printing" t-as="ptav_extra_printing">
                             <td class="text-center" style="height: 50px;">
                                 <h4>
@@ -65,6 +65,73 @@
                 </tbody>
             </table>
         </div>
+
+        <!-- yes or no for extra 2 printing attribute -->
+        <t t-set="ptal_extra2_yes_no" t-value="ptals.filtered(lambda ptal: ptal.attribute_id.get_metadata()[0].get('xmlid') == 'logo_print.product_attribute_extra2')"/>
+        <t t-set="ptavs_extra2_y_n_vals"  t-value="ptal_extra2_yes_no.product_template_value_ids._only_active()" />
+        <t t-set="extra2_logo_yes" t-value="ptavs_extra_y_n_vals.filtered(lambda val: val.product_attribute_value_id.get_metadata()[0].get('xmlid') == 'logo_print.product_attribute_extra2_yes')" />
+        <t t-set="extra2_logo_no" t-value="ptavs_extra_y_n_vals.filtered(lambda val: val.product_attribute_value_id.get_metadata()[0].get('xmlid') == 'logo_print.product_attribute_extra2_no' )" />
+
+        <!-- variables for the third logo  -->
+        <t t-set="ptal_extra2_printing" t-value="ptals.filtered(lambda ptal: ptal.attribute_id.get_metadata()[0].get('xmlid') == 'logo_print.product_attribute_logo_position_2')"/>
+        <t t-set="ptavs_extra2_printing"  t-value="ptal_extra2_printing.product_template_value_ids._only_active()" />
+
+        <!-- third logo table -->
+        <div id="third_logo_table" style="display: none;" >
+            <h2>Third logo place:</h2>
+            <table class="table">
+                <tbody>
+                    <tr id="custom-locactions-3">
+                        <t t-foreach="ptavs_extra2_printing" t-as="ptav_extra2_printing">
+                            <td class="text-center" style="height: 50px;">
+                                <h4>
+                                    <t t-out="ptav_extra2_printing.name"/>
+                                </h4>
+                                <button type="button" t-attf-value="{{ptav_extra2_printing}}" t-attf-onclick="choose_extra2_option({{ptav_extra2_printing.id}})" class="btn btn-dialog" style="background-color: Transparent; background-repeat:no-repeat; border: none; cursor:pointer; overflow: hidden;">
+                                    <div class="img-hold">
+                                        <img t-attf-src="data:image/png;base64,{{ptav_extra2_printing.product_attribute_value_id.collection_image}}" alt="avatar" class="img-responsive center-block" style="width: 100px"/>
+                                    </div>
+                                </button>
+                            </td>
+                        </t>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- yes or no for extra 3 printing attribute -->
+        <t t-set="ptal_extra3_yes_no" t-value="ptals.filtered(lambda ptal: ptal.attribute_id.get_metadata()[0].get('xmlid') == 'logo_print.product_attribute_extra3')"/>
+        <t t-set="ptavs_extra3_y_n_vals"  t-value="ptal_extra3_yes_no.product_template_value_ids._only_active()" />
+        <t t-set="extra3_logo_yes" t-value="ptavs_extra3_y_n_vals.filtered(lambda val: val.product_attribute_value_id.get_metadata()[0].get('xmlid') == 'logo_print.product_attribute_extra3_yes')" />
+        <t t-set="extra3_logo_no" t-value="ptavs_extra_y_n_vals.filtered(lambda val: val.product_attribute_value_id.get_metadata()[0].get('xmlid') == 'logo_print.product_attribute_extra3_no' )" />
+
+        <!-- variables for the fourth logo  -->
+        <t t-set="ptal_extra3_printing" t-value="ptals.filtered(lambda ptal: ptal.attribute_id.get_metadata()[0].get('xmlid') == 'logo_print.product_attribute_logo_position_3')"/>
+        <t t-set="ptavs_extra3_printing"  t-value="ptal_extra3_printing.product_template_value_ids._only_active()" />
+
+        <!-- fourth logo table -->
+        <div id="fourth_logo_table" style="display: none;" >
+            <h2>Fourth logo place:</h2>
+            <table class="table">
+                <tbody>
+                    <tr id="custom-locactions-4">
+                        <t t-foreach="ptavs_extra3_printing" t-as="ptav_extra3_printing">
+                            <td class="text-center" style="height: 50px;">
+                                <h4>
+                                    <t t-out="ptav_extra3_printing.name"/>
+                                </h4>
+                                <button type="button" t-attf-value="{{ptav_extra3_printing}}" t-attf-onclick="choose_extra3_option({{ptav_extra3_printing.id}})" class="btn btn-dialog" style="background-color: Transparent; background-repeat:no-repeat; border: none; cursor:pointer; overflow: hidden;">
+                                    <div class="img-hold">
+                                        <img t-attf-src="data:image/png;base64,{{ptav_extra3_printing.product_attribute_value_id.collection_image}}" alt="avatar" class="img-responsive center-block" style="width: 100px"/>
+                                    </div>
+                                </button>
+                            </td>
+                        </t>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
         
         <script>
 
@@ -108,8 +175,17 @@
                 })
                 
 
-                // This functionality is specific for "Add another Location" button
+                
                 document.addEventListener('DOMContentLoaded', function() {
+
+                    // defaults for opening the dialog
+                    document.querySelector("#second_logo_table").style.display = "none";
+                    document.querySelector("#third_logo_table").style.display = "none";
+                    document.querySelector("#fourth_logo_table").style.display = "none";
+                    document.querySelector("#extra2_logo_choice").style.display = "none";
+                    document.querySelector("#extra3_logo_choice").style.display = "none";
+
+                    // This functionality is specific for "Add Second Location" button
                     document.querySelector("#extra_logo_choice").onclick = function() {
                         document.querySelector("#first_logo_table").style.display = "none";
                         document.querySelector("#second_logo_table").style.display = "block";
@@ -124,6 +200,25 @@
 
                         return false;
                     }
+
+                    // This functionality is specific for "Add Third Location" button
+                    document.querySelector("#extra2_logo_choice").onclick = function() {
+                        document.querySelector("#second_logo_table").style.display = "none";
+                        document.querySelector("#third_logo_table").style.display = "block";
+                        document.querySelector("#extra2_logo_choice").style.display = "none";
+
+                        return false;
+                    }
+
+                    // This functionality is specific for "Add Third Location" button
+                    document.querySelector("#extra3_logo_choice").onclick = function() {
+                        document.querySelector("#third_logo_table").style.display = "none";
+                        document.querySelector("#fourth_logo_table").style.display = "block";
+                        document.querySelector("#extra3_logo_choice").style.display = "none";
+
+                        return false;
+                    }
+
                 });
 
 
@@ -141,6 +236,7 @@
 
                 function choose_extra_option(position) {
                     document.querySelector("#extra_logo_choice").style.display = "none";
+                    document.querySelector("#extra2_logo_choice").style.display = "block";
 
                     // assign a correct value to the second logo attribute
                     document.querySelectorAll("select").forEach(function(element) {
@@ -148,6 +244,16 @@
                             element.value = position;
                         }
                     });
+                }
+
+                function choose_extra2_option(position) {
+                    document.querySelector("#extra2_logo_choice").style.display = "none";
+                    document.querySelector("#extra3_logo_choice").style.display = "block";
+                }
+
+                function choose_extra3_option(position) {
+                    document.querySelector("#extra3_logo_choice").style.display = "none";
+                    document.querySelector("dialog").close();
                 }
                    
                 
@@ -165,7 +271,9 @@
                 <t t-call="logo_print.product_logo_dialog"></t>
 
                 <div>
-                    <button id="extra_logo_choice" style="display: none;" class="btn btn-primary">Add another Location</button>
+                    <button id="extra_logo_choice" style="display: none;" class="btn btn-primary">Add Second Location</button>
+                    <button id="extra2_logo_choice" style="display: none;" class="btn btn-primary">Add Third Location</button>
+                    <button id="extra3_logo_choice" style="display: none;" class="btn btn-primary">Add Fourth Location</button>
                 </div>
                 <br/>
                 <div>

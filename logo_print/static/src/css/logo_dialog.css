@@ -55,7 +55,7 @@ dialog {
     100% {opacity: 1;}
   }
 
-  #second_logo_table, #extra_logo_choice {
+  #second_logo_table, #third_logo_table, #fourth_logo_table, #extra_logo_choice, #extra2_logo_choice, #extra3_logo_choice {
     animation-name: appear;
     animation-duration: 1s;
     animation-play-state: running;
