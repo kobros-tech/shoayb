@@ -63,12 +63,6 @@
             <field name="name">Logo</field>
             <field name="sequence">1</field>
         </record>
-        <record model="product.attribute.value" id="product_attribute_text_logo_previous">
-            <field name="attribute_id" ref="product_attribute_text_logo"/>
-            <field name="name">Same as previous</field>
-            <field name="is_custom">1</field>
-            <field name="sequence">2</field>
-        </record>
 
         <record model="product.attribute" id="product_attribute_logo_position">
             <field name="name">logo position</field>
@@ -100,6 +94,11 @@
             <field name="relate">1</field>
             <field name="sequence">7</field>
         </record>
+        <record model="product.attribute.value" id="product_attribute_logo_position_1_thanks">
+            <field name="attribute_id" ref="product_attribute_logo_position_1"/>
+            <field name="name">no thanks</field>
+            <field name="sequence">0</field>
+        </record>
 
         <record model="product.attribute" id="product_attribute_extra2">
             <field name="name">extra logo 2</field>
@@ -123,6 +122,11 @@
             <field name="relate">1</field>
             <field name="sequence">9</field>
         </record>
+        <record model="product.attribute.value" id="product_attribute_logo_position_2_thanks">
+            <field name="attribute_id" ref="product_attribute_logo_position_2"/>
+            <field name="name">no thanks</field>
+            <field name="sequence">0</field>
+        </record>
 
         <record model="product.attribute" id="product_attribute_extra3">
             <field name="name">extra logo 3</field>
@@ -145,6 +149,11 @@
             <field name="create_variant">no_variant</field>
             <field name="relate">1</field>
             <field name="sequence">11</field>
+        </record>
+        <record model="product.attribute.value" id="product_attribute_logo_position_3_thanks">
+            <field name="attribute_id" ref="product_attribute_logo_position_3"/>
+            <field name="name">no thanks</field>
+            <field name="sequence">0</field>
         </record>
     
     </data>

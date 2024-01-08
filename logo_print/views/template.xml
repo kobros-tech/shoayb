@@ -42,6 +42,7 @@
         <!-- variables for the second logo  -->
         <t t-set="ptal_extra_printing" t-value="ptals.filtered(lambda ptal: ptal.attribute_id.get_metadata()[0].get('xmlid') == 'logo_print.product_attribute_logo_position_1')"/>
         <t t-set="ptavs_extra_printing"  t-value="ptal_extra_printing.product_template_value_ids._only_active()" />
+        <t t-set="extra_position_thanks" t-value="ptavs_extra_printing.filtered(lambda val: val.product_attribute_value_id.get_metadata()[0].get('xmlid') == 'logo_print.product_attribute_logo_position_1_thanks')" />
 
         <!-- second logo table -->
         <div id="second_logo_table" style="display: none;" >
@@ -69,12 +70,13 @@
         <!-- yes or no for extra 2 printing attribute -->
         <t t-set="ptal_extra2_yes_no" t-value="ptals.filtered(lambda ptal: ptal.attribute_id.get_metadata()[0].get('xmlid') == 'logo_print.product_attribute_extra2')"/>
         <t t-set="ptavs_extra2_y_n_vals"  t-value="ptal_extra2_yes_no.product_template_value_ids._only_active()" />
-        <t t-set="extra2_logo_yes" t-value="ptavs_extra_y_n_vals.filtered(lambda val: val.product_attribute_value_id.get_metadata()[0].get('xmlid') == 'logo_print.product_attribute_extra2_yes')" />
-        <t t-set="extra2_logo_no" t-value="ptavs_extra_y_n_vals.filtered(lambda val: val.product_attribute_value_id.get_metadata()[0].get('xmlid') == 'logo_print.product_attribute_extra2_no' )" />
+        <t t-set="extra2_logo_yes" t-value="ptavs_extra2_y_n_vals.filtered(lambda val: val.product_attribute_value_id.get_metadata()[0].get('xmlid') == 'logo_print.product_attribute_extra2_yes')" />
+        <t t-set="extra2_logo_no" t-value="ptavs_extra2_y_n_vals.filtered(lambda val: val.product_attribute_value_id.get_metadata()[0].get('xmlid') == 'logo_print.product_attribute_extra2_no' )" />
 
         <!-- variables for the third logo  -->
         <t t-set="ptal_extra2_printing" t-value="ptals.filtered(lambda ptal: ptal.attribute_id.get_metadata()[0].get('xmlid') == 'logo_print.product_attribute_logo_position_2')"/>
         <t t-set="ptavs_extra2_printing"  t-value="ptal_extra2_printing.product_template_value_ids._only_active()" />
+        <t t-set="extra_position2_thanks" t-value="ptavs_extra2_printing.filtered(lambda val: val.product_attribute_value_id.get_metadata()[0].get('xmlid') == 'logo_print.product_attribute_logo_position_2_thanks')" />
 
         <!-- third logo table -->
         <div id="third_logo_table" style="display: none;" >
@@ -103,11 +105,12 @@
         <t t-set="ptal_extra3_yes_no" t-value="ptals.filtered(lambda ptal: ptal.attribute_id.get_metadata()[0].get('xmlid') == 'logo_print.product_attribute_extra3')"/>
         <t t-set="ptavs_extra3_y_n_vals"  t-value="ptal_extra3_yes_no.product_template_value_ids._only_active()" />
         <t t-set="extra3_logo_yes" t-value="ptavs_extra3_y_n_vals.filtered(lambda val: val.product_attribute_value_id.get_metadata()[0].get('xmlid') == 'logo_print.product_attribute_extra3_yes')" />
-        <t t-set="extra3_logo_no" t-value="ptavs_extra_y_n_vals.filtered(lambda val: val.product_attribute_value_id.get_metadata()[0].get('xmlid') == 'logo_print.product_attribute_extra3_no' )" />
+        <t t-set="extra3_logo_no" t-value="ptavs_extra3_y_n_vals.filtered(lambda val: val.product_attribute_value_id.get_metadata()[0].get('xmlid') == 'logo_print.product_attribute_extra3_no' )" />
 
         <!-- variables for the fourth logo  -->
         <t t-set="ptal_extra3_printing" t-value="ptals.filtered(lambda ptal: ptal.attribute_id.get_metadata()[0].get('xmlid') == 'logo_print.product_attribute_logo_position_3')"/>
         <t t-set="ptavs_extra3_printing"  t-value="ptal_extra3_printing.product_template_value_ids._only_active()" />
+        <t t-set="extra_position3_thanks" t-value="ptavs_extra3_printing.filtered(lambda val: val.product_attribute_value_id.get_metadata()[0].get('xmlid') == 'logo_print.product_attribute_logo_position_3_thanks')" />
 
         <!-- fourth logo table -->
         <div id="fourth_logo_table" style="display: none;" >
@@ -135,46 +138,117 @@
         
         <script>
 
+                // the primary required position
                 var ptal_printing_id = "<t t-esc='ptal_printing.attribute_id.id'/>";
-                var extra_y_n_attr_line_id = "<t t-esc='ptal_extra_yes_no.id'/>"
+
+                // the extra 1 choice yes/no
+                var extra_y_n_attr_line_id = "<t t-esc='ptal_extra_yes_no.id'/>";
                 var extra_y_n_attr_id = "<t t-esc='ptal_extra_yes_no.attribute_id.id'/>";
-                var extra_yes_id = "<t t-esc='extra_logo_yes.id'/>"
-                var extra_no_id = "<t t-esc='extra_logo_no.id'/>"
+                var extra_yes_id = "<t t-esc='extra_logo_yes.id'/>";
+                var extra_no_id = "<t t-esc='extra_logo_no.id'/>";
+                // the extra 1 choice position
+                var ptal_extra_printing_id = "<t t-esc='ptal_extra_printing.attribute_id.id'/>";
+                var ptal_extra_printing_line_id = "<t t-esc='ptal_extra_printing.id'/>";
+                var extra_position_thanks = "<t t-esc='extra_position_thanks.id' />";
 
-                var ptal_extra_printing_id = "<t t-esc='ptal_extra_printing.attribute_id.id'/>"
+                // the extra 2 choice yes/no
+                var extra2_y_n_attr_line_id = "<t t-esc='ptal_extra2_yes_no.id'/>";
+                var extra2_y_n_attr_id = "<t t-esc='ptal_extra2_yes_no.attribute_id.id'/>";
+                var extra2_yes_id = "<t t-esc='extra2_logo_yes.id'/>";
+                var extra2_no_id = "<t t-esc='extra2_logo_no.id'/>";
+                // the extra 2 choice position
+                var ptal_extra2_printing_id = "<t t-esc='ptal_extra2_printing.attribute_id.id'/>";
+                var ptal_extra2_printing_line_id = "<t t-esc='ptal_extra2_printing.id'/>";
+                var extra_position2_thanks = "<t t-esc='extra_position2_thanks.id' />";
+
+                // the extra 3 choice yes/no
+                var extra3_y_n_attr_line_id = "<t t-esc='ptal_extra3_yes_no.id'/>";
+                var extra3_y_n_attr_id = "<t t-esc='ptal_extra3_yes_no.attribute_id.id'/>";
+                var extra3_yes_id = "<t t-esc='extra3_logo_yes.id'/>";
+                var extra3_no_id = "<t t-esc='extra3_logo_no.id'/>";
+                // the extra 3 choice position
+                var ptal_extra3_printing_id = "<t t-esc='ptal_extra3_printing.attribute_id.id'/>";
+                var ptal_extra3_printing_line_id = "<t t-esc='ptal_extra3_printing.id'/>";
+                var extra_position3_thanks = "<t t-esc='extra_position3_thanks.id' />";
 
 
-                // hiding the attributes that are presented in the dialog
                 document.addEventListener('DOMContentLoaded', function() {
+
+                    // hiding the attributes that are presented in the dialog
                     document.querySelectorAll(".variant_attribute").forEach(function(attribute_element) {
                         
                         // hide printing attribute
                         if (attribute_element.dataset.attribute_id === ptal_printing_id) {
-                            attribute_element.style.display = "none";
+                            // attribute_element.style.display = "none";
                         }
 
                         // hide extra printing attribute
                         if (attribute_element.dataset.attribute_id === extra_y_n_attr_id) {
-                            attribute_element.style.display = "none";
+                            // attribute_element.style.display = "none";
                         }
 
                         // hide extra printing choice attribute
                         if (attribute_element.dataset.attribute_id === ptal_extra_printing_id) {
-                            attribute_element.style.display = "none";
+                            // attribute_element.style.display = "none";
+                        }
+                    });
+                    
+                    // set default of extra logo be no
+                    document.querySelectorAll("select").forEach(function (element) {
+                        // default is no for extra 1 logo
+                        if (extra_y_n_attr_id === element.dataset.attribute_id) {
+                            element.onchange = function() {
+                                // extra position changes according to this element
+                                let attr_line_name = `ptal-${ptal_extra_printing_line_id}`;
+                                let relevant_position = document.querySelector(`select[name=${attr_line_name}]`);
+                                if (element.value === extra_no_id) {
+                                    relevant_position.value = extra_position_thanks;
+                                }
+                            }
+                            element.value = extra_no_id;
+                        }
+                        // default is "no thanks" for extra 1 position
+                        if (ptal_extra_printing_id === element.dataset.attribute_id) {
+                            element.value = extra_position_thanks;
+                        }
+
+                        // default is no for extra 2 logo
+                        if (extra2_y_n_attr_id === element.dataset.attribute_id) {
+                            element.onchange = function() {
+                                // extra position 2 changes according to this element
+                                let attr_line_name = `ptal-${ptal_extra2_printing_line_id}`;
+                                let relevant_position = document.querySelector(`select[name=${attr_line_name}]`);
+                                if (element.value === extra2_no_id) {
+                                    relevant_position.value = extra_position2_thanks;
+                                }
+                            }
+                            element.value =  extra2_no_id
+                        }
+                        // default is "no thanks" for extra 2 position
+                        if (ptal_extra2_printing_id === element.dataset.attribute_id) {
+                            element.value =  extra_position2_thanks
+                        }
+
+                        // default is no for extra 3 logo
+                        if (extra3_y_n_attr_id === element.dataset.attribute_id) {
+                            element.onchange = function() {
+                                // extra position 3 changes according to this element
+                                let attr_line_name = `ptal-${ptal_extra3_printing_line_id}`;
+                                let relevant_position = document.querySelector(`select[name=${attr_line_name}]`);
+                                if (element.value === extra3_no_id) {
+                                    relevant_position.value = extra_position3_thanks;
+                                }
+                            }
+                            element.value =  extra3_no_id
+                        }
+                        // default is "no thanks" for extra 3 position
+                        if (ptal_extra3_printing_id === element.dataset.attribute_id) {
+                            element.value =  extra_position3_thanks
                         }
                     });
                     
                 });
-
-
-                // set default of extra logo be no
-                document.querySelectorAll("select").forEach(function (element) {
-                    if (extra_y_n_attr_id === element.dataset.attribute_id) {
-                        element.value = extra_no_id;
-                    }
-                })
                 
-
                 
                 document.addEventListener('DOMContentLoaded', function() {
 
