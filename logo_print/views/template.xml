@@ -51,7 +51,7 @@
                 <tbody>
                     <tr id="custom-locactions-2">
                         <t t-foreach="ptavs_extra_printing" t-as="ptav_extra_printing">
-                            <td class="text-center" style="height: 50px;">
+                            <td t-if="ptav_extra_printing != extra_position_thanks" class="text-center" style="height: 50px;">
                                 <h4>
                                     <t t-out="ptav_extra_printing.name"/>
                                 </h4>
@@ -85,7 +85,7 @@
                 <tbody>
                     <tr id="custom-locactions-3">
                         <t t-foreach="ptavs_extra2_printing" t-as="ptav_extra2_printing">
-                            <td class="text-center" style="height: 50px;">
+                            <td t-if="ptav_extra2_printing != extra_position2_thanks" class="text-center" style="height: 50px;">
                                 <h4>
                                     <t t-out="ptav_extra2_printing.name"/>
                                 </h4>
@@ -119,7 +119,7 @@
                 <tbody>
                     <tr id="custom-locactions-4">
                         <t t-foreach="ptavs_extra3_printing" t-as="ptav_extra3_printing">
-                            <td class="text-center" style="height: 50px;">
+                            <td t-if="ptav_extra3_printing != extra_position3_thanks" class="text-center" style="height: 50px;">
                                 <h4>
                                     <t t-out="ptav_extra3_printing.name"/>
                                 </h4>
@@ -191,9 +191,10 @@
                         if (attribute_element.dataset.attribute_id === ptal_extra_printing_id) {
                             // attribute_element.style.display = "none";
                         }
+
                     });
                     
-                    // set default of extra logo be no
+                    // set default of all extra logos be no
                     document.querySelectorAll("select").forEach(function (element) {
                         // default is no for extra 1 logo
                         if (extra_y_n_attr_id === element.dataset.attribute_id) {
@@ -281,6 +282,13 @@
                         document.querySelector("#third_logo_table").style.display = "block";
                         document.querySelector("#extra2_logo_choice").style.display = "none";
 
+                        // set the value of extra 2 logo attribute be yes
+                        document.querySelectorAll("select").forEach(function (element) {
+                            if (extra2_y_n_attr_id === element.dataset.attribute_id) {
+                                element.value = extra2_yes_id;
+                            }
+                        })
+
                         return false;
                     }
 
@@ -289,6 +297,13 @@
                         document.querySelector("#third_logo_table").style.display = "none";
                         document.querySelector("#fourth_logo_table").style.display = "block";
                         document.querySelector("#extra3_logo_choice").style.display = "none";
+
+                        // set the value of extra 3 logo attribute be yes
+                        document.querySelectorAll("select").forEach(function (element) {
+                            if (extra3_y_n_attr_id === element.dataset.attribute_id) {
+                                element.value = extra3_yes_id;
+                            }
+                        })
 
                         return false;
                     }
@@ -328,6 +343,10 @@
                 function choose_extra3_option(position) {
                     document.querySelector("#extra3_logo_choice").style.display = "none";
                     document.querySelector("dialog").close();
+                }
+
+                function before_closing_dialog() {
+                    console.log("will set all boolean attributes with 'no thanks' relevants to be 'no'");
                 }
                    
                 
