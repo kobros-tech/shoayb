@@ -338,18 +338,28 @@
                 function choose_extra2_option(position) {
                     document.querySelector("#extra2_logo_choice").style.display = "none";
                     document.querySelector("#extra3_logo_choice").style.display = "block";
+
+                    // assign a correct value to the third logo attribute
+                    document.querySelectorAll("select").forEach(function(element) {
+                        if (element.dataset.attribute_id === ptal_extra2_printing_id) {
+                            element.value = position;
+                        }
+                    });
                 }
 
                 function choose_extra3_option(position) {
                     document.querySelector("#extra3_logo_choice").style.display = "none";
+
+                    // assign a correct value to the fourth logo attribute
+                    document.querySelectorAll("select").forEach(function(element) {
+                        if (element.dataset.attribute_id === ptal_extra3_printing_id) {
+                            element.value = position;
+                        }
+                    });
+
                     document.querySelector("dialog").close();
                 }
-
-                function before_closing_dialog() {
-                    console.log("will set all boolean attributes with 'no thanks' relevants to be 'no'");
-                }
-                   
-                
+                                
             </script>
         
     </template>
