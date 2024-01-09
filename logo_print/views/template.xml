@@ -13,15 +13,15 @@
         <!-- basic logo table -->
         <div id="first_logo_table" >
             <h2>Choose Logo Location:</h2>
-            <table class="table">
+            <table id="table-of-locactions-1" class="table table-borderless">
                 <tbody>
                     <tr id="custom-locactions-1">
                         <t t-foreach="ptavs_printing" t-as="ptav_printing">
-                            <td class="text-center" style="height: 50px;">
+                            <td t-attf-data-value_id="{{ptav_printing.id}}" t-attf-data-value_name="{{ptav_printing.name}}" class="text-center" style="height: 50px;">
                                 <h4>
                                     <t t-out="ptav_printing.name"/>
                                 </h4>
-                                <button type="button" t-attf-value="{{ptav_printing}}" t-attf-onclick="choose_option({{ptav_printing.id}})" class="btn btn-dialog" style="background-color: Transparent; background-repeat:no-repeat; border: none; cursor:pointer; overflow: hidden;">
+                                <button type="button" t-attf-value="{{ptav_printing.id}}" t-attf-onclick="choose_option({{ptav_printing.id}})" class="btn btn-dialog" style="background-color: Transparent; background-repeat:no-repeat; border: none; cursor:pointer; overflow: hidden;">
                                     <div class="img-hold">
                                         <img t-attf-src="data:image/png;base64,{{ptav_printing.product_attribute_value_id.collection_image}}" alt="avatar" class="img-responsive center-block" style="width: 100px"/>
                                     </div>
@@ -43,15 +43,17 @@
         <t t-set="ptal_extra_printing" t-value="ptals.filtered(lambda ptal: ptal.attribute_id.get_metadata()[0].get('xmlid') == 'logo_print.product_attribute_logo_position_1')"/>
         <t t-set="ptavs_extra_printing"  t-value="ptal_extra_printing.product_template_value_ids._only_active()" />
         <t t-set="extra_position_thanks" t-value="ptavs_extra_printing.filtered(lambda val: val.product_attribute_value_id.get_metadata()[0].get('xmlid') == 'logo_print.product_attribute_logo_position_1_thanks')" />
+    
+            
 
         <!-- second logo table -->
         <div id="second_logo_table" style="display: none;" >
             <h2>Second logo place:</h2>
-            <table class="table">
+            <table id="table-of-locactions-2" class="table table-borderless">
                 <tbody>
                     <tr id="custom-locactions-2">
                         <t t-foreach="ptavs_extra_printing" t-as="ptav_extra_printing">
-                            <td t-if="ptav_extra_printing != extra_position_thanks" class="text-center" style="height: 50px;">
+                            <td t-attf-data-value_id="{{ptav_extra_printing.id}}" t-attf-data-value_name="{{ptav_extra_printing.name}}" t-if="ptav_extra_printing != extra_position_thanks" class="text-center" style="height: 50px;">
                                 <h4>
                                     <t t-out="ptav_extra_printing.name"/>
                                 </h4>
@@ -81,11 +83,11 @@
         <!-- third logo table -->
         <div id="third_logo_table" style="display: none;" >
             <h2>Third logo place:</h2>
-            <table class="table">
+            <table id="table-of-locactions-3" class="table table-borderless">
                 <tbody>
                     <tr id="custom-locactions-3">
                         <t t-foreach="ptavs_extra2_printing" t-as="ptav_extra2_printing">
-                            <td t-if="ptav_extra2_printing != extra_position2_thanks" class="text-center" style="height: 50px;">
+                            <td t-attf-data-value_id="{{ptav_extra2_printing.id}}" t-attf-data-value_name="{{ptav_extra2_printing.name}}" t-if="ptav_extra2_printing != extra_position2_thanks" class="text-center" style="height: 50px;">
                                 <h4>
                                     <t t-out="ptav_extra2_printing.name"/>
                                 </h4>
@@ -115,11 +117,11 @@
         <!-- fourth logo table -->
         <div id="fourth_logo_table" style="display: none;" >
             <h2>Fourth logo place:</h2>
-            <table class="table">
+            <table id="table-of-locactions-4" class="table table-borderless">
                 <tbody>
                     <tr id="custom-locactions-4">
                         <t t-foreach="ptavs_extra3_printing" t-as="ptav_extra3_printing">
-                            <td t-if="ptav_extra3_printing != extra_position3_thanks" class="text-center" style="height: 50px;">
+                            <td t-attf-data-value_id="{{ptav_extra3_printing.id}}" t-attf-data-value_name="{{ptav_extra3_printing.name}}" t-if="ptav_extra3_printing != extra_position3_thanks" class="text-center" style="height: 50px;">
                                 <h4>
                                     <t t-out="ptav_extra3_printing.name"/>
                                 </h4>
@@ -194,61 +196,10 @@
 
                     });
                     
-                    // set default of all extra logos be no
-                    document.querySelectorAll("select").forEach(function (element) {
-                        // default is no for extra 1 logo
-                        if (extra_y_n_attr_id === element.dataset.attribute_id) {
-                            element.onchange = function() {
-                                // extra position changes according to this element
-                                let attr_line_name = `ptal-${ptal_extra_printing_line_id}`;
-                                let relevant_position = document.querySelector(`select[name=${attr_line_name}]`);
-                                if (element.value === extra_no_id) {
-                                    relevant_position.value = extra_position_thanks;
-                                }
-                            }
-                            element.value = extra_no_id;
-                        }
-                        // default is "no thanks" for extra 1 position
-                        if (ptal_extra_printing_id === element.dataset.attribute_id) {
-                            element.value = extra_position_thanks;
-                        }
-
-                        // default is no for extra 2 logo
-                        if (extra2_y_n_attr_id === element.dataset.attribute_id) {
-                            element.onchange = function() {
-                                // extra position 2 changes according to this element
-                                let attr_line_name = `ptal-${ptal_extra2_printing_line_id}`;
-                                let relevant_position = document.querySelector(`select[name=${attr_line_name}]`);
-                                if (element.value === extra2_no_id) {
-                                    relevant_position.value = extra_position2_thanks;
-                                }
-                            }
-                            element.value =  extra2_no_id
-                        }
-                        // default is "no thanks" for extra 2 position
-                        if (ptal_extra2_printing_id === element.dataset.attribute_id) {
-                            element.value =  extra_position2_thanks
-                        }
-
-                        // default is no for extra 3 logo
-                        if (extra3_y_n_attr_id === element.dataset.attribute_id) {
-                            element.onchange = function() {
-                                // extra position 3 changes according to this element
-                                let attr_line_name = `ptal-${ptal_extra3_printing_line_id}`;
-                                let relevant_position = document.querySelector(`select[name=${attr_line_name}]`);
-                                if (element.value === extra3_no_id) {
-                                    relevant_position.value = extra_position3_thanks;
-                                }
-                            }
-                            element.value =  extra3_no_id
-                        }
-                        // default is "no thanks" for extra 3 position
-                        if (ptal_extra3_printing_id === element.dataset.attribute_id) {
-                            element.value =  extra_position3_thanks
-                        }
-                    });
+                    // before loading the page
+                    setting_defaults()
                     
-                });
+                }); // end of DOM
                 
                 
                 document.addEventListener('DOMContentLoaded', function() {
@@ -308,18 +259,142 @@
                         return false;
                     }
 
-                });
+                }); // end of DOM
+
+
+                // set defaults of all extra logos be "no" and "no thanks"
+                function setting_defaults() {
+
+                    // display all positions for first table
+                    let table_1 = document.querySelector("#table-of-locactions-1");
+                    table_1.querySelectorAll("td").forEach(function(td) {
+                        let button_1 = td.querySelector("button");
+                        if (button_1.disabled == true) {
+                            button_1.disabled = false;
+                        }
+                    })
+                    // display all positions for second table
+                    let table_2 = document.querySelector("#table-of-locactions-2");
+                    table_2.querySelectorAll("td").forEach(function(td) {
+                        let button_2 = td.querySelector("button");
+                        if (button_2.disabled == true) {
+                            button_2.disabled = false;
+                        }
+                    })
+                    // display all positions for second table
+                    let table_3 = document.querySelector("#table-of-locactions-3");
+                    table_3.querySelectorAll("td").forEach(function(td) {
+                        let button_3 = td.querySelector("button");
+                        if (button_3.disabled == true) {
+                            button_3.disabled = false;
+                        }
+                    })
+                    // display all positions for second table
+                    let table_4 = document.querySelector("#table-of-locactions-4");
+                    table_4.querySelectorAll("td").forEach(function(td) {
+                        let button_4 = td.querySelector("button");
+                        if (button_4.disabled == true) {
+                            button_4.disabled = false;
+                        }
+                    })
+                    
+                    
+                    document.querySelectorAll("select").forEach(function (element) {
+                        // default is no for extra 1 logo
+                        if (extra_y_n_attr_id === element.dataset.attribute_id) {
+                            element.onchange = function() {
+                                // extra position changes according to this element
+                                let attr_line_name = `ptal-${ptal_extra_printing_line_id}`;
+                                let relevant_position = document.querySelector(`select[name=${attr_line_name}]`);
+                                if (element.value === extra_no_id) {
+                                    relevant_position.value = extra_position_thanks;
+                                }
+                            }
+                            element.value = extra_no_id;
+                        }
+                        // default is "no thanks" for extra 1 position
+                        if (ptal_extra_printing_id === element.dataset.attribute_id) {
+                            element.value = extra_position_thanks;
+                        }
+
+                        // default is no for extra 2 logo
+                        if (extra2_y_n_attr_id === element.dataset.attribute_id) {
+                            element.onchange = function() {
+                                // extra position 2 changes according to this element
+                                let attr_line_name = `ptal-${ptal_extra2_printing_line_id}`;
+                                let relevant_position = document.querySelector(`select[name=${attr_line_name}]`);
+                                if (element.value === extra2_no_id) {
+                                    relevant_position.value = extra_position2_thanks;
+                                }
+                            }
+                            element.value =  extra2_no_id
+                        }
+                        // default is "no thanks" for extra 2 position
+                        if (ptal_extra2_printing_id === element.dataset.attribute_id) {
+                            element.value =  extra_position2_thanks
+                        }
+
+                        // default is no for extra 3 logo
+                        if (extra3_y_n_attr_id === element.dataset.attribute_id) {
+                            element.onchange = function() {
+                                // extra position 3 changes according to this element
+                                let attr_line_name = `ptal-${ptal_extra3_printing_line_id}`;
+                                let relevant_position = document.querySelector(`select[name=${attr_line_name}]`);
+                                if (element.value === extra3_no_id) {
+                                    relevant_position.value = extra_position3_thanks;
+                                }
+                            }
+                            element.value =  extra3_no_id
+                        }
+                        // default is "no thanks" for extra 3 position
+                        if (ptal_extra3_printing_id === element.dataset.attribute_id) {
+                            element.value =  extra_position3_thanks
+                        }
+                    });
+                }
 
 
                 function choose_option(position) {
                     document.querySelector("#extra_logo_choice").style.display = "block";
 
                     // assign a correct value to the first logo attribute
-                    document.querySelectorAll("select").forEach(function (element) {
+                    document.querySelectorAll("select").forEach(function(element) {
                         if (ptal_printing_id === element.dataset.attribute_id) {
                             element.value = position;
                         }
                     });
+
+                    // hide selected position after clicking
+                    let table_1 = document.querySelector("#table-of-locactions-1");
+                    let disable_name = "";
+                    table_1.querySelectorAll("td").forEach(function(td) {
+                        td.querySelector("button").disabled = true;
+
+                        if (td.dataset.value_id === position.toString()) {
+                            disable_name = td.dataset.value_name
+                        }
+                    })
+
+                    let table_2 = document.querySelector("#table-of-locactions-2");
+                    table_2.querySelectorAll("td").forEach(function(td) {
+                        if (td.dataset.value_name === disable_name) {
+                            td.querySelector("button").disabled = true;
+                        }
+                    })
+
+                    let table_3 = document.querySelector("#table-of-locactions-3");
+                    table_3.querySelectorAll("td").forEach(function(td) {
+                        if (td.dataset.value_name === disable_name) {
+                            td.querySelector("button").disabled = true;
+                        }
+                    })
+                    let table_4 = document.querySelector("#table-of-locactions-4");
+                    table_4.querySelectorAll("td").forEach(function(td) {
+                        if (td.dataset.value_name === disable_name) {
+                            td.querySelector("button").disabled = true;
+                        }
+                    })
+                    
                 }
 
 
@@ -333,6 +408,31 @@
                             element.value = position;
                         }
                     });
+
+                    // hide selected position after clicking
+                    let table_2 = document.querySelector("#table-of-locactions-2");
+                    let disable_name = "";
+                    table_2.querySelectorAll("td").forEach(function(td) {
+                        td.querySelector("button").disabled = true;
+
+                        if (td.dataset.value_id === position.toString()) {
+                            disable_name = td.dataset.value_name
+                        }
+                    })
+
+                    let table_3 = document.querySelector("#table-of-locactions-3");
+                    table_3.querySelectorAll("td").forEach(function(td) {
+                        if (td.dataset.value_name === disable_name) {
+                            td.querySelector("button").disabled = true;
+                        }
+                    })
+
+                    let table_4 = document.querySelector("#table-of-locactions-4");
+                    table_4.querySelectorAll("td").forEach(function(td) {
+                        if (td.dataset.value_name === disable_name) {
+                            td.querySelector("button").disabled = true;
+                        }
+                    })
                 }
 
                 function choose_extra2_option(position) {
@@ -345,6 +445,24 @@
                             element.value = position;
                         }
                     });
+
+                    // hide selected position after clicking
+                    let table_3 = document.querySelector("#table-of-locactions-3");
+                    let disable_name = "";
+                    table_3.querySelectorAll("td").forEach(function(td) {
+                        td.querySelector("button").disabled = true;
+
+                        if (td.dataset.value_id === position.toString()) {
+                            disable_name = td.dataset.value_name
+                        }
+                    })
+
+                    let table_4 = document.querySelector("#table-of-locactions-4");
+                    table_4.querySelectorAll("td").forEach(function(td) {
+                        if (td.dataset.value_name === disable_name) {
+                            td.querySelector("button").disabled = true;
+                        }
+                    })
                 }
 
                 function choose_extra3_option(position) {
@@ -356,6 +474,17 @@
                             element.value = position;
                         }
                     });
+
+                    // hide selected position after clicking
+                    let table_4 = document.querySelector("#table-of-locactions-4");
+                    let disable_name = "";
+                    table_4.querySelectorAll("td").forEach(function(td) {
+                        td.querySelector("button").disabled = true;
+
+                        if (td.dataset.value_id === position.toString()) {
+                            disable_name = td.dataset.value_name
+                        }
+                    })
 
                     document.querySelector("dialog").close();
                 }
