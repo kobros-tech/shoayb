@@ -36,6 +36,7 @@
             <field name="name">new logo or previous logo</field>
             <field name="display_type">radio</field>
             <field name="create_variant">no_variant</field>
+            <field name="visibility">hidden</field>
             <field name="sequence">3</field>
         </record>
         <record model="product.attribute.value" id="product_attribute_previous_choice">
@@ -68,6 +69,7 @@
             <field name="name">logo position</field>
             <field name="display_type">select</field>
             <field name="create_variant">no_variant</field>
+            <field name="visibility">hidden</field>
             <field name="relate">1</field>
             <field name="sequence">5</field>
         </record>
@@ -76,6 +78,7 @@
             <field name="name">extra logo 1</field>
             <field name="display_type">select</field>
             <field name="create_variant">no_variant</field>
+            <field name="visibility">hidden</field>
             <field name="sequence">6</field>
         </record>
         <record model="product.attribute.value" id="product_attribute_extra1_no">
@@ -91,6 +94,7 @@
             <field name="name">extra logo position 1</field>
             <field name="display_type">select</field>
             <field name="create_variant">no_variant</field>
+            <field name="visibility">hidden</field>
             <field name="relate">1</field>
             <field name="sequence">7</field>
         </record>
@@ -104,6 +108,7 @@
             <field name="name">extra logo 2</field>
             <field name="display_type">select</field>
             <field name="create_variant">no_variant</field>
+            <field name="visibility">hidden</field>
             <field name="sequence">8</field>
         </record>
         <record model="product.attribute.value" id="product_attribute_extra2_no">
@@ -119,6 +124,7 @@
             <field name="name">extra logo position 2</field>
             <field name="display_type">select</field>
             <field name="create_variant">no_variant</field>
+            <field name="visibility">hidden</field>
             <field name="relate">1</field>
             <field name="sequence">9</field>
         </record>
@@ -132,6 +138,7 @@
             <field name="name">extra logo 3</field>
             <field name="display_type">select</field>
             <field name="create_variant">no_variant</field>
+            <field name="visibility">hidden</field>
             <field name="sequence">10</field>
         </record>
         <record model="product.attribute.value" id="product_attribute_extra3_no">
@@ -147,6 +154,7 @@
             <field name="name">extra logo position 3</field>
             <field name="display_type">select</field>
             <field name="create_variant">no_variant</field>
+            <field name="visibility">hidden</field>
             <field name="relate">1</field>
             <field name="sequence">11</field>
         </record>

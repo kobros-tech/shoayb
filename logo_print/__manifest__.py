@@ -1,5 +1,6 @@
 {    
     'name':'Logo Printing Extension Module',
+    'category': 'Website/Website',
     'version': '1.1',
     'author': 'kobros-tech (Mohamed Moustafa Alkobrosli)',
     'website':'https://www.kobros-tech.com',
@@ -18,6 +19,7 @@
         'website_sale',
     ],
     'data': [
+        'security/logo_print_security.xml',
         'security/ir.model.access.csv',
         'data/product_attribute.xml',
         'views/logo_library_view.xml',
