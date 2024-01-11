@@ -48,7 +48,7 @@
 
         <!-- second logo table -->
         <div id="second_logo_table" style="display: none;" >
-            <h2>Second logo place:</h2>
+            <h2>Second Logo Location:</h2>
             <table id="table-of-locactions-2" class="table table-borderless">
                 <tbody>
                     <tr id="custom-locactions-2">
@@ -82,7 +82,7 @@
 
         <!-- third logo table -->
         <div id="third_logo_table" style="display: none;" >
-            <h2>Third logo place:</h2>
+            <h2>Third Logo Location:</h2>
             <table id="table-of-locactions-3" class="table table-borderless">
                 <tbody>
                     <tr id="custom-locactions-3">
@@ -116,7 +116,7 @@
 
         <!-- fourth logo table -->
         <div id="fourth_logo_table" style="display: none;" >
-            <h2>Fourth logo place:</h2>
+            <h2>Fourth Logo Location:</h2>
             <table id="table-of-locactions-4" class="table table-borderless">
                 <tbody>
                     <tr id="custom-locactions-4">
@@ -555,8 +555,39 @@
                         <input id="sale4" type="file" class="form-control col-xs-2 s_website_form_input" name="b_document" />
                     </div>
                     <button id="button_submit" type="submit" onclick="hide_submission()" class="btn btn-primary">submit</button>
-                    
+                    <button class="o_Composer_button o_Composer_buttonAttachment o_Composer_toolButton btn btn-light fa fa-paperclip border-0 rounded-pill mx-1" title="Add attachment" aria-label="Add attachment" type="button"></button>
                 </form>
+
+                <!-- tsting json testing json testing json -->
+                <br/>
+                <form id="testing_json_submit">
+
+                    <input id="testing_json_input" type="text" name="foo"/>
+                    <input type="submit"/>
+
+                </form>
+                <script>
+                    function posting() {
+                        fetch('/logo/post/', {
+                            method: 'POST',
+                            body: JSON.stringify({
+                            subject: document.querySelector("#testing_json_input").value
+                            })
+                        })
+                        .then(function (response) {
+                            return response.json();
+                        })
+                        .then(function (data) {
+                            console.log("This data: " + data + "\n------ Is sent to server")
+                            console.log(data.results)
+                        });
+
+                        return false;
+                    }
+
+
+                    document.querySelector('#testing_json_submit').onsubmit = posting
+                </script><!-- end of tsting json end of testing json end of testing json -->
                     
                 <script>
 

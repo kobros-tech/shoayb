@@ -1,7 +1,8 @@
 from odoo.addons.portal.controllers.portal import CustomerPortal, pager
 from odoo.addons.website_sale.controllers.main import WebsiteSale, WebsiteSaleForm
-from odoo.http import request
+from odoo.http import request, Response
 from odoo import http
+import json
 import base64
 from PIL import Image
 
@@ -119,3 +120,28 @@ class LogoRecord(WebsiteSale):
             print("--------------------------GET Request")
             
             return request.redirect("/shop/cart")
+
+    
+
+    @http.route(["/logo/post/"], type="http", method=["POST"], auth="public", csrf=False, cors='*')
+    def post_logo_upload(self, **kw):
+
+        print("************************JSON************************")
+        data = json.loads(request.httprequest.data)
+        print(data)
+        print(type(data))
+        print("************************JSON************************")
+
+        headers = {'Content-Type': 'application/json'}
+        body = { 'results': { 'code': 200, 'message': "JSON POST Response" } }
+        return Response(json.dumps(body), headers=headers)
+
+    
+    @http.route(["/logo/get/"], type="http", method=["GET"], auth="public", cors='*')
+    def get_logo_upload(self, **kw):
+
+
+        headers = {'Content-Type': 'application/json'}
+        body = { 'results': { 'code': 200, 'message': "JSON GET Response" } }
+        return Response(json.dumps(body), headers=headers)
+
