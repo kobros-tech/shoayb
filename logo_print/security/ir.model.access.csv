@@ -2,11 +2,7 @@ id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_logo_print_library_manager,access.logo_print.library,logo_print.model_library,base.group_user,1,1,1,1
 access_logo_print_library_user,access.logo_print.library,logo_print.model_library,base.group_public,1,1,1,0
 access_logo_print_library_positions_manager,access.logo_print.library_positions,logo_print.model_library_positions,logos_group_manager,1,1,1,1
-<<<<<<< HEAD
 access_logo_print_library_positions_user,access.logo_print.library_positions,logo_print.model_library_positions,base.group_public,1,0,0,0
-=======
-
->>>>>>> 34b3250b5c1288d67844964edf025dc537c2310a
 
 access_product_attribute_sale_manager,product.attribute manager,product.model_product_attribute,logos_group_manager,1,1,1,1
 access_product_attribute_value_sale_manager,product.attribute manager value,product.model_product_attribute_value,logos_group_manager,1,1,1,1

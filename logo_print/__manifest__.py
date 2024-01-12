@@ -1,9 +1,5 @@
-{    
-<<<<<<< HEAD
+{
     'name':'Logo Print Extension',
-=======
-    
->>>>>>> 34b3250b5c1288d67844964edf025dc537c2310a
     'category': 'Website/Website',
     'version': '1.1',
     'author': 'kobros-tech (Mohamed Moustafa Alkobrosli)',
