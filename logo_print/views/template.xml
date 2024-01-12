@@ -509,7 +509,7 @@
                 </div>
                 <br/>
                 <div>
-                    <button id="close_dialog" value="close" class="btn btn-secondary">Close</button>
+                    <button id="close_dialog" value="close" class="btn btn-secondary rounded-pill">Close</button>
                 </div>
             </dialog>
             <div>
@@ -562,8 +562,11 @@
                 <br/>
                 <dialog class="rounded" id="dialog_logos">
                     <form t-attf-id="testing_json_submit_{{line.id}}" >
+                        <div style="display: none;">
+                            <img id="img_preview" src="#" class="img-thumbnail mx-auto rounded d-block"/>
+                        </div>
                         <div>
-                            <input t-attf-id="testing_json_input_file_{{line.id}}" type="file" accept="image/*" title="Insert logo" name="bar" class="fa fa-paperclip rounded-pill s_website_form_input" />
+                            <input t-attf-id="line_json_input_file_{{line.id}}" type="file" accept="image/*" title="Insert logo" class="fa fa-paperclip rounded-pill s_website_form_input" />
                         </div>
                         <br/>
                         <div>
@@ -572,24 +575,47 @@
                     </form>
                     <br/>
                     <div>
-                        <button t-attf-id="close_dialog_logos" value="close" class="btn btn-secondary">Close</button>
+                        <button t-attf-id="close_dialog_logos" value="close" class="btn btn-secondary rounded-pill">Close</button>
                     </div>
                 </dialog>
-                <button t-attf-id="submit_button_{{line.id}}" type="submit" t-attf-onclick="logo_submit({{line.id}})" class="btn btn-primary">upload your logos</button>
+                <button t-attf-id="submit_button_{{line.id}}" type="submit" t-attf-onclick="logo_submit({{line.id}})" class="btn fa fa-paperclip rounded-pill s_website_form_input"></button>
                 
                 <script>
-            
+
                     // open the dialog
                     function logo_submit(line_id) {
+
                         console.log("the line id is: ", line_id)
                         document.querySelector("dialog[id='dialog_logos']").showModal();
 
                         let id = `#submit_button_${line_id}`;
                         let form_id = `#testing_json_submit_${line_id}`;
-                        let input_id = `#testing_json_input_file_${line_id}`;
+                        let input_id = `#line_json_input_file_${line_id}`;
 
+                        const chooseFile = document.querySelector(input_id);
+                        const imgPreview = document.getElementById("img_preview");
+
+                        // show submitted logo
+                        document.querySelector(form_id).addEventListener('change', function () {
+                            
+                            // getImgData(chooseFile, imgPreview);
+                            const files = chooseFile.files[0];
+                            if (files) {
+                                const fileReader = new FileReader();
+                                fileReader.readAsDataURL(files);
+                                fileReader.addEventListener("load", function () {
+                                    imgPreview.style.display = "block";
+                                    let link = `${this.result}`;
+                                    imgPreview.src = link;
+                                    imgPreview.parentNode.style.display = "block";
+                                });
+                            }
+                        })
+
+                        // submit the logo
                         document.querySelector(form_id).addEventListener('submit',
                             async function posting(event) {
+
                                 // Prevents the page from reloading
                                 event.preventDefault();
 
@@ -622,10 +648,7 @@
                         function () {
                             document.querySelector("dialog[id='dialog_logos']").close();
                         }
-                    ) 
-
-                    // submit the logo
-                    // document.querySelector('#testing_json_submit_8').addEventListener('submit', )
+                    )
 
                 </script><!-- end of tsting json end of testing json end of testing json -->
                     
