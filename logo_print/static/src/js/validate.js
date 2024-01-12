@@ -30,7 +30,7 @@ odoo.define("logo.chooseLogoDialog", function(require) {
             document.querySelector("#extra_logo_choice").style.display = "none";
             document.querySelector("#extra2_logo_choice").style.display = "none";
             document.querySelector("#extra3_logo_choice").style.display = "none";
-            document.querySelector("dialog").showModal();
+            document.querySelector("dialog[id='dialog_positions']").showModal();
         },
     });
 
@@ -44,7 +44,7 @@ odoo.define("logo.chooseLogoDialog", function(require) {
             
             // close the dialog button
             if (evt.target.value === "close") {
-                document.querySelector("dialog").close();
+                document.querySelector("dialog[id='dialog_positions']").close();
                 return false;
             }
         },

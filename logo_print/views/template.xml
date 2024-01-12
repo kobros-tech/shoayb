@@ -496,7 +496,7 @@
     <!-- insert the dialog and choose the logo position -->
     <template id="product_logo_inserting" inherit_id="website_sale.product" name="Uploading Logo">
         <xpath expr="//div[@id='o_wsale_cta_wrapper']" position="before">
-            <dialog class="rounded" id="dialog">
+            <dialog class="rounded" id="dialog_positions">
                 
                 <!-- <t t-out="product.product_variant_id"/> -->
                 <br/>
@@ -531,9 +531,9 @@
             </th>
         </xpath>
         <xpath expr="//table[@id='cart_products']//tbody//tr//td" position="before">
-            <td id="first_table_data">
+            <td id="first_table_data" class="text-center">
 
-                <form id="submisiion_data" action="/logo/form/" method="post" enctype="multipart/form-data" data-force_action="sale.order" data-model_name="sale.order">
+                <form id="submisiion_data" action="/logo/form/" method="post" enctype="multipart/form-data" data-force_action="sale.order" data-model_name="sale.order" style="display: none; ">
                     
                     <!-- CSRF Token -->
                     <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"
@@ -555,38 +555,78 @@
                         <input id="sale4" type="file" class="form-control col-xs-2 s_website_form_input" name="b_document" />
                     </div>
                     <button id="button_submit" type="submit" onclick="hide_submission()" class="btn btn-primary">submit</button>
-                    <button class="o_Composer_button o_Composer_buttonAttachment o_Composer_toolButton btn btn-light fa fa-paperclip border-0 rounded-pill mx-1" title="Add attachment" aria-label="Add attachment" type="button"></button>
+                    
                 </form>
 
                 <!-- tsting json testing json testing json -->
                 <br/>
-                <form id="testing_json_submit">
-
-                    <input id="testing_json_input" type="text" name="foo"/>
-                    <input type="submit"/>
-
-                </form>
+                <dialog class="rounded" id="dialog_logos">
+                    <form t-attf-id="testing_json_submit_{{line.id}}" >
+                        <div>
+                            <input t-attf-id="testing_json_input_file_{{line.id}}" type="file" accept="image/*" title="Insert logo" name="bar" class="fa fa-paperclip rounded-pill s_website_form_input" />
+                        </div>
+                        <br/>
+                        <div>
+                            <input type="submit" class="btn btn-primary"/>
+                        </div>
+                    </form>
+                    <br/>
+                    <div>
+                        <button t-attf-id="close_dialog_logos" value="close" class="btn btn-secondary">Close</button>
+                    </div>
+                </dialog>
+                <button t-attf-id="submit_button_{{line.id}}" type="submit" t-attf-onclick="logo_submit({{line.id}})" class="btn btn-primary">upload your logos</button>
+                
                 <script>
-                    function posting() {
-                        fetch('/logo/post/', {
-                            method: 'POST',
-                            body: JSON.stringify({
-                            subject: document.querySelector("#testing_json_input").value
-                            })
-                        })
-                        .then(function (response) {
-                            return response.json();
-                        })
-                        .then(function (data) {
-                            console.log("This data: " + data + "\n------ Is sent to server")
-                            console.log(data.results)
-                        });
+            
+                    // open the dialog
+                    function logo_submit(line_id) {
+                        console.log("the line id is: ", line_id)
+                        document.querySelector("dialog[id='dialog_logos']").showModal();
 
+                        let id = `#submit_button_${line_id}`;
+                        let form_id = `#testing_json_submit_${line_id}`;
+                        let input_id = `#testing_json_input_file_${line_id}`;
+
+                        document.querySelector(form_id).addEventListener('submit',
+                            async function posting(event) {
+                                // Prevents the page from reloading
+                                event.preventDefault();
+
+                                let file = document.querySelector(input_id).files[0];
+                                let text = await file.text();
+                                console.log("test file:", text)
+
+                                fetch('/logo/post/', {
+                                    method: 'POST',
+                                    body: JSON.stringify({
+                                        file: text
+                                    })
+                                })
+                                .then(function (response) {
+                                    return response.json();
+                                })
+                                .then(function (data) {
+                                    console.log("This data: " + data + "\n------ Is sent to server")
+                                    console.log(data.results)
+                                });
+
+                            }
+                        )
+                        
                         return false;
                     }
 
+                    // close the dialog
+                    document.querySelector('#close_dialog_logos').addEventListener('click',
+                        function () {
+                            document.querySelector("dialog[id='dialog_logos']").close();
+                        }
+                    ) 
 
-                    document.querySelector('#testing_json_submit').onsubmit = posting
+                    // submit the logo
+                    // document.querySelector('#testing_json_submit_8').addEventListener('submit', )
+
                 </script><!-- end of tsting json end of testing json end of testing json -->
                     
                 <script>
