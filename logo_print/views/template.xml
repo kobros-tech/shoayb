@@ -560,10 +560,13 @@
 
                 <!-- tsting json testing json testing json -->
                 <br/>
-                <dialog class="rounded" id="dialog_logos">
-                    <form t-attf-id="testing_json_submit_{{line.id}}" >
+                <dialog class="rounded" t-attf-id="dialog_logos_{{line.id}}">
+                    <form t-attf-id="form_json_submit_{{line.id}}" >
+                        <div>
+                            <h2 t-attf-id="line_json_input_title_{{line.id}}"></h2>
+                        </div>
                         <div style="display: none;">
-                            <img id="img_preview" src="#" class="img-thumbnail mx-auto rounded d-block"/>
+                            <img id="img_preview" src="#" class="img-thumbnail mx-auto rounded d-block" style="width: 100px"/>
                         </div>
                         <div>
                             <input t-attf-id="line_json_input_file_{{line.id}}" type="file" accept="image/*" title="Insert logo" class="fa fa-paperclip rounded-pill s_website_form_input" />
@@ -574,23 +577,52 @@
                         </div>
                     </form>
                     <br/>
-                    <div>
-                        <button t-attf-id="close_dialog_logos" value="close" class="btn btn-secondary rounded-pill">Close</button>
+                    <div class="row">
+                        <div class="col-8">
+                        
+                        </div>
+                        <div class="col-4">
+                            <button t-attf-onclick="close_dialog_logos({{line.id}})" value="close" class="btn btn-secondary rounded-pill">Close</button>
+                        </div>
                     </div>
+                    
                 </dialog>
                 <button t-attf-id="submit_button_{{line.id}}" type="submit" t-attf-onclick="logo_submit({{line.id}})" class="btn fa fa-paperclip rounded-pill s_website_form_input"></button>
                 
                 <script>
 
+                    // get the logos description json at page load or at value change
+                    document.addEventListener('DOMContentLoaded', function() {
+                        document.addEventListener('change', function() {
+                            
+                        })
+                    })
+
                     // open the dialog
                     function logo_submit(line_id) {
 
-                        console.log("the line id is: ", line_id)
-                        document.querySelector("dialog[id='dialog_logos']").showModal();
+                        console.log("relevant order line id is: ", line_id)
+
+                        // get description of specific line in order to submit the correct number of logos
+                        fetch(`/logo/get/${line_id}`)
+                        .then(function (response) {
+                            return response.json()
+                        })
+                        .then(async function (description) {
+                            var descrip = await description;
+                            // add the title for the first position by opening the dialog
+                            let title_id = `#line_json_input_title_${line_id}`;
+                            console.log(descrip["logo position"])
+                            document.querySelector(title_id).innerHTML = await `Add logo for: ${descrip["logo position"]} position`;
+                        })
 
                         let id = `#submit_button_${line_id}`;
-                        let form_id = `#testing_json_submit_${line_id}`;
+                        let form_id = `#form_json_submit_${line_id}`;
                         let input_id = `#line_json_input_file_${line_id}`;
+                        
+                        // show the dialog with the title of the first logo position
+                        let dialog_ID = `dialog[id=\"dialog_logos_${line_id}\"]`;
+                        document.querySelector(dialog_ID).showModal();
 
                         const chooseFile = document.querySelector(input_id);
                         const imgPreview = document.getElementById("img_preview");
@@ -644,11 +676,13 @@
                     }
 
                     // close the dialog
-                    document.querySelector('#close_dialog_logos').addEventListener('click',
-                        function () {
-                            document.querySelector("dialog[id='dialog_logos']").close();
-                        }
-                    )
+                    function close_dialog_logos(line_id) {
+
+                        // close the relevant dialog
+                        let dialog_ID = `dialog[id=\"dialog_logos_${line_id}\"]`;
+                        document.querySelector(dialog_ID).close();
+                    }
+                    
 
                 </script><!-- end of tsting json end of testing json end of testing json -->
                     

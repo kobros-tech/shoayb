@@ -137,11 +137,20 @@ class LogoRecord(WebsiteSale):
         return Response(json.dumps(body), headers=headers)
 
     
-    @http.route(["/logo/get/"], type="http", method=["GET"], auth="public", cors='*')
-    def get_logo_upload(self, **kw):
+    @http.route(["/logo/get/<model('sale.order.line'):line>"], type="http", method=["GET"], auth="public", cors='*')
+    def get_logo_upload(self, line, **kw):
+        description = line.get_description_following_lines()
 
-
+        descrip_dict = {}
+        for i in description:
+            key_value = i.split(":")
+            if len(key_value) == 2:
+                descrip_dict[key_value[0]] = key_value[1]
+        
+        print("****************************************")
+        print(descrip_dict)
+        print("****************************************")
         headers = {'Content-Type': 'application/json'}
-        body = { 'results': { 'code': 200, 'message': "JSON GET Response" } }
-        return Response(json.dumps(body), headers=headers)
+        # body = { 'results': { 'code': 200, 'message': "JSON GET Response" } }
+        return Response(json.dumps(descrip_dict), headers=headers)
 
