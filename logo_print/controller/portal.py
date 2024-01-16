@@ -122,35 +122,45 @@ class LogoRecord(WebsiteSale):
             return request.redirect("/shop/cart")
 
     
-
-    @http.route(["/logo/post/"], type="http", method=["POST"], auth="public", csrf=False, cors='*')
-    def post_logo_upload(self, **kw):
-
-        print("************************JSON************************")
-        data = json.loads(request.httprequest.data)
-        print(data)
-        print(type(data))
-        print("************************JSON************************")
-
-        headers = {'Content-Type': 'application/json'}
-        body = { 'results': { 'code': 200, 'message': "JSON POST Response" } }
-        return Response(json.dumps(body), headers=headers)
-
-    
-    @http.route(["/logo/get/<model('sale.order.line'):line>"], type="http", method=["GET"], auth="public", cors='*')
-    def get_logo_upload(self, line, **kw):
+    def logo_description(self, line):
         description = line.get_description_following_lines()
 
         descrip_dict = {}
         for i in description:
             key_value = i.split(":")
             if len(key_value) == 2:
-                descrip_dict[key_value[0]] = key_value[1]
+                descrip_dict[key_value[0]] = key_value[1].strip()
+        
+        return descrip_dict
+
+
+    @http.route(["/logo/post/<model('sale.order.line'):line>"], type="http", method=["POST"], auth="public", csrf=False, cors='*')
+    def post_logo_upload(self, line, **kw):
+
+        print("************************JSON************************")
+        data = json.loads(request.httprequest.data)
+        
+        print(type(data))
+        print(data["logo_position"])
+        print("************************JSON************************")
+
+
+        headers = {'Content-Type': 'application/json'}
+
+        body = self.logo_description(line)
+        print(body)
+
+        return Response(json.dumps(body), headers=headers)
+
+    
+    @http.route(["/logo/get/<model('sale.order.line'):line>"], type="http", method=["GET"], auth="public", cors='*')
+    def get_logo_upload(self, line, **kw):
+        body = self.logo_description(line)
         
         print("****************************************")
-        print(descrip_dict)
+        print(body)
         print("****************************************")
         headers = {'Content-Type': 'application/json'}
-        # body = { 'results': { 'code': 200, 'message': "JSON GET Response" } }
-        return Response(json.dumps(descrip_dict), headers=headers)
+        
+        return Response(json.dumps(body), headers=headers)
 

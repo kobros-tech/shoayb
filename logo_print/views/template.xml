@@ -565,24 +565,39 @@
                         <div>
                             <h2 t-attf-id="line_json_input_title_{{line.id}}"></h2>
                         </div>
-                        <div style="display: none;">
-                            <img id="img_preview" src="#" class="img-thumbnail mx-auto rounded d-block" style="width: 100px"/>
+                        <div class="logo_upload" style="display: none;">
+                            <img t-attf-id="line_json_img_preview_{{line.id}}" src="" class="img-thumbnail mx-auto rounded d-block" style="width: 100px" />
+                        </div>
+                        <div class="logo_upload" style="display: none;">
+                            <img t-attf-id="line_json_extra1_img_preview_{{line.id}}" src="" class="img-thumbnail mx-auto rounded d-block" style="width: 100px" />
+                        </div>
+                        <div class="logo_upload" style="display: none;">
+                            <img t-attf-id="line_json_extra2_img_preview_{{line.id}}" src="" class="img-thumbnail mx-auto rounded d-block" style="width: 100px" />
+                        </div>
+                        <div class="logo_upload" style="display: none;">
+                            <img t-attf-id="line_json_extra3_img_preview_{{line.id}}" src="" class="img-thumbnail mx-auto rounded d-block" style="width: 100px" />
                         </div>
                         <div>
-                            <input t-attf-id="line_json_input_file_{{line.id}}" type="file" accept="image/*" title="Insert logo" class="fa fa-paperclip rounded-pill s_website_form_input" />
+                            <input t-attf-id="line_json_input_file_{{line.id}}" type="file" accept="image/*" title="Insert logo" class="fa fa-paperclip rounded-pill s_website_form_input mx-auto logo_upload" />
+                            <input t-attf-id="line_json_extra1_input_file_{{line.id}}" type="file" accept="image/*" title="Insert extra logo 1" class="fa fa-paperclip rounded-pill s_website_form_input mx-auto logo_upload" style="display: none;"/>
+                            <input t-attf-id="line_json_extra2_input_file_{{line.id}}" type="file" accept="image/*" title="Insert extra logo 2" class="fa fa-paperclip rounded-pill s_website_form_input mx-auto logo_upload" style="display: none;"/>
+                            <input t-attf-id="line_json_extra3_input_file_{{line.id}}" type="file" accept="image/*" title="Insert extra logo 3" class="fa fa-paperclip rounded-pill s_website_form_input mx-auto logo_upload" style="display: none;"/>
                         </div>
                         <br/>
                         <div>
-                            <input type="submit" class="btn btn-primary"/>
+                            <button t-attf-id="line_json_submit_{{line.id}}" class="btn btn-primary mx-auto logo_upload" style="display: none;">submit the logo</button>
+                            <button t-attf-id="line_json_extra1_submit_{{line.id}}" class="btn btn-primary mx-auto logo_upload" style="display: none;">submit the extra 1 logo</button>
+                            <button t-attf-id="line_json_extra2_submit_{{line.id}}" class="btn btn-primary mx-auto logo_upload" style="display: none;">submit the extra 2 logo</button>
+                            <button t-attf-id="line_json_extra3_submit_{{line.id}}" class="btn btn-primary mx-auto logo_upload" style="display: none;">submit the extra 3 logo</button>
                         </div>
                     </form>
                     <br/>
                     <div class="row">
-                        <div class="col-8">
-                        
-                        </div>
                         <div class="col-4">
                             <button t-attf-onclick="close_dialog_logos({{line.id}})" value="close" class="btn btn-secondary rounded-pill">Close</button>
+                        </div>
+                        <div class="col-8">
+                            
                         </div>
                     </div>
                     
@@ -590,6 +605,8 @@
                 <button t-attf-id="submit_button_{{line.id}}" type="submit" t-attf-onclick="logo_submit({{line.id}})" class="btn fa fa-paperclip rounded-pill s_website_form_input"></button>
                 
                 <script>
+
+                    var descrip = {};
 
                     // get the logos description json at page load or at value change
                     document.addEventListener('DOMContentLoaded', function() {
@@ -603,49 +620,71 @@
 
                         console.log("relevant order line id is: ", line_id)
 
+                        let id = `#submit_button_${line_id}`;
+                        let form_id = `#form_json_submit_${line_id}`;
+
+                        let input_id = `#line_json_input_file_${line_id}`;
+                        let extra1_input_id = `#line_json_extra1_input_file_${line_id}`;
+                        let extra2_input_id = `#line_json_extra2_input_file_${line_id}`;
+                        let extra3_input_id = `#line_json_extra3_input_file_${line_id}`;
+
+                        let submit_id = `#line_json_submit_${line_id}`;
+                        let extra1_submit_id = `#line_json_extra1_submit_${line_id}`;
+                        let extra2_submit_id = `#line_json_extra2_submit_${line_id}`;
+                        let extra3_submit_id = `#line_json_extra3_submit_${line_id}`;
+
+                        let title_id = `#line_json_input_title_${line_id}`;
+
+                        let img_id = `#line_json_img_preview_${line_id}`;
+                        let extra1_img_id = `#line_json_extra1_img_preview_${line_id}`;
+                        let extra2_img_id = `#line_json_extra2_img_preview_${line_id}`;
+                        let extra3_img_id = `#line_json_extra3_img_preview_${line_id}`;
+
+                        let chooseFile = document.querySelector(input_id);
+                        let chooseFile_extra1 = document.querySelector(extra1_input_id);
+                        let chooseFile_extra2 = document.querySelector(extra2_input_id);
+                        let chooseFile_extra3 = document.querySelector(extra3_input_id);
+
+                        let imgPreview = document.querySelector(img_id);
+                        let imgPreview_extra1 = document.querySelector(extra1_img_id);
+                        let imgPreview_extra2 = document.querySelector(extra2_img_id);
+                        let imgPreview_extra3 = document.querySelector(extra3_img_id);
+
+                        // show the dialog with the title of the first logo position
+                        let dialog_ID = `dialog[id=\"dialog_logos_${line_id}\"]`;
+                        document.querySelector(dialog_ID).showModal();
+
                         // get description of specific line in order to submit the correct number of logos
                         fetch(`/logo/get/${line_id}`)
                         .then(function (response) {
                             return response.json()
                         })
                         .then(async function (description) {
-                            var descrip = await description;
+                            descrip = await description;
                             // add the title for the first position by opening the dialog
-                            let title_id = `#line_json_input_title_${line_id}`;
                             console.log(descrip["logo position"])
                             document.querySelector(title_id).innerHTML = await `Add logo for: ${descrip["logo position"]} position`;
                         })
 
-                        let id = `#submit_button_${line_id}`;
-                        let form_id = `#form_json_submit_${line_id}`;
-                        let input_id = `#line_json_input_file_${line_id}`;
-                        
-                        // show the dialog with the title of the first logo position
-                        let dialog_ID = `dialog[id=\"dialog_logos_${line_id}\"]`;
-                        document.querySelector(dialog_ID).showModal();
-
-                        const chooseFile = document.querySelector(input_id);
-                        const imgPreview = document.getElementById("img_preview");
-
                         // show submitted logo
-                        document.querySelector(form_id).addEventListener('change', function () {
-                            
-                            // getImgData(chooseFile, imgPreview);
-                            const files = chooseFile.files[0];
-                            if (files) {
-                                const fileReader = new FileReader();
-                                fileReader.readAsDataURL(files);
-                                fileReader.addEventListener("load", function () {
-                                    imgPreview.style.display = "block";
-                                    let link = `${this.result}`;
-                                    imgPreview.src = link;
-                                    imgPreview.parentNode.style.display = "block";
-                                });
-                            }
+                        document.querySelector(input_id).addEventListener('change', function () {
+                            show_logo_selected(chooseFile, imgPreview, submit_id);
+                        })
+                        // show submitted extra 1 logo
+                        document.querySelector(extra1_input_id).addEventListener('change', function () {
+                            show_logo_selected(chooseFile_extra1, imgPreview_extra1, extra1_submit_id);
+                        })
+                        // show submitted extra 2 logo
+                        document.querySelector(extra2_input_id).addEventListener('change', function () {
+                            show_logo_selected(chooseFile_extra2, imgPreview_extra2, extra2_submit_id);
+                        })
+                        // show submitted extra 3 logo
+                        document.querySelector(extra3_input_id).addEventListener('change', function () {
+                            show_logo_selected(chooseFile_extra3, imgPreview_extra3, extra3_submit_id);
                         })
 
                         // submit the logo
-                        document.querySelector(form_id).addEventListener('submit',
+                        document.querySelector(submit_id).addEventListener('click',
                             async function posting(event) {
 
                                 // Prevents the page from reloading
@@ -653,12 +692,12 @@
 
                                 let file = document.querySelector(input_id).files[0];
                                 let text = await file.text();
-                                console.log("test file:", text)
 
-                                fetch('/logo/post/', {
+                                fetch(`/logo/post/${line_id}`, {
                                     method: 'POST',
                                     body: JSON.stringify({
-                                        file: text
+                                        file: text,
+                                        logo_position: descrip["logo position"]
                                     })
                                 })
                                 .then(function (response) {
@@ -666,11 +705,135 @@
                                 })
                                 .then(function (data) {
                                     console.log("This data: " + data + "\n------ Is sent to server")
-                                    console.log(data.results)
-                                });
 
+                                });
+                                
+                                if (descrip["extra logo 1"] === "yes") {
+                                    document.querySelector(submit_id).style.display = "none";
+                                
+                                    document.querySelector(input_id).style.display = "none";
+                                    document.querySelector(extra1_input_id).style.display = "block";
+
+                                    imgPreview.parentNode.style.display = "none";
+
+                                    // chooseFile.value = [];
+
+                                    // chooseFile = document.querySelector(extra1_input_id);
+                                    document.querySelector(title_id).innerHTML = await `Add logo for: ${descrip["extra logo position 1"]} position`;
+                                }
+                                else {
+                                    document.querySelector(submit_id).style.display = "none";
+                                
+                                    document.querySelector(input_id).style.display = "none";
+                                    
+                                    imgPreview.parentNode.style.display = "none";
+
+                                    document.querySelector(title_id).innerHTML = "<span>Logos for all selected positions</span><br/><span>are uploaded</span><br/><span>thanks</span>";
+                                }
                             }
                         )
+
+                        // submit the extra 1 logo
+                        document.querySelector(extra1_submit_id).addEventListener('click',
+                            async function posting(event) {
+                                
+                                // Prevents the page from reloading
+                                event.preventDefault();
+
+                                // make post request via fetch to upload the extra 1 logo
+
+                                if (descrip["extra logo 2"] === "yes") {
+                                    document.querySelector(extra1_submit_id).style.display = "none";
+                                    document.querySelector(extra1_input_id).style.display = "none";
+                                    document.querySelector(extra2_input_id).style.display = "block";
+                                    imgPreview_extra1.parentNode.style.display = "none";
+
+                                    document.querySelector(title_id).innerHTML = await `Add logo for: ${descrip["extra logo position 2"]} position`;
+                                }
+                                else {
+                                    document.querySelector(extra1_submit_id).style.display = "none";
+                                
+                                    document.querySelector(extra1_input_id).style.display = "none";
+                                    
+                                    imgPreview_extra1.parentNode.style.display = "none";
+
+                                    document.querySelector(title_id).innerHTML = "<span>Logos for all selected positions</span><br/><span>are uploaded</span><br/><span>thanks</span>";
+                                }
+                            }
+                        )
+
+                        // submit the extra 2 logo
+                        document.querySelector(extra2_submit_id).addEventListener('click',
+                            async function posting(event) {
+                                
+                                // Prevents the page from reloading
+                                event.preventDefault();
+
+                                // make post request via fetch to upload the extra 2 logo
+
+                                if (descrip["extra logo 3"] === "yes") {
+                                    document.querySelector(extra2_submit_id).style.display = "none";
+                                    document.querySelector(extra2_input_id).style.display = "none";
+                                    document.querySelector(extra3_input_id).style.display = "block";
+                                    imgPreview_extra2.parentNode.style.display = "none";
+
+                                    document.querySelector(title_id).innerHTML = await `Add logo for: ${descrip["extra logo position 3"]} position`;
+                                }
+                                else {
+                                    document.querySelector(extra2_submit_id).style.display = "none";
+                                
+                                    document.querySelector(extra2_input_id).style.display = "none";
+                                    
+                                    imgPreview_extra2.parentNode.style.display = "none";
+
+                                    document.querySelector(title_id).innerHTML = "<span>Logos for all selected positions</span><br/><span>are uploaded</span><br/><span>thanks</span>";
+                                }
+                            }
+                        )
+
+                        // submit the extra 3 logo
+                        document.querySelector(extra3_submit_id).addEventListener('click',
+                            async function posting(event) {
+                                
+                                // Prevents the page from reloading
+                                event.preventDefault();
+
+                                // make post request via fetch to upload the extra 3 logo
+
+                                
+                                document.querySelector(extra3_submit_id).style.display = "none";
+                                
+                                document.querySelector(extra3_input_id).style.display = "none";
+                                
+                                imgPreview_extra3.parentNode.style.display = "none";
+
+                                document.querySelector(title_id).innerHTML = "<span>Logos for all selected positions</span><br/><span>are uploaded</span><br/><span>thanks</span>";
+                                
+                            }
+                        )
+
+
+                        function show_logo_selected(chooseFile, imgPreview, next_button) {
+                            
+                            console.log("call for file", chooseFile)
+
+                            // getImgData(chooseFile, imgPreview);
+                            let files = chooseFile.files[0];
+                            if (files) {
+                                let fileReader = new FileReader();
+                                fileReader.readAsDataURL(files);
+                                fileReader.addEventListener("load", function () {
+                                    imgPreview.style.display = "block";
+                                    let link = `${this.result}`;
+                                    imgPreview.src = link;
+                                    imgPreview.parentNode.style.display = "block";
+                                });
+
+                                if (next_button) {
+                                    document.querySelector(next_button).style.display = "block";
+                                }
+                            }
+                        }
                         
                         return false;
                     }
@@ -682,8 +845,8 @@
                         let dialog_ID = `dialog[id=\"dialog_logos_${line_id}\"]`;
                         document.querySelector(dialog_ID).close();
                     }
-                    
 
+                    
                 </script><!-- end of tsting json end of testing json end of testing json -->
                     
                 <script>
