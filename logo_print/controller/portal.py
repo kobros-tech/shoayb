@@ -39,7 +39,7 @@ class LogoRecord(WebsiteSale):
 
     
         
-    @http.route(["/logo/form/"], type="http", method=["GET", "POST"], auth="user", website=True)
+    @http.route(["/logo/form/"], type="http", methods=["GET", "POST"], auth="user", website=True)
     def logo_upload(self, **kw):
         if request.httprequest.method == "POST":
 
@@ -134,7 +134,7 @@ class LogoRecord(WebsiteSale):
         return descrip_dict
 
 
-    @http.route(["/logo/post/<model('sale.order.line'):line>"], type="http", method=["POST"], auth="public", csrf=False, cors='*')
+    @http.route(["/logo/post/<model('sale.order.line'):line>"], type="http", methods=["POST"], auth="public", csrf=False, cors='*')
     def post_logo_upload(self, line, **kw):
 
         print("************************JSON************************")
@@ -153,7 +153,7 @@ class LogoRecord(WebsiteSale):
         return Response(json.dumps(body), headers=headers)
 
     
-    @http.route(["/logo/get/<model('sale.order.line'):line>"], type="http", method=["GET"], auth="public", cors='*')
+    @http.route(["/logo/get/<model('sale.order.line'):line>"], type="http", methods=["GET"], auth="public", cors='*')
     def get_logo_upload(self, line, **kw):
         body = self.logo_description(line)
         

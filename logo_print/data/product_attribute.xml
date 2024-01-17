@@ -75,7 +75,7 @@
         </record>
 
         <record model="product.attribute" id="product_attribute_extra1">
-            <field name="name">extra logo 1</field>
+            <field name="name">additional logo 1</field>
             <field name="display_type">select</field>
             <field name="create_variant">no_variant</field>
             <field name="visibility">hidden</field>
@@ -91,7 +91,7 @@
         </record>
 
         <record model="product.attribute" id="product_attribute_logo_position_1">
-            <field name="name">extra logo position 1</field>
+            <field name="name">additional logo position 1</field>
             <field name="display_type">select</field>
             <field name="create_variant">no_variant</field>
             <field name="visibility">hidden</field>
@@ -100,12 +100,12 @@
         </record>
         <record model="product.attribute.value" id="product_attribute_logo_position_1_thanks">
             <field name="attribute_id" ref="product_attribute_logo_position_1"/>
-            <field name="name">no thanks</field>
+            <field name="name">not required</field>
             <field name="sequence">0</field>
         </record>
 
         <record model="product.attribute" id="product_attribute_extra2">
-            <field name="name">extra logo 2</field>
+            <field name="name">additional logo 2</field>
             <field name="display_type">select</field>
             <field name="create_variant">no_variant</field>
             <field name="visibility">hidden</field>
@@ -121,7 +121,7 @@
         </record>
 
         <record model="product.attribute" id="product_attribute_logo_position_2">
-            <field name="name">extra logo position 2</field>
+            <field name="name">additional logo position 2</field>
             <field name="display_type">select</field>
             <field name="create_variant">no_variant</field>
             <field name="visibility">hidden</field>
@@ -130,12 +130,12 @@
         </record>
         <record model="product.attribute.value" id="product_attribute_logo_position_2_thanks">
             <field name="attribute_id" ref="product_attribute_logo_position_2"/>
-            <field name="name">no thanks</field>
+            <field name="name">not required</field>
             <field name="sequence">0</field>
         </record>
 
         <record model="product.attribute" id="product_attribute_extra3">
-            <field name="name">extra logo 3</field>
+            <field name="name">additional logo 3</field>
             <field name="display_type">select</field>
             <field name="create_variant">no_variant</field>
             <field name="visibility">hidden</field>
@@ -151,7 +151,7 @@
         </record>
 
         <record model="product.attribute" id="product_attribute_logo_position_3">
-            <field name="name">extra logo position 3</field>
+            <field name="name">additional logo position 3</field>
             <field name="display_type">select</field>
             <field name="create_variant">no_variant</field>
             <field name="visibility">hidden</field>
@@ -160,7 +160,7 @@
         </record>
         <record model="product.attribute.value" id="product_attribute_logo_position_3_thanks">
             <field name="attribute_id" ref="product_attribute_logo_position_3"/>
-            <field name="name">no thanks</field>
+            <field name="name">not required</field>
             <field name="sequence">0</field>
         </record>
     

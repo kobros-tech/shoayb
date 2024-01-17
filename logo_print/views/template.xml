@@ -579,16 +579,16 @@
                         </div>
                         <div>
                             <input t-attf-id="line_json_input_file_{{line.id}}" type="file" accept="image/*" title="Insert logo" class="fa fa-paperclip rounded-pill s_website_form_input mx-auto logo_upload" />
-                            <input t-attf-id="line_json_extra1_input_file_{{line.id}}" type="file" accept="image/*" title="Insert extra logo 1" class="fa fa-paperclip rounded-pill s_website_form_input mx-auto logo_upload" style="display: none;"/>
-                            <input t-attf-id="line_json_extra2_input_file_{{line.id}}" type="file" accept="image/*" title="Insert extra logo 2" class="fa fa-paperclip rounded-pill s_website_form_input mx-auto logo_upload" style="display: none;"/>
-                            <input t-attf-id="line_json_extra3_input_file_{{line.id}}" type="file" accept="image/*" title="Insert extra logo 3" class="fa fa-paperclip rounded-pill s_website_form_input mx-auto logo_upload" style="display: none;"/>
+                            <input t-attf-id="line_json_extra1_input_file_{{line.id}}" type="file" accept="image/*" title="Insert additional logo 1" class="fa fa-paperclip rounded-pill s_website_form_input mx-auto logo_upload" style="display: none;"/>
+                            <input t-attf-id="line_json_extra2_input_file_{{line.id}}" type="file" accept="image/*" title="Insert additional logo 2" class="fa fa-paperclip rounded-pill s_website_form_input mx-auto logo_upload" style="display: none;"/>
+                            <input t-attf-id="line_json_extra3_input_file_{{line.id}}" type="file" accept="image/*" title="Insert additional logo 3" class="fa fa-paperclip rounded-pill s_website_form_input mx-auto logo_upload" style="display: none;"/>
                         </div>
                         <br/>
                         <div>
-                            <button t-attf-id="line_json_submit_{{line.id}}" class="btn btn-primary mx-auto logo_upload" style="display: none;">submit the logo</button>
-                            <button t-attf-id="line_json_extra1_submit_{{line.id}}" class="btn btn-primary mx-auto logo_upload" style="display: none;">submit the extra 1 logo</button>
-                            <button t-attf-id="line_json_extra2_submit_{{line.id}}" class="btn btn-primary mx-auto logo_upload" style="display: none;">submit the extra 2 logo</button>
-                            <button t-attf-id="line_json_extra3_submit_{{line.id}}" class="btn btn-primary mx-auto logo_upload" style="display: none;">submit the extra 3 logo</button>
+                            <button t-attf-id="line_json_submit_{{line.id}}" class="btn btn-primary mx-auto logo_upload" style="display: none;">Submit your logo</button>
+                            <button t-attf-id="line_json_extra1_submit_{{line.id}}" class="btn btn-primary mx-auto logo_upload" style="display: none;">Submit your additional logo No.1</button>
+                            <button t-attf-id="line_json_extra2_submit_{{line.id}}" class="btn btn-primary mx-auto logo_upload" style="display: none;">Submit your additional logo No.2</button>
+                            <button t-attf-id="line_json_extra3_submit_{{line.id}}" class="btn btn-primary mx-auto logo_upload" style="display: none;">Submit your additional logo No.3</button>
                         </div>
                     </form>
                     <br/>
@@ -708,7 +708,7 @@
 
                                 });
                                 
-                                if (descrip["extra logo 1"] === "yes") {
+                                if (descrip["additional logo 1"] === "yes") {
                                     document.querySelector(submit_id).style.display = "none";
                                 
                                     document.querySelector(input_id).style.display = "none";
@@ -719,7 +719,7 @@
                                     // chooseFile.value = [];
 
                                     // chooseFile = document.querySelector(extra1_input_id);
-                                    document.querySelector(title_id).innerHTML = await `Add logo for: ${descrip["extra logo position 1"]} position`;
+                                    document.querySelector(title_id).innerHTML = await `Add logo for: ${descrip["additional logo position 1"]} position`;
                                 }
                                 else {
                                     document.querySelector(submit_id).style.display = "none";
@@ -728,7 +728,7 @@
                                     
                                     imgPreview.parentNode.style.display = "none";
 
-                                    document.querySelector(title_id).innerHTML = "<span>Logos for all selected positions</span><br/><span>are uploaded</span><br/><span>thanks</span>";
+                                    document.querySelector(title_id).innerHTML = "<span>Logos for all required positions</span><br/><span>have been uploaded</span><br/><span>Thanks</span>";
                                 }
                             }
                         )
@@ -742,13 +742,13 @@
 
                                 // make post request via fetch to upload the extra 1 logo
 
-                                if (descrip["extra logo 2"] === "yes") {
+                                if (descrip["additional logo 2"] === "yes") {
                                     document.querySelector(extra1_submit_id).style.display = "none";
                                     document.querySelector(extra1_input_id).style.display = "none";
                                     document.querySelector(extra2_input_id).style.display = "block";
                                     imgPreview_extra1.parentNode.style.display = "none";
 
-                                    document.querySelector(title_id).innerHTML = await `Add logo for: ${descrip["extra logo position 2"]} position`;
+                                    document.querySelector(title_id).innerHTML = await `Add logo for: ${descrip["additional logo position 2"]} position`;
                                 }
                                 else {
                                     document.querySelector(extra1_submit_id).style.display = "none";
@@ -771,13 +771,13 @@
 
                                 // make post request via fetch to upload the extra 2 logo
 
-                                if (descrip["extra logo 3"] === "yes") {
+                                if (descrip["additional logo 3"] === "yes") {
                                     document.querySelector(extra2_submit_id).style.display = "none";
                                     document.querySelector(extra2_input_id).style.display = "none";
                                     document.querySelector(extra3_input_id).style.display = "block";
                                     imgPreview_extra2.parentNode.style.display = "none";
 
-                                    document.querySelector(title_id).innerHTML = await `Add logo for: ${descrip["extra logo position 3"]} position`;
+                                    document.querySelector(title_id).innerHTML = await `Add logo for: ${descrip["additional logo position 3"]} position`;
                                 }
                                 else {
                                     document.querySelector(extra2_submit_id).style.display = "none";
@@ -786,7 +786,7 @@
                                     
                                     imgPreview_extra2.parentNode.style.display = "none";
 
-                                    document.querySelector(title_id).innerHTML = "<span>Logos for all selected positions</span><br/><span>are uploaded</span><br/><span>thanks</span>";
+                                    document.querySelector(title_id).innerHTML = "<span>Logos for all selected positions</span><br/><span>are uploaded</span><br/><span>Thanks</span>";
                                 }
                             }
                         )
