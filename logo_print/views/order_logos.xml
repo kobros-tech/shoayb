@@ -8,10 +8,11 @@
         <field name="arch" type="xml">
             <xpath expr="//notebook" position="inside">
                 <page string="Order Submitted Logos" name="order_submitted_logos">
-                    <field name="library_ids" widget="many2many">
+                    <field name="logo_ids" mode="tree">
                         <tree>
-                            <field name="date_time"/>
-                            <field name="image" widget="image"/>
+                            <field name="line_id" optional="show"/>
+                            <field name="name" optional="show"/>
+                            <field name="image" widget="image" optional="hide"/>
                         </tree>
                     </field>
                 </page>

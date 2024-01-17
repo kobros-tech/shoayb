@@ -54,6 +54,18 @@ class PrintingAttribute(models.Model):
                 rec.name = rec.position_id.name
 
 
+class SaleOrderLine(models.Model):
+
+    # ---------------------------------------- Private Attributes ---------------------------------
+
+    _inherit = "sale.order.line"
+
+    # --------------------------------------- Fields Declaration ----------------------------------
+
+    # Relational
+    logo_ids = fields.One2many("library", "line_id", string="Submitted Logos")
+
+
 class SaleOrder(models.Model):
 
     # ---------------------------------------- Private Attributes ---------------------------------
@@ -64,6 +76,9 @@ class SaleOrder(models.Model):
     
     # --------------------------------------- Fields Declaration ----------------------------------
 
-    # Basic
-    library_ids = fields.Many2many("library", string="Library of Logos")
+    # Relational
+    logo_ids = fields.One2many("library", "order_id", string="All Logos")
+
+    # ---------------------------------------- Compute methods ------------------------------------
+
     

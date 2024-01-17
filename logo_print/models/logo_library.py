@@ -2,6 +2,7 @@
 
 from odoo import fields, models, api
 
+
 class LogoLibrary(models.Model):
 
     # ---------------------------------------- Private Attributes ---------------------------------
@@ -10,20 +11,51 @@ class LogoLibrary(models.Model):
     _description = "Library of submitted logos for all webiste sales quotations"
     _order = "date_time desc"
 
+    # ---------------------------------------- Default Methods ------------------------------------
+
+    def _default_logo_name(self):
+        last_id = self.env["library"].search([], order="create_date desc", limit=1).id
+        return f"Logo No.{last_id + 1}"
+
+
     # --------------------------------------- Fields Declaration ----------------------------------
 
     # Basic
-    name = fields.Char("Name")
+    name = fields.Char("Logo Title", 
+        default=lambda self: self._default_logo_name(),
+        )
     date_time= fields.Datetime(default=lambda s: fields.Datetime.now(),)
     image = fields.Image()
-    extra1 = fields.Image()
-    extra2 = fields.Image()
-    extra3 = fields.Image()
-    product_description = fields.Html()
 
     # Relational
-    order_ids = fields.Many2many("sale.order.line", string="Sales Quotation")
-    product_ids = fields.Many2many("product.product", string="Related Products")
+    line_id = fields.Many2one("sale.order.line", string="Order Line")
+
+    # Related
+    order_id = fields.Many2one(
+        related="line_id.order_id",
+        depends=['line_id'],
+        store=True
+        )
+    product_id = fields.Many2one(
+        related="line_id.product_id",
+        depends=['line_id'],
+        store=True
+        )
+    description = fields.Text(
+        related="line_id.name",
+        depends=['line_id'],
+        store=True
+        )
+    partner_id = fields.Many2one(
+        related="order_id.partner_id",
+        depends=['order_id'],
+        store=True
+        )
+    partner_name = fields.Char(
+        related="partner_id.name",
+        depends=['partner_id'],
+        store=True
+        )
 
 
 class PositionLibrary(models.Model):
