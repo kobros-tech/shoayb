@@ -137,11 +137,24 @@ class LogoRecord(WebsiteSale):
     @http.route(["/logo/post/<model('sale.order.line'):line>"], type="http", methods=["POST"], auth="public", csrf=False, cors='*')
     def post_logo_upload(self, line, **kw):
 
-        print("************************JSON************************")
-        data = json.loads(request.httprequest.data)
         
-        print(type(data))
-        print(data["logo_position"])
+        data = json.loads(request.httprequest.data)
+
+        # convert the string file received by json into a binary file
+        # as a preparation to convert it in the final to base 64 string file
+        binary_file = data["file"].encode('utf-8')
+
+        # read the binary file variable and then convert it to base64 string variable
+        try:
+            img = base64.b64encode(binary_file)
+
+        except:
+            pass
+
+        print("************************JSON************************")
+        print(type(data["file"]))
+        print(type(binary_file))
+        print("the file for ", data["logo_position"], " position is received successfully")
         print("************************JSON************************")
 
 

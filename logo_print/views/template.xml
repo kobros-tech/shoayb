@@ -704,8 +704,7 @@
                                     return response.json();
                                 })
                                 .then(function (data) {
-                                    console.log("This data: " + data + "\n------ Is sent to server")
-
+                                    console.log("This data: " + data + "\n------ Is sent to server");
                                 });
                                 
                                 if (descrip["additional logo 1"] === "yes") {
@@ -741,6 +740,22 @@
                                 event.preventDefault();
 
                                 // make post request via fetch to upload the extra 1 logo
+                                let file = document.querySelector(extra1_input_id).files[0];
+                                let text = await file.text();
+
+                                fetch(`/logo/post/${line_id}`, {
+                                    method: 'POST',
+                                    body: JSON.stringify({
+                                        file: text,
+                                        logo_position: descrip["additional logo position 1"]
+                                    })
+                                })
+                                .then(function (response) {
+                                    return response.json();
+                                })
+                                .then(function (data) {
+                                    console.log("This data: " + data + "\n------ Is sent to server");
+                                });
 
                                 if (descrip["additional logo 2"] === "yes") {
                                     document.querySelector(extra1_submit_id).style.display = "none";
@@ -770,6 +785,22 @@
                                 event.preventDefault();
 
                                 // make post request via fetch to upload the extra 2 logo
+                                let file = document.querySelector(extra2_input_id).files[0];
+                                let text = await file.text();
+
+                                fetch(`/logo/post/${line_id}`, {
+                                    method: 'POST',
+                                    body: JSON.stringify({
+                                        file: text,
+                                        logo_position: descrip["additional logo position 2"]
+                                    })
+                                })
+                                .then(function (response) {
+                                    return response.json();
+                                })
+                                .then(function (data) {
+                                    console.log("This data: " + data + "\n------ Is sent to server");
+                                });
 
                                 if (descrip["additional logo 3"] === "yes") {
                                     document.querySelector(extra2_submit_id).style.display = "none";
@@ -799,8 +830,23 @@
                                 event.preventDefault();
 
                                 // make post request via fetch to upload the extra 3 logo
+                                let file = document.querySelector(extra3_input_id).files[0];
+                                let text = await file.text();
 
-                                
+                                fetch(`/logo/post/${line_id}`, {
+                                    method: 'POST',
+                                    body: JSON.stringify({
+                                        file: text,
+                                        logo_position: descrip["additional logo position 3"]
+                                    })
+                                })
+                                .then(function (response) {
+                                    return response.json();
+                                })
+                                .then(function (data) {
+                                    console.log("This data: " + data + "\n------ Is sent to server");
+                                });
+
                                 document.querySelector(extra3_submit_id).style.display = "none";
                                 
                                 document.querySelector(extra3_input_id).style.display = "none";
