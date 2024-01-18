@@ -12,6 +12,7 @@
                         <tree>
                             <field name="line_id" optional="show"/>
                             <field name="name" optional="show"/>
+                            <field name="position" optional="show"/>
                             <field name="image" widget="image" optional="hide"/>
                         </tree>
                     </field>

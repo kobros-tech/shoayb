@@ -533,33 +533,8 @@
         <xpath expr="//table[@id='cart_products']//tbody//tr//td" position="before">
             <td id="first_table_data" class="text-center">
 
-                <form id="submisiion_data" action="/logo/form/" method="post" enctype="multipart/form-data" data-force_action="sale.order" data-model_name="sale.order" style="display: none; ">
-                    
-                    <!-- CSRF Token -->
-                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"
-                    enctype="multipart/form-data" />
-
-                    <input type="hidden" name="order_logo" t-att-value="line.id" />
-                    <input type="hidden" name="product_logo" t-att-value="line.product_id.id" />
-                    
-                    <t t-set="description" t-value="line.get_description_following_lines()"/>
-                    <t t-set="choice" t-value="'Extra_Printing: yes' in description" />
-                    
-                    <input type="hidden" name="describ_logo" t-att-value="description" /> 
-                    
-                    <div id="logo_submit">
-                        <input id="sale3" type="file" class="form-control col-xs-2 s_website_form_input" name="a_document" />
-                    </div>
-                    <br/>
-                    <div id="exra_submit" style="display: none;">
-                        <input id="sale4" type="file" class="form-control col-xs-2 s_website_form_input" name="b_document" />
-                    </div>
-                    <button id="button_submit" type="submit" onclick="hide_submission()" class="btn btn-primary">submit</button>
-                    
-                </form>
-
                 <!-- tsting json testing json testing json -->
-                <br/>
+                
                 <dialog class="rounded" t-attf-id="dialog_logos_{{line.id}}">
                     <form t-attf-id="form_json_submit_{{line.id}}" >
                         <div>
@@ -691,21 +666,30 @@
                                 event.preventDefault();
 
                                 let file = document.querySelector(input_id).files[0];
-                                let text = await file.text();
+                                let fileReader = new FileReader();
+                                fileReader.readAsDataURL(file);
+                                fileReader.addEventListener("load", async function () {
+                                    // get image binaries without it's data padding
+                                    let str_64 = await `${this.result}`.split(',')[1];
+                                    
+                                    console.log("the link: ", str_64)
 
-                                fetch(`/logo/post/${line_id}`, {
-                                    method: 'POST',
-                                    body: JSON.stringify({
-                                        file: text,
-                                        logo_position: descrip["logo position"]
+                                    fetch(`/logo/post/${line_id}`, {
+                                        method: 'POST',
+                                        body: JSON.stringify({
+                                            file: str_64,
+                                            logo_position: descrip["logo position"]
+                                        })
                                     })
+                                    .then(function (response) {
+                                        return response.json();
+                                    })
+                                    .then(function (data) {
+                                        console.log("This data: " + data + "\n------ Is sent to server");
+                                        console.log(data);
+                                    });
+
                                 })
-                                .then(function (response) {
-                                    return response.json();
-                                })
-                                .then(function (data) {
-                                    console.log("This data: " + data + "\n------ Is sent to server");
-                                });
                                 
                                 if (descrip["additional logo 1"] === "yes") {
                                     document.querySelector(submit_id).style.display = "none";
@@ -860,10 +844,7 @@
 
 
                         function show_logo_selected(chooseFile, imgPreview, next_button) {
-                            
-                            console.log("call for file", chooseFile)
 
-                            // getImgData(chooseFile, imgPreview);
                             let files = chooseFile.files[0];
                             if (files) {
                                 let fileReader = new FileReader();
@@ -884,6 +865,17 @@
                         return false;
                     }
 
+                    // read file image and convert it to base 64 string
+                    async function str_64(files) {
+                        let link = "";
+                        let fileReader = new FileReader();
+                        fileReader.readAsDataURL(files);
+                        fileReader.addEventListener("load", async function () {
+                            link = await `${this.result}`;
+                            console.log("the link: ", link)
+                        })
+                    }
+
                     // close the dialog
                     function close_dialog_logos(line_id) {
 
@@ -895,36 +887,7 @@
                     
                 </script><!-- end of tsting json end of testing json end of testing json -->
                     
-                <script>
-
-                    
-                    var describ_logo = "<t t-esc='description'/>";
-                    var choice = "<t t-esc='choice'/>";
-                    var order_line = "<t t-esc='line' />";
-                    var order_submit = "<t t-esc='line.order_id.library_ids.mapped("id")' />"
-
-                    document.addEventListener('DOMContentLoaded', function() {
-                        if ( order_submit != "") {
-                            // document.querySelector("#submisiion_data").style.display = "none";
-                            // document.querySelector("#first_table_data").innerHTML = "Submitted";
-                            // document.querySelector("#first_table_data").style.color = "darkgreen";
-                            console.log("logos submitted successfully")
-                        }
-                    })
-
-                    console.log(choice)
-                    if (choice != "") {
-                        document.querySelector("#exra_submit").style.display = "block";
-                        console.log(describ_logo)
-                        console.log(choice)
-                    }
-
-                    function hide_submission() {
-                        document.querySelector("#submisiion_data").style.display = "none";
-
-                    }
-
-                </script>
+                
             </td>
             
         </xpath>

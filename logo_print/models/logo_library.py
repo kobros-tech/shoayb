@@ -13,19 +13,20 @@ class LogoLibrary(models.Model):
 
     # ---------------------------------------- Default Methods ------------------------------------
 
-    def _default_logo_name(self):
-        last_id = self.env["library"].search([], order="create_date desc", limit=1).id
-        return f"Logo No.{last_id + 1}"
+    # def _default_logo_name(self):
+    #     last_id = self.env["library"].search([], order="create_date desc", limit=1).id
+    #     return f"Logo No.{last_id + 1}"
 
 
     # --------------------------------------- Fields Declaration ----------------------------------
 
     # Basic
     name = fields.Char("Logo Title", 
-        default=lambda self: self._default_logo_name(),
+        # default=lambda self: self._default_logo_name(),
         )
     date_time= fields.Datetime(default=lambda s: fields.Datetime.now(),)
     image = fields.Image()
+    position = fields.Char("Logo Position")
 
     # Relational
     line_id = fields.Many2one("sale.order.line", string="Order Line")
@@ -57,6 +58,18 @@ class LogoLibrary(models.Model):
         store=True
         )
 
+    # ------------------------------------------ CRUD Methods -------------------------------------
+
+    @api.model
+    def create(self, vals):
+        # Code before create: should use the 'vals' dict
+        new_record = super().create(vals)
+        # Code after create: can use the 'new_record'
+        # created
+        new_record.name = f"{new_record.line_id.display_name} - Logo{new_record.id}"
+
+
+
 
 class PositionLibrary(models.Model):
 
@@ -71,4 +84,4 @@ class PositionLibrary(models.Model):
     name = fields.Char("Position")
     image = fields.Image()
 
-
+    

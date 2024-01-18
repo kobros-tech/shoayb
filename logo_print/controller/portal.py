@@ -134,36 +134,53 @@ class LogoRecord(WebsiteSale):
         return descrip_dict
 
 
+    # JSON POST in Cart view
     @http.route(["/logo/post/<model('sale.order.line'):line>"], type="http", methods=["POST"], auth="public", csrf=False, cors='*')
     def post_logo_upload(self, line, **kw):
 
-        
         data = json.loads(request.httprequest.data)
 
-        # convert the string file received by json into a binary file
-        # as a preparation to convert it in the final to base 64 string file
-        binary_file = data["file"].encode('utf-8')
-
-        # read the binary file variable and then convert it to base64 string variable
-        try:
-            img = base64.b64encode(binary_file)
-
-        except:
-            pass
-
-        print("************************JSON************************")
-        print(type(data["file"]))
-        print(type(binary_file))
-        print("the file for ", data["logo_position"], " position is received successfully")
-        print("************************JSON************************")
-
-
+        # header for json reply result
         headers = {'Content-Type': 'application/json'}
+        
+        # values to be recorded in a new logo library object
+        vals = {}
 
-        body = self.logo_description(line)
-        print(body)
+        # check for existance of order line
+        if line:
+            vals['line_id'] = line.id
+        else:
+            result = {'error': "Missing the argument for sale order line"}
+            return Response(json.dumps(result), headers=headers, status=400)
+        
+        # check for existance of logo position
+        if data["logo_position"]:
+            vals['position'] = data["logo_position"]
+        else:
+            result = {'error': "Missing the logo position value"}
+            return Response(json.dumps(result), headers=headers, status=400)
 
-        return Response(json.dumps(body), headers=headers)
+        # check for existance of logo image
+        if data["file"]:
+            """
+            convert the string file received by json into a binary file
+            as a preparation to convert it in the final to base 64 string file
+            """
+            try:
+                binary_file = data["file"].encode('utf-8')
+                vals['image'] = binary_file 
+            except:
+                result = {'error': "Incorrect image file"}
+                return Response(json.dumps(result), headers=headers, status=400)
+        else:
+            result = {'error': "Missing the logo image file"}
+            return Response(json.dumps(result), headers=headers, status=400)
+
+        # Create new record
+        new_record = request.env["library"].create(vals)
+
+        body = {'result': "The logo is submitted successfully"}
+        return Response(json.dumps(body), headers=headers, status=201)
 
     
     @http.route(["/logo/get/<model('sale.order.line'):line>"], type="http", methods=["GET"], auth="public", cors='*')
