@@ -355,8 +355,17 @@
 
 
                 function choose_option(position) {
-                    document.querySelector("#extra_logo_choice").style.display = "block";
 
+                    // if there is no extra position attribute for this product
+                    if (extra_y_n_attr_line_id === "") {
+                        document.querySelector("#extra_logo_choice").style.display = "none";
+                        document.querySelector("dialog").close();
+                    }
+                    else {
+                        // else if there is extra position attribute for this product
+                        document.querySelector("#extra_logo_choice").style.display = "block";
+                    }
+                    
                     // assign a correct value to the first logo attribute
                     document.querySelectorAll("select").forEach(function(element) {
                         if (ptal_printing_id === element.dataset.attribute_id) {
@@ -399,8 +408,17 @@
 
 
                 function choose_extra_option(position) {
-                    document.querySelector("#extra_logo_choice").style.display = "none";
-                    document.querySelector("#extra2_logo_choice").style.display = "block";
+
+                    // if there is no extra 2 position attribute for this product
+                    if (extra2_y_n_attr_line_id === "") {
+                        document.querySelector("#extra2_logo_choice").style.display = "none";
+                        document.querySelector("dialog").close();
+                    }
+                    else {
+                        // else if there is extra 2 position attribute for this product
+                        document.querySelector("#extra_logo_choice").style.display = "none";
+                        document.querySelector("#extra2_logo_choice").style.display = "block";
+                    }
 
                     // assign a correct value to the second logo attribute
                     document.querySelectorAll("select").forEach(function(element) {
@@ -436,8 +454,17 @@
                 }
 
                 function choose_extra2_option(position) {
-                    document.querySelector("#extra2_logo_choice").style.display = "none";
-                    document.querySelector("#extra3_logo_choice").style.display = "block";
+
+                    // if there is no extra 3 position attribute for this product
+                    if (extra3_y_n_attr_line_id === "") {
+                        document.querySelector("#extra3_logo_choice").style.display = "none";
+                        document.querySelector("dialog").close();
+                    }
+                    else {
+                        // else if there is extra 3 position attribute for this product
+                        document.querySelector("#extra2_logo_choice").style.display = "none";
+                        document.querySelector("#extra3_logo_choice").style.display = "block";
+                    }
 
                     // assign a correct value to the third logo attribute
                     document.querySelectorAll("select").forEach(function(element) {
@@ -466,6 +493,7 @@
                 }
 
                 function choose_extra3_option(position) {
+
                     document.querySelector("#extra3_logo_choice").style.display = "none";
 
                     // assign a correct value to the fourth logo attribute
