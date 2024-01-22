@@ -24,7 +24,7 @@
                             <field name="line_id" invisible="1"/>
                         </group>
                         <group>
-                            <field name="image" widget="image"/>
+                            <field name="image" widget="image" options="{'size': [250, 250]}"/>
                         </group>
                         <notebook>
                             <page string="Description">
@@ -42,10 +42,13 @@
         <field name="model">library</field>
         <field name="arch" type="xml">
             <tree string="Logos" >
+                <field name="name"/>
                 <field name="date_time"/>
                 <field name="line_id"/>
+                <field name="order_id"/>
                 <field name="product_id"/>
-                <field name="image" widget="image"/>
+                <field name="partner_id"/>
+                <field name="image" widget="image" options="{'size': [150, 150]}"/>
             </tree>
         </field>
     </record>
@@ -69,6 +72,22 @@
                     <filter string="Customer" name="partner_id" context="{'group_by':'partner_id'}"/>
                 </group>
             </search>
+        </field>
+    </record>
+
+    <record id="logo_print_library_action" model="ir.actions.act_window">
+        <field name="name">Library of Logos</field>
+        <field name="res_model">library</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="view_id" ref="logo_print.logo_print_library_view_tree"/>
+        <field name="context">{'search_default_available': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                view collection of logo positions
+            </p>
+            <p>
+                view and edit the collection of logo positions from which customers choose
+            </p>
         </field>
     </record>
 

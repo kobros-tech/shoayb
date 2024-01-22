@@ -20,14 +20,30 @@
         </field>
     </record>
 
-    <record id="logo_print_library_view_tree" model="ir.ui.view">
+    <record id="logo_print_library_positions_view_tree" model="ir.ui.view">
         <field name="name">logo_print.library.positions.tree</field>
         <field name="model">library.positions</field>
         <field name="arch" type="xml">
             <tree string="Positions Collection" >
                 <field name="name"/>
-                <field name="image" widget="image"/>
+                <field name="image" widget="image" options="{'size': [150, 150]}"/>
             </tree>
+        </field>
+    </record>
+
+    <record id="logo_print_library_positions_action" model="ir.actions.act_window">
+        <field name="name">Library of Positions</field>
+        <field name="res_model">library.positions</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="view_id" ref="logo_print.logo_print_library_positions_view_tree"/>
+        <field name="context">{'search_default_available': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                view submitted logos from sale website
+            </p>
+            <p>
+                view submitted logos by customers who are going to make sale or have already done before from sale website
+            </p>
         </field>
     </record>
 

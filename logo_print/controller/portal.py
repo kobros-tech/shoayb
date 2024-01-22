@@ -187,9 +187,16 @@ class LogoRecord(WebsiteSale):
     def get_logo_upload(self, line, **kw):
         body = self.logo_description(line)
         
+        submitted_logos = {}
+
+        for logo in line.logo_ids:
+            submitted_logos[logo.position] = logo.image.decode('utf-8')
+
         print("****************************************")
-        print(body)
+        print(submitted_logos, line)
         print("****************************************")
+
+        body['submissions'] = submitted_logos
         headers = {'Content-Type': 'application/json'}
         
         return Response(json.dumps(body), headers=headers)

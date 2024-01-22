@@ -13,7 +13,7 @@
                             <field name="line_id" optional="show"/>
                             <field name="name" optional="show"/>
                             <field name="position" optional="show"/>
-                            <field name="image" widget="image" optional="hide"/>
+                            <field name="image" widget="image" optional="hide" options="{'size': [150, 150]}"/>
                         </tree>
                     </field>
                 </page>
