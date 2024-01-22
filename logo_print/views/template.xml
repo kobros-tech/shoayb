@@ -602,6 +602,9 @@
                         <div class="col-4"></div>
                         <div class="col-4">
                             <button t-attf-id="line_json_proceed_{{line.id}}" class="btn btn-primary mx-xl-5 logo_upload" style="display: none;">Proceed</button>
+                            <button t-attf-id="line_json_proceed1_{{line.id}}" class="btn btn-primary mx-xl-5 logo_upload" style="display: none;">Proceed</button>
+                            <button t-attf-id="line_json_proceed2_{{line.id}}" class="btn btn-primary mx-xl-5 logo_upload" style="display: none;">Proceed</button>
+                            <button t-attf-id="line_json_proceed3_{{line.id}}" class="btn btn-primary mx-xl-5 logo_upload" style="display: none;">Proceed</button>
                         </div>
                     </div>
                     
@@ -623,7 +626,10 @@
                     function logo_submit(line_id) {
 
                         let proceed_id = `#line_json_proceed_${line_id}`;
-                        console.log("prceed id: ", proceed_id)
+                        let proceed1_id = `#line_json_proceed1_${line_id}`;
+                        let proceed2_id = `#line_json_proceed2_${line_id}`;
+                        let proceed3_id = `#line_json_proceed3_${line_id}`;
+                        console.log("prceed 2 id: ", proceed2_id)
 
                         let id = `#submit_button_${line_id}`;
                         let form_id = `#form_json_submit_${line_id}`;
@@ -667,6 +673,8 @@
                         .then(async function (description) {
                             descrip = await description;
 
+                            document.querySelector(input_id).style.display = "block";
+
                             // add the title for the first position by opening the dialog
                             if (descrip["submissions"][descrip["logo position"]]) {
                                 document.querySelector(title_id).innerHTML = await `Logo for: ${descrip["logo position"]} position is submitted`;
@@ -697,17 +705,26 @@
                         })
 
                         async function proceeding() {
+                            imgPreview.parentNode.style.display = "none";
+
                             if (descrip["additional logo 1"] === "yes") {
                                 document.querySelector(submit_id).style.display = "none";
                                 document.querySelector(input_id).style.display = "none";
                                 document.querySelector(extra1_input_id).style.display = "block";
-                                imgPreview.parentNode.style.display = "none";
-                                document.querySelector(title_id).innerHTML = await `Add logo for: ${descrip["additional logo position 1"]} position`;
+
+                                if (descrip["submissions"][descrip["additional logo position 1"]]) {
+                                    document.querySelector(title_id).innerHTML = await `Logo for: ${descrip["additional logo position 1"]} position is submitted`;
+                                    imgPreview_extra1.src = "data:image/png;base64," + descrip["submissions"][descrip["additional logo position 1"]];
+                                    imgPreview_extra1.parentNode.style.display = "block";
+                                    document.querySelector(proceed1_id).style.display = "block";
+                                }
+                                else {
+                                    document.querySelector(title_id).innerHTML = await `Add logo for: ${descrip["additional logo position 1"]} position`;
+                                }
                             }
                             else {
                                 document.querySelector(submit_id).style.display = "none";
                                 document.querySelector(input_id).style.display = "none";
-                                imgPreview.parentNode.style.display = "none";
                                 document.querySelector(title_id).innerHTML = "<span>Logos for all required positions</span><br/><span>have been uploaded</span><br/><span>Thanks</span>";
                             }
 
@@ -715,42 +732,67 @@
                         }
 
                         async function proceeding_1() {
+                            imgPreview_extra1.parentNode.style.display = "none";
+
                             if (descrip["additional logo 2"] === "yes") {
                                 document.querySelector(extra1_submit_id).style.display = "none";
                                 document.querySelector(extra1_input_id).style.display = "none";
                                 document.querySelector(extra2_input_id).style.display = "block";
-                                imgPreview_extra1.parentNode.style.display = "none";
-                                document.querySelector(title_id).innerHTML = await `Add logo for: ${descrip["additional logo position 2"]} position`;
+
+                                if (descrip["submissions"][descrip["additional logo position 2"]]) {
+                                    document.querySelector(title_id).innerHTML = await `Logo for: ${descrip["additional logo position 2"]} position is submitted`;
+                                    imgPreview_extra2.src = "data:image/png;base64," + descrip["submissions"][descrip["additional logo position 2"]];
+                                    imgPreview_extra2.parentNode.style.display = "block";
+                                    document.querySelector(proceed2_id).style.display = "block";
+                                }
+                                else {
+                                    document.querySelector(title_id).innerHTML = await `Add logo for: ${descrip["additional logo position 2"]} position`;
+                                }
                             }
                             else {
                                 document.querySelector(extra1_submit_id).style.display = "none";
                                 document.querySelector(extra1_input_id).style.display = "none";
-                                imgPreview_extra1.parentNode.style.display = "none";
                                 document.querySelector(title_id).innerHTML = "<span>Logos for all selected positions</span><br/><span>are uploaded</span><br/><span>thanks</span>";
                             }
+
+                            document.querySelector(proceed1_id).style.display = "none";
                         }
 
                         async function proceeding_2() {
+                            imgPreview_extra2.parentNode.style.display = "none";
+
                             if (descrip["additional logo 3"] === "yes") {
                                 document.querySelector(extra2_submit_id).style.display = "none";
                                 document.querySelector(extra2_input_id).style.display = "none";
                                 document.querySelector(extra3_input_id).style.display = "block";
-                                imgPreview_extra2.parentNode.style.display = "none";
-                                document.querySelector(title_id).innerHTML = await `Add logo for: ${descrip["additional logo position 3"]} position`;
+
+                                if (descrip["submissions"][descrip["additional logo position 3"]]) {
+                                    document.querySelector(title_id).innerHTML = await `Logo for: ${descrip["additional logo position 3"]} position is submitted`;
+                                    imgPreview_extra3.src = "data:image/png;base64," + descrip["submissions"][descrip["additional logo position 3"]];
+                                    imgPreview_extra3.parentNode.style.display = "block";
+                                    document.querySelector(proceed3_id).style.display = "block";
+                                }
+                                else {
+                                    document.querySelector(title_id).innerHTML = await `Add logo for: ${descrip["additional logo position 3"]} position`;
+                                }
                             }
                             else {
                                 document.querySelector(extra2_submit_id).style.display = "none";
                                 document.querySelector(extra2_input_id).style.display = "none";
-                                imgPreview_extra2.parentNode.style.display = "none";
                                 document.querySelector(title_id).innerHTML = "<span>Logos for all selected positions</span><br/><span>are uploaded</span><br/><span>Thanks</span>";
                             }
+
+                            document.querySelector(proceed2_id).style.display = "none";
                         }
 
                         async function proceeding_3() {
+                            imgPreview_extra3.parentNode.style.display = "none";
+
                             document.querySelector(extra3_submit_id).style.display = "none";
                             document.querySelector(extra3_input_id).style.display = "none";
-                            imgPreview_extra3.parentNode.style.display = "none";
                             document.querySelector(title_id).innerHTML = "<span>Logos for all selected positions</span><br/><span>are uploaded</span><br/><span>thanks</span>";
+
+                            document.querySelector(proceed3_id).style.display = "none";
                         }
 
                         // proceed without submitting
@@ -759,6 +801,24 @@
                             event.preventDefault();
 
                             proceeding()
+                        });
+                        document.querySelector(proceed1_id).addEventListener('click', function () {
+                            // Prevents the page from reloading
+                            event.preventDefault();
+
+                            proceeding_1()
+                        });
+                        document.querySelector(proceed2_id).addEventListener('click', function () {
+                            // Prevents the page from reloading
+                            event.preventDefault();
+
+                            proceeding_2()
+                        });
+                        document.querySelector(proceed3_id).addEventListener('click', function () {
+                            // Prevents the page from reloading
+                            event.preventDefault();
+
+                            proceeding_3()
                         });
 
                         // submit the logo
@@ -792,7 +852,6 @@
                                         console.log("This data: " + data + "\n------ Is sent to server");
                                         console.log(data);
                                     });
-
                                 })
                             }
                         )
@@ -808,22 +867,28 @@
 
                                 // make post request via fetch to upload the extra 1 logo
                                 let file = document.querySelector(extra1_input_id).files[0];
-                                let text = await file.text();
+                                let fileReader = new FileReader();
+                                fileReader.readAsDataURL(file);
+                                fileReader.addEventListener("load", async function () {
+                                    // get image binaries without it's data padding
+                                    let str_64 = await `${this.result}`.split(',')[1];
+                                    
+                                    console.log("the link: ", str_64)
 
-                                fetch(`/logo/post/${line_id}`, {
-                                    method: 'POST',
-                                    body: JSON.stringify({
-                                        file: text,
-                                        logo_position: descrip["additional logo position 1"]
+                                    fetch(`/logo/post/${line_id}`, {
+                                        method: 'POST',
+                                        body: JSON.stringify({
+                                            file: str_64,
+                                            logo_position: descrip["additional logo position 1"]
+                                        })
                                     })
+                                    .then(function (response) {
+                                        return response.json();
+                                    })
+                                    .then(function (data) {
+                                        console.log("This data: " + data + "\n------ Is sent to server");
+                                    });
                                 })
-                                .then(function (response) {
-                                    return response.json();
-                                })
-                                .then(function (data) {
-                                    console.log("This data: " + data + "\n------ Is sent to server");
-                                });
-
                             }
                         )
 
@@ -838,22 +903,28 @@
 
                                 // make post request via fetch to upload the extra 2 logo
                                 let file = document.querySelector(extra2_input_id).files[0];
-                                let text = await file.text();
+                                let fileReader = new FileReader();
+                                fileReader.readAsDataURL(file);
+                                fileReader.addEventListener("load", async function () {
+                                    // get image binaries without it's data padding
+                                    let str_64 = await `${this.result}`.split(',')[1];
+                                    
+                                    console.log("the link: ", str_64)
 
-                                fetch(`/logo/post/${line_id}`, {
-                                    method: 'POST',
-                                    body: JSON.stringify({
-                                        file: text,
-                                        logo_position: descrip["additional logo position 2"]
+                                    fetch(`/logo/post/${line_id}`, {
+                                        method: 'POST',
+                                        body: JSON.stringify({
+                                            file: str_64,
+                                            logo_position: descrip["additional logo position 2"]
+                                        })
                                     })
+                                    .then(function (response) {
+                                        return response.json();
+                                    })
+                                    .then(function (data) {
+                                        console.log("This data: " + data + "\n------ Is sent to server");
+                                    });
                                 })
-                                .then(function (response) {
-                                    return response.json();
-                                })
-                                .then(function (data) {
-                                    console.log("This data: " + data + "\n------ Is sent to server");
-                                });
-
                             }
                         )
 
@@ -868,22 +939,28 @@
 
                                 // make post request via fetch to upload the extra 3 logo
                                 let file = document.querySelector(extra3_input_id).files[0];
-                                let text = await file.text();
+                                let fileReader = new FileReader();
+                                fileReader.readAsDataURL(file);
+                                fileReader.addEventListener("load", async function () {
+                                    // get image binaries without it's data padding
+                                    let str_64 = await `${this.result}`.split(',')[1];
+                                    
+                                    console.log("the link: ", str_64)
 
-                                fetch(`/logo/post/${line_id}`, {
-                                    method: 'POST',
-                                    body: JSON.stringify({
-                                        file: text,
-                                        logo_position: descrip["additional logo position 3"]
+                                    fetch(`/logo/post/${line_id}`, {
+                                        method: 'POST',
+                                        body: JSON.stringify({
+                                            file: str_64,
+                                            logo_position: descrip["additional logo position 3"]
+                                        })
                                     })
+                                    .then(function (response) {
+                                        return response.json();
+                                    })
+                                    .then(function (data) {
+                                        console.log("This data: " + data + "\n------ Is sent to server");
+                                    });
                                 })
-                                .then(function (response) {
-                                    return response.json();
-                                })
-                                .then(function (data) {
-                                    console.log("This data: " + data + "\n------ Is sent to server");
-                                });
-                                
                             }
                         )
 

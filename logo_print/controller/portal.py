@@ -193,7 +193,7 @@ class LogoRecord(WebsiteSale):
             submitted_logos[logo.position] = logo.image.decode('utf-8')
 
         print("****************************************")
-        print(submitted_logos, line)
+        print(line, body)
         print("****************************************")
 
         body['submissions'] = submitted_logos
