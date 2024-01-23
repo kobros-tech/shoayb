@@ -10,32 +10,32 @@ from PIL import Image
 class LogoRecord(WebsiteSale):
 
 
-    @http.route(['/shop/cart'], type='http', auth="public", website=True, sitemap=False)
-    def cart(self, access_token=None, revive='', **post):
+    # @http.route(['/shop/cart'], type='http', auth="public", website=True, sitemap=False)
+    # def cart(self, access_token=None, revive='', **post):
         
-        result = super(LogoRecord, self).cart(access_token=None, revive='', **post)
+    #     result = super(LogoRecord, self).cart(access_token=None, revive='', **post)
 
-        # sale order id
-        order = request.website.sale_get_order()
-        print(order)
-        print(order.name)
+    #     # sale order id
+    #     order = request.website.sale_get_order()
+    #     print(order)
+    #     print(order.name)
 
-        # customer        
-        user = request.env.user
-        print(f"{user.name}: ")
+    #     # customer        
+    #     user = request.env.user
+    #     print(f"{user.name}: ")
 
-        # logo position
-        position = post.get("order")
+    #     # logo position
+    #     position = post.get("order")
 
-        print("-----------------------load-----------------------------")
-        print("----------------------------------------------------")
-        print("-------------------------GET---------------------------")
-        print(order)
-        print(position)
-        print("----------------------------------------------------")
-        print("----------------------------------------------------")
+    #     print("-----------------------load-----------------------------")
+    #     print("----------------------------------------------------")
+    #     print("-------------------------GET---------------------------")
+    #     print(order)
+    #     print(position)
+    #     print("----------------------------------------------------")
+    #     print("----------------------------------------------------")
 
-        return super(LogoRecord, self).cart(access_token=None, revive='', **post)
+    #     return super(LogoRecord, self).cart(access_token=None, revive='', **post)
 
     
         
