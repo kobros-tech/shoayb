@@ -52,11 +52,11 @@ class LogoLibrary(models.Model):
         depends=['order_id'],
         store=True
         )
-    partner_name = fields.Char(
-        related="partner_id.name",
-        depends=['partner_id'],
-        store=True
-        )
+    # partner_name = fields.Char(
+    #     related="partner_id.name",
+    #     depends=['partner_id'],
+    #     store=True
+    #     )
 
     # ------------------------------------------ CRUD Methods -------------------------------------
 

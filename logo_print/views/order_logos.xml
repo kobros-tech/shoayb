@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
+    <!-- display logos in sale order form -->
     <record id="view_order_form_custom" model="ir.ui.view">
         <field name="name">sale.order.form.custom</field>
         <field name="model">sale.order</field>
@@ -17,6 +18,28 @@
                         </tree>
                     </field>
                 </page>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- display logos in sale order line form -->
+    <record id="sale_order_line_view_form_readonly_custom" model="ir.ui.view">
+        <field name="name">sale.order.line.form.custom</field>
+        <field name="model">sale.order.line</field>
+        <field name="inherit_id" ref="sale.sale_order_line_view_form_readonly"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet//group" position="inside">
+                <notebook>
+                    <page string="Order Line Submitted Logos" name="order_line_submitted_logos">
+                        <field name="logo_ids" mode="tree">
+                            <tree>
+                                <field name="name" optional="show"/>
+                                <field name="position" optional="show"/>
+                                <field name="image" widget="image" optional="show" options="{'size': [150, 150]}"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
             </xpath>
         </field>
     </record>

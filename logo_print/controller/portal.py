@@ -135,7 +135,7 @@ class LogoRecord(WebsiteSale):
 
 
     # JSON POST in Cart view
-    @http.route(["/logo/post/<model('sale.order.line'):line>"], type="http", methods=["POST"], auth="public", csrf=False, cors='*')
+    @http.route(["/logo/post/<model('sale.order.line'):line>"], type="http", methods=["POST", "PUT"], auth="user", csrf=False, cors='*')
     def post_logo_upload(self, line, **kw):
 
         data = json.loads(request.httprequest.data)
@@ -176,14 +176,21 @@ class LogoRecord(WebsiteSale):
             result = {'error': "Missing the logo image file"}
             return Response(json.dumps(result), headers=headers, status=400)
 
-        # Create new record
-        new_record = request.env["library"].create(vals)
-
         body = {'result': "The logo is submitted successfully"}
-        return Response(json.dumps(body), headers=headers, status=201)
+
+        if request.httprequest.method == "POST":
+            # Create new record
+            new_record = request.env["library"].create(vals)
+            return Response(json.dumps(body), headers=headers, status=201)
+
+        elif request.httprequest.method == "PUT":
+            logo_rec = line.logo_ids.filtered(lambda logo: logo.position == vals['position'])[:1]
+            if logo_rec:
+                logo_rec.image = vals['image']
+                return Response(json.dumps(body), headers=headers, status=204)
 
     
-    @http.route(["/logo/get/<model('sale.order.line'):line>"], type="http", methods=["GET"], auth="public", cors='*')
+    @http.route(["/logo/get/<model('sale.order.line'):line>"], type="http", methods=["GET"], auth="user", cors='*')
     def get_logo_upload(self, line, **kw):
         body = self.logo_description(line)
         
@@ -191,10 +198,6 @@ class LogoRecord(WebsiteSale):
 
         for logo in line.logo_ids:
             submitted_logos[logo.position] = logo.image.decode('utf-8')
-
-        print("****************************************")
-        print(line, body)
-        print("****************************************")
 
         body['submissions'] = submitted_logos
         headers = {'Content-Type': 'application/json'}
