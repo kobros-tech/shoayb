@@ -12,5 +12,6 @@
             <!-- The owner's account will be appended here -->
             <field name="users" eval="[(4, ref('base.user_admin'))]" />
         </record>
+
     </data>
 </odoo>
