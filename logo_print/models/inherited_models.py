@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from odoo import fields, models, api
+from odoo.exceptions import ValidationError
+import string
 
 
 class ProductAttribute(models.Model):
@@ -51,7 +53,8 @@ class PrintingAttribute(models.Model):
     def _onchange_position_id(self):
         for rec in self:
             if rec.position_id.name:
-                rec.name = rec.position_id.name
+                cased_name = rec.position_id.name
+                rec.name = string.capwords(cased_name)
 
 
 class SaleOrderLine(models.Model):
@@ -71,8 +74,6 @@ class SaleOrder(models.Model):
     # ---------------------------------------- Private Attributes ---------------------------------
 
     _inherit = "sale.order"
-
-    # ---------------------------------------- Default Methods ------------------------------------
     
     # --------------------------------------- Fields Declaration ----------------------------------
 
@@ -80,5 +81,40 @@ class SaleOrder(models.Model):
     logo_ids = fields.One2many("library", "order_id", string="All Logos")
 
     # ---------------------------------------- Compute methods ------------------------------------
+
+class ProductTemplate(models.Model):
+
+    # ---------------------------------------- Private Attributes ---------------------------------
+
+    _inherit = "product.template.attribute.line"
+
+    # ----------------------------------- Constrains and Onchanges --------------------------------
+
+    @api.constrains("attribute_id")
+    def _check_position_id(self):
+        # Method to make a single record of logo positions attributes and their boolean attributes too
+
+        xml_ids = [
+            "logo_print.product_attribute_logo_position",
+            "logo_print.product_attribute_extra1",
+            "logo_print.product_attribute_logo_position_1",
+            "logo_print.product_attribute_extra2",
+            "logo_print.product_attribute_logo_position_2",
+            "logo_print.product_attribute_extra3",
+            "logo_print.product_attribute_logo_position_3",
+        ]
+
+        p_t_at_line_ids = self.product_tmpl_id.attribute_line_ids
+
+        if self.id in p_t_at_line_ids.mapped("id"):
+            att_xml_id = self.attribute_id.get_metadata()[0].get('xmlid')
+
+            if self.display_name in p_t_at_line_ids.mapped("display_name"):
+                raise ValidationError(f"This \"{self.display_name}\" name is already used. \nIt is against other functionalities to duplicate the same name of some attributes.")
+            
+            if att_xml_id in xml_ids:
+                raise ValidationError(f"The record of {self.display_name} can only be used once in a product template")
+        
+        print(p_t_at_line_ids.mapped("display_name"))
 
     

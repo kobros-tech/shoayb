@@ -181,17 +181,37 @@
                         
                         // hide printing attribute
                         if (attribute_element.dataset.attribute_id === ptal_printing_id) {
-                            // attribute_element.style.display = "none";
+                            attribute_element.style.display = "none";
                         }
 
                         // hide extra printing attribute
                         if (attribute_element.dataset.attribute_id === extra_y_n_attr_id) {
-                            // attribute_element.style.display = "none";
+                            attribute_element.style.display = "none";
                         }
 
                         // hide extra printing choice attribute
                         if (attribute_element.dataset.attribute_id === ptal_extra_printing_id) {
-                            // attribute_element.style.display = "none";
+                            attribute_element.style.display = "none";
+                        }
+
+                        // hide extra 2 printing attribute
+                        if (attribute_element.dataset.attribute_id === extra2_y_n_attr_id) {
+                            attribute_element.style.display = "none";
+                        }
+
+                        // hide extra 2 printing choice attribute
+                        if (attribute_element.dataset.attribute_id === ptal_extra2_printing_id) {
+                            attribute_element.style.display = "none";
+                        }
+
+                        // hide extra 2 printing attribute
+                        if (attribute_element.dataset.attribute_id === extra3_y_n_attr_id) {
+                            attribute_element.style.display = "none";
+                        }
+
+                        // hide extra 2 printing choice attribute
+                        if (attribute_element.dataset.attribute_id === ptal_extra3_printing_id) {
+                            attribute_element.style.display = "none";
                         }
 
                     });
@@ -386,20 +406,20 @@
 
                     let table_2 = document.querySelector("#table-of-locactions-2");
                     table_2.querySelectorAll("td").forEach(function(td) {
-                        if (td.dataset.value_name === disable_name) {
+                        if (td.dataset.value_name.toUpperCase() === disable_name.toUpperCase()) {
                             td.querySelector("button").disabled = true;
                         }
                     })
 
                     let table_3 = document.querySelector("#table-of-locactions-3");
                     table_3.querySelectorAll("td").forEach(function(td) {
-                        if (td.dataset.value_name === disable_name) {
+                        if (td.dataset.value_name.toUpperCase() === disable_name.toUpperCase()) {
                             td.querySelector("button").disabled = true;
                         }
                     })
                     let table_4 = document.querySelector("#table-of-locactions-4");
                     table_4.querySelectorAll("td").forEach(function(td) {
-                        if (td.dataset.value_name === disable_name) {
+                        if (td.dataset.value_name.toUpperCase() === disable_name.toUpperCase()) {
                             td.querySelector("button").disabled = true;
                         }
                     })
@@ -440,14 +460,14 @@
 
                     let table_3 = document.querySelector("#table-of-locactions-3");
                     table_3.querySelectorAll("td").forEach(function(td) {
-                        if (td.dataset.value_name === disable_name) {
+                        if (td.dataset.value_name.toUpperCase() === disable_name.toUpperCase()) {
                             td.querySelector("button").disabled = true;
                         }
                     })
 
                     let table_4 = document.querySelector("#table-of-locactions-4");
                     table_4.querySelectorAll("td").forEach(function(td) {
-                        if (td.dataset.value_name === disable_name) {
+                        if (td.dataset.value_name.toUpperCase() === disable_name.toUpperCase()) {
                             td.querySelector("button").disabled = true;
                         }
                     })
@@ -486,7 +506,7 @@
 
                     let table_4 = document.querySelector("#table-of-locactions-4");
                     table_4.querySelectorAll("td").forEach(function(td) {
-                        if (td.dataset.value_name === disable_name) {
+                        if (td.dataset.value_name.toUpperCase() === disable_name.toUpperCase()) {
                             td.querySelector("button").disabled = true;
                         }
                     })
@@ -615,13 +635,6 @@
 
                     var descrip = {};
 
-                    // get the logos description json at page load or at value change
-                    document.addEventListener('DOMContentLoaded', function() {
-                        document.addEventListener('change', function() {
-                            
-                        })
-                    })
-
                     // open the dialog
                     function logo_submit(line_id) {
 
@@ -707,19 +720,22 @@
                         async function proceeding() {
                             imgPreview.parentNode.style.display = "none";
 
-                            if (descrip["additional logo 1"] === "yes") {
-                                document.querySelector(submit_id).style.display = "none";
-                                document.querySelector(input_id).style.display = "none";
-                                document.querySelector(extra1_input_id).style.display = "block";
+                            if (descrip["additional logo 1"]) {
 
-                                if (descrip["submissions"][descrip["additional logo position 1"]]) {
-                                    document.querySelector(title_id).innerHTML = await `Logo for: ${descrip["additional logo position 1"]} position is submitted`;
-                                    imgPreview_extra1.src = "data:image/png;base64," + descrip["submissions"][descrip["additional logo position 1"]];
-                                    imgPreview_extra1.parentNode.style.display = "block";
-                                    document.querySelector(proceed1_id).style.display = "block";
-                                }
-                                else {
-                                    document.querySelector(title_id).innerHTML = await `Add logo for: ${descrip["additional logo position 1"]} position`;
+                                if (descrip["additional logo 1"].toUpperCase() === "yes".toUpperCase()) {
+                                    document.querySelector(submit_id).style.display = "none";
+                                    document.querySelector(input_id).style.display = "none";
+                                    document.querySelector(extra1_input_id).style.display = "block";
+
+                                    if (descrip["submissions"][descrip["additional logo position 1"]]) {
+                                        document.querySelector(title_id).innerHTML = await `Logo for: ${descrip["additional logo position 1"]} position is submitted`;
+                                        imgPreview_extra1.src = "data:image/png;base64," + descrip["submissions"][descrip["additional logo position 1"]];
+                                        imgPreview_extra1.parentNode.style.display = "block";
+                                        document.querySelector(proceed1_id).style.display = "block";
+                                    }
+                                    else {
+                                        document.querySelector(title_id).innerHTML = await `Add logo for: ${descrip["additional logo position 1"]} position`;
+                                    }
                                 }
                             }
                             else {
@@ -734,19 +750,22 @@
                         async function proceeding_1() {
                             imgPreview_extra1.parentNode.style.display = "none";
 
-                            if (descrip["additional logo 2"] === "yes") {
-                                document.querySelector(extra1_submit_id).style.display = "none";
-                                document.querySelector(extra1_input_id).style.display = "none";
-                                document.querySelector(extra2_input_id).style.display = "block";
+                            if (descrip["additional logo 2"]) {
 
-                                if (descrip["submissions"][descrip["additional logo position 2"]]) {
-                                    document.querySelector(title_id).innerHTML = await `Logo for: ${descrip["additional logo position 2"]} position is submitted`;
-                                    imgPreview_extra2.src = "data:image/png;base64," + descrip["submissions"][descrip["additional logo position 2"]];
-                                    imgPreview_extra2.parentNode.style.display = "block";
-                                    document.querySelector(proceed2_id).style.display = "block";
-                                }
-                                else {
-                                    document.querySelector(title_id).innerHTML = await `Add logo for: ${descrip["additional logo position 2"]} position`;
+                                if (descrip["additional logo 2"].toUpperCase() === "yes".toUpperCase()) {
+                                    document.querySelector(extra1_submit_id).style.display = "none";
+                                    document.querySelector(extra1_input_id).style.display = "none";
+                                    document.querySelector(extra2_input_id).style.display = "block";
+
+                                    if (descrip["submissions"][descrip["additional logo position 2"]]) {
+                                        document.querySelector(title_id).innerHTML = await `Logo for: ${descrip["additional logo position 2"]} position is submitted`;
+                                        imgPreview_extra2.src = "data:image/png;base64," + descrip["submissions"][descrip["additional logo position 2"]];
+                                        imgPreview_extra2.parentNode.style.display = "block";
+                                        document.querySelector(proceed2_id).style.display = "block";
+                                    }
+                                    else {
+                                        document.querySelector(title_id).innerHTML = await `Add logo for: ${descrip["additional logo position 2"]} position`;
+                                    }
                                 }
                             }
                             else {
@@ -761,19 +780,22 @@
                         async function proceeding_2() {
                             imgPreview_extra2.parentNode.style.display = "none";
 
-                            if (descrip["additional logo 3"] === "yes") {
-                                document.querySelector(extra2_submit_id).style.display = "none";
-                                document.querySelector(extra2_input_id).style.display = "none";
-                                document.querySelector(extra3_input_id).style.display = "block";
+                            if (descrip["additional logo 3"]) {
+                                
+                                if (descrip["additional logo 3"].toUpperCase() === "yes".toUpperCase()) {
+                                    document.querySelector(extra2_submit_id).style.display = "none";
+                                    document.querySelector(extra2_input_id).style.display = "none";
+                                    document.querySelector(extra3_input_id).style.display = "block";
 
-                                if (descrip["submissions"][descrip["additional logo position 3"]]) {
-                                    document.querySelector(title_id).innerHTML = await `Logo for: ${descrip["additional logo position 3"]} position is submitted`;
-                                    imgPreview_extra3.src = "data:image/png;base64," + descrip["submissions"][descrip["additional logo position 3"]];
-                                    imgPreview_extra3.parentNode.style.display = "block";
-                                    document.querySelector(proceed3_id).style.display = "block";
-                                }
-                                else {
-                                    document.querySelector(title_id).innerHTML = await `Add logo for: ${descrip["additional logo position 3"]} position`;
+                                    if (descrip["submissions"][descrip["additional logo position 3"]]) {
+                                        document.querySelector(title_id).innerHTML = await `Logo for: ${descrip["additional logo position 3"]} position is submitted`;
+                                        imgPreview_extra3.src = "data:image/png;base64," + descrip["submissions"][descrip["additional logo position 3"]];
+                                        imgPreview_extra3.parentNode.style.display = "block";
+                                        document.querySelector(proceed3_id).style.display = "block";
+                                    }
+                                    else {
+                                        document.querySelector(title_id).innerHTML = await `Add logo for: ${descrip["additional logo position 3"]} position`;
+                                    }
                                 }
                             }
                             else {
