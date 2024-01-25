@@ -144,12 +144,13 @@
                 var ptal_printing_id = "<t t-esc='ptal_printing.attribute_id.id'/>";
                 
                 // testing
-                testing_product_url = "<t t-esc='product.website_url'/>"
-                testing_base_url = "<t t-esc="base_url"/>"
-                console.log("combination")
-                console.log(window.location.href)
-                console.log(testing_base_url + testing_product_url)
-                console.log()
+                // testing_product_url = "<t t-esc='product.website_url'/>"
+                // testing_base_url = "<t t-esc="base_url"/>"
+                // testing_combination = "<t t-esc="combination.ids"/>"
+
+                ptavs_extra_printing = "<t t-esc="ptavs_extra_printing.ids" />"
+                ptavs_extra2_printing = "<t t-esc="ptavs_extra2_printing.ids" />"
+                ptavs_extra3_printing = "<t t-esc="ptavs_extra3_printing.ids" />"
 
                 // the extra 1 choice yes/no
                 var extra_y_n_attr_line_id = "<t t-esc='ptal_extra_yes_no.id'/>";
@@ -189,43 +190,44 @@
                         
                         // hide printing attribute
                         if (attribute_element.dataset.attribute_id === ptal_printing_id) {
-                            // attribute_element.style.display = "block";
+                            attribute_element.style.display = "none";
                         }
 
                         // hide extra printing attribute
                         if (attribute_element.dataset.attribute_id === extra_y_n_attr_id) {
-                            attribute_element.style.display = "block";
+                            attribute_element.style.display = "none";
                         }
 
                         // hide extra printing choice attribute
                         if (attribute_element.dataset.attribute_id === ptal_extra_printing_id) {
-                            attribute_element.style.display = "block";
+                            attribute_element.style.display = "none";
                         }
 
                         // hide extra 2 printing attribute
                         if (attribute_element.dataset.attribute_id === extra2_y_n_attr_id) {
-                            attribute_element.style.display = "block";
+                            attribute_element.style.display = "none";
                         }
 
                         // hide extra 2 printing choice attribute
                         if (attribute_element.dataset.attribute_id === ptal_extra2_printing_id) {
-                            attribute_element.style.display = "block";
+                            attribute_element.style.display = "none";
                         }
 
-                        // hide extra 2 printing attribute
+                        // hide extra 3 printing attribute
                         if (attribute_element.dataset.attribute_id === extra3_y_n_attr_id) {
-                            attribute_element.style.display = "block";
+                            attribute_element.style.display = "none";
                         }
 
-                        // hide extra 2 printing choice attribute
+                        // hide extra 3 printing choice attribute
                         if (attribute_element.dataset.attribute_id === ptal_extra3_printing_id) {
-                            attribute_element.style.display = "block";
+                            attribute_element.style.display = "none";
                         }
 
                     });
                     
                     // before loading the page
-                    // setting_defaults()
+                    // this function is no longer needed as updating the url with the attributes values is caaling the combination cache
+                    setting_defaults()
                     
                 }); // end of DOM
                 
@@ -249,6 +251,11 @@
                         document.querySelectorAll("select").forEach(function (element) {
                             if (extra_y_n_attr_id === element.dataset.attribute_id) {
                                 element.value = extra_yes_id;
+
+                                // update the url with the attribute yes value
+                                let positions = [extra_no_id,extra_yes_id];
+                                let position = extra_yes_id;
+                                update_url(positions, position)
                             }
                         })
 
@@ -265,6 +272,11 @@
                         document.querySelectorAll("select").forEach(function (element) {
                             if (extra2_y_n_attr_id === element.dataset.attribute_id) {
                                 element.value = extra2_yes_id;
+
+                                // update the url with the attribute yes value
+                                let positions = [extra2_no_id, extra2_yes_id];
+                                let position = extra_yes_id;
+                                update_url(positions, position)
                             }
                         })
 
@@ -281,6 +293,11 @@
                         document.querySelectorAll("select").forEach(function (element) {
                             if (extra3_y_n_attr_id === element.dataset.attribute_id) {
                                 element.value = extra3_yes_id;
+
+                                // update the url with the attribute yes value
+                                let positions = [extra3_no_id, extra3_yes_id];
+                                let position = extra_yes_id;
+                                update_url(positions, position)
                             }
                         })
 
@@ -290,6 +307,7 @@
                 }); // end of DOM
 
 
+                // this function is no longer needed as updating the url with the attributes values is caaling the combination cache
                 // set defaults of all extra logos be "no" and "no thanks"
                 function setting_defaults() {
 
@@ -335,14 +353,14 @@
                                 let attr_line_name = `ptal-${ptal_extra_printing_line_id}`;
                                 let relevant_position = document.querySelector(`select[name=${attr_line_name}]`);
                                 if (element.value === extra_no_id) {
-                                    // relevant_position.value = extra_position_thanks;
+                                    relevant_position.value = extra_position_thanks;
                                 }
                             }
-                            // element.value = extra_no_id;
+                            element.value = extra_no_id;
                         }
                         // default is "no thanks" for extra 1 position
                         if (ptal_extra_printing_id === element.dataset.attribute_id) {
-                            // element.value = extra_position_thanks;
+                            element.value = extra_position_thanks;
                         }
 
                         // default is no for extra 2 logo
@@ -352,14 +370,14 @@
                                 let attr_line_name = `ptal-${ptal_extra2_printing_line_id}`;
                                 let relevant_position = document.querySelector(`select[name=${attr_line_name}]`);
                                 if (element.value === extra2_no_id) {
-                                    // relevant_position.value = extra_position2_thanks;
+                                    relevant_position.value = extra_position2_thanks;
                                 }
                             }
-                            // element.value =  extra2_no_id
+                            element.value =  extra2_no_id
                         }
                         // default is "no thanks" for extra 2 position
                         if (ptal_extra2_printing_id === element.dataset.attribute_id) {
-                            // element.value =  extra_position2_thanks
+                            element.value =  extra_position2_thanks
                         }
 
                         // default is no for extra 3 logo
@@ -372,13 +390,13 @@
                                     relevant_position.value = extra_position3_thanks;
                                 }
                             }
-                            // element.value =  extra3_no_id
+                            element.value =  extra3_no_id
                         }
                         // default is "no thanks" for extra 3 position
                         if (ptal_extra3_printing_id === element.dataset.attribute_id) {
                             element.value =  extra_position3_thanks
                         }
-                    });
+                    });               
                 }
 
 
@@ -565,6 +583,35 @@
                     // remove the last comma (not needed)
                     location.href = new_url.slice(0, -1);
                 }
+
+                function dialog(positions1, positions2, positions3) {
+                    // before opening return all extra values to "no" and "no thanks"
+                    document.querySelectorAll("select").forEach(function (element) {
+                        if (ptal_printing_id === element.dataset.attribute_id) {
+                            
+                            // before opening the dialog
+                            setting_defaults()
+                        }
+                    });
+
+
+                    document.querySelector("#first_logo_table").style.display = "block";
+                    document.querySelector("#second_logo_table").style.display = "none";
+                    document.querySelector("#third_logo_table").style.display = "none";
+                    document.querySelector("#fourth_logo_table").style.display = "none";
+                    document.querySelector("#extra_logo_choice").style.display = "none";
+                    document.querySelector("#extra2_logo_choice").style.display = "none";
+                    document.querySelector("#extra3_logo_choice").style.display = "none";
+                    document.querySelector("dialog[id='dialog_positions']").showModal();
+
+                    update_url(positions1, extra_position_thanks)
+                    update_url(positions2, extra_position2_thanks)
+                    update_url(positions3, extra_position3_thanks)
+
+                    update_url([extra_no_id, extra_yes_id], extra_no_id)
+                    update_url([extra2_no_id, extra2_yes_id], extra2_no_id)
+                    update_url([extra3_no_id, extra3_yes_id], extra3_no_id)
+                }
                                 
             </script>
         
@@ -579,6 +626,18 @@
                 <br/>
                 <t t-call="logo_print.product_logo_dialog"></t>
 
+                <t t-set="ptals" t-value="product.valid_product_template_attribute_line_ids"/>
+                
+                <t t-set="ptal_extra_printing" t-value="ptals.filtered(lambda ptal: ptal.attribute_id.get_metadata()[0].get('xmlid') == 'logo_print.product_attribute_logo_position_1')"/>
+                <t t-set="ptavs_extra_printing"  t-value="ptal_extra_printing.product_template_value_ids._only_active()" />
+
+                <t t-set="ptal_extra2_printing" t-value="ptals.filtered(lambda ptal: ptal.attribute_id.get_metadata()[0].get('xmlid') == 'logo_print.product_attribute_logo_position_2')"/>
+                <t t-set="ptavs_extra2_printing"  t-value="ptal_extra2_printing.product_template_value_ids._only_active()" />
+
+                <t t-set="ptal_extra3_printing" t-value="ptals.filtered(lambda ptal: ptal.attribute_id.get_metadata()[0].get('xmlid') == 'logo_print.product_attribute_logo_position_3')"/>
+                <t t-set="ptavs_extra3_printing"  t-value="ptal_extra3_printing.product_template_value_ids._only_active()" />
+                
+
                 <div>
                     <button id="extra_logo_choice" style="display: none;" class="btn btn-primary">Add Second Location</button>
                     <button id="extra2_logo_choice" style="display: none;" class="btn btn-primary">Add Third Location</button>
@@ -590,7 +649,7 @@
                 </div>
             </dialog>
             <div>
-                <button id="greeting_id" type="button" class="btn btn-primary">Choose logo position</button>
+                <button id="greeting_id" t-attf-onclick="dialog({{ptavs_extra_printing.ids}}, {{ptavs_extra2_printing.ids}}, {{ptavs_extra3_printing.ids}})" type="button" class="btn btn-primary">Choose logo position</button>
             </div>
             <br/>
         
