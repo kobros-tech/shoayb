@@ -1,5 +1,6 @@
 from odoo.addons.portal.controllers.portal import CustomerPortal, pager
 from odoo.addons.website_sale.controllers.main import WebsiteSale, WebsiteSaleForm
+from odoo.addons.website.controllers.main import QueryURL
 from odoo.http import request, Response
 from odoo import http
 import json
@@ -37,6 +38,47 @@ class LogoRecord(WebsiteSale):
 
     #     return super(LogoRecord, self).cart(access_token=None, revive='', **post)
 
+
+    @http.route([
+        '/shop',
+        '/shop/page/<int:page>',
+        '/shop/category/<model("product.public.category"):category>',
+        '/shop/category/<model("product.public.category"):category>/page/<int:page>',
+    ], type='http', auth="public", website=True, sitemap=WebsiteSale.sitemap_shop)
+    def shop(self, page=0, category=None, search='', min_price=0.0, max_price=0.0, ppg=False, **post):
+
+        print("*********************/shop*********************")
+
+        return super().shop(page=0, category=None, search='', min_price=0.0, max_price=0.0, ppg=False, **post)
+    
+
+    @http.route(['/shop/<model("product.template"):product>'], type='http', auth="public", website=True, sitemap=True)
+    def product(self, product, category='', search='', **kwargs):
+
+        custom_attrib_list = request.httprequest.args.getlist('attrib')
+
+        parent = super().product(product, category='', search='', **kwargs)
+
+        result = self._prepare_product_values(product, category, search, **kwargs)
+
+        new_keep = QueryURL(
+            '/shop',
+            **self._product_get_query_url_kwargs(
+                category=category and category.id,
+                search=search,
+                **kwargs,
+            ),
+        )
+
+        print("*********************/shop/product.template*********************")
+        print(result)
+        print(custom_attrib_list, new_keep)
+        print(http.request.env['ir.config_parameter'].get_param('web.base.url')) # BASE URL
+        print(http.request.httprequest)
+        print(http.request.httprequest.full_path)
+        print("*********************/shop/product.template*********************")
+
+        return parent
     
         
     @http.route(["/logo/form/"], type="http", methods=["GET", "POST"], auth="user", website=True)

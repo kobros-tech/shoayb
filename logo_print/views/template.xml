@@ -21,7 +21,7 @@
                                 <h4>
                                     <t t-out="ptav_printing.name"/>
                                 </h4>
-                                <button type="button" t-attf-value="{{ptav_printing.id}}" t-attf-onclick="choose_option({{ptav_printing.id}})" class="btn btn-dialog" style="background-color: Transparent; background-repeat:no-repeat; border: none; cursor:pointer; overflow: hidden;">
+                                <button type="button" t-attf-value="{{ptav_printing.id}}" t-attf-onclick="choose_option({{ptav_printing.id}}, {{ptavs_printing.ids}})" class="btn btn-dialog" style="background-color: Transparent; background-repeat:no-repeat; border: none; cursor:pointer; overflow: hidden;">
                                     <div class="img-hold">
                                         <img t-attf-src="data:image/png;base64,{{ptav_printing.product_attribute_value_id.collection_image}}" alt="avatar" class="img-responsive center-block" style="width: 100px"/>
                                     </div>
@@ -57,7 +57,7 @@
                                 <h4>
                                     <t t-out="ptav_extra_printing.name"/>
                                 </h4>
-                                <button type="button" t-attf-value="{{ptav_extra_printing}}" t-attf-onclick="choose_extra_option({{ptav_extra_printing.id}})" class="btn btn-dialog" style="background-color: Transparent; background-repeat:no-repeat; border: none; cursor:pointer; overflow: hidden;">
+                                <button type="button" t-attf-value="{{ptav_extra_printing}}" t-attf-onclick="choose_extra_option({{ptav_extra_printing.id}}, {{ptavs_extra_printing.ids}})" class="btn btn-dialog" style="background-color: Transparent; background-repeat:no-repeat; border: none; cursor:pointer; overflow: hidden;">
                                     <div class="img-hold">
                                         <img t-attf-src="data:image/png;base64,{{ptav_extra_printing.product_attribute_value_id.collection_image}}" alt="avatar" class="img-responsive center-block" style="width: 100px"/>
                                     </div>
@@ -91,7 +91,7 @@
                                 <h4>
                                     <t t-out="ptav_extra2_printing.name"/>
                                 </h4>
-                                <button type="button" t-attf-value="{{ptav_extra2_printing}}" t-attf-onclick="choose_extra2_option({{ptav_extra2_printing.id}})" class="btn btn-dialog" style="background-color: Transparent; background-repeat:no-repeat; border: none; cursor:pointer; overflow: hidden;">
+                                <button type="button" t-attf-value="{{ptav_extra2_printing}}" t-attf-onclick="choose_extra2_option({{ptav_extra2_printing.id}}, {{ptavs_extra2_printing.ids}})" class="btn btn-dialog" style="background-color: Transparent; background-repeat:no-repeat; border: none; cursor:pointer; overflow: hidden;">
                                     <div class="img-hold">
                                         <img t-attf-src="data:image/png;base64,{{ptav_extra2_printing.product_attribute_value_id.collection_image}}" alt="avatar" class="img-responsive center-block" style="width: 100px"/>
                                     </div>
@@ -125,7 +125,7 @@
                                 <h4>
                                     <t t-out="ptav_extra3_printing.name"/>
                                 </h4>
-                                <button type="button" t-attf-value="{{ptav_extra3_printing}}" t-attf-onclick="choose_extra3_option({{ptav_extra3_printing.id}})" class="btn btn-dialog" style="background-color: Transparent; background-repeat:no-repeat; border: none; cursor:pointer; overflow: hidden;">
+                                <button type="button" t-attf-value="{{ptav_extra3_printing}}" t-attf-onclick="choose_extra3_option({{ptav_extra3_printing.id}}, {{ptavs_extra3_printing.ids}})" class="btn btn-dialog" style="background-color: Transparent; background-repeat:no-repeat; border: none; cursor:pointer; overflow: hidden;">
                                     <div class="img-hold">
                                         <img t-attf-src="data:image/png;base64,{{ptav_extra3_printing.product_attribute_value_id.collection_image}}" alt="avatar" class="img-responsive center-block" style="width: 100px"/>
                                     </div>
@@ -142,6 +142,14 @@
 
                 // the primary required position
                 var ptal_printing_id = "<t t-esc='ptal_printing.attribute_id.id'/>";
+                
+                // testing
+                testing_product_url = "<t t-esc='product.website_url'/>"
+                testing_base_url = "<t t-esc="base_url"/>"
+                console.log("combination")
+                console.log(window.location.href)
+                console.log(testing_base_url + testing_product_url)
+                console.log()
 
                 // the extra 1 choice yes/no
                 var extra_y_n_attr_line_id = "<t t-esc='ptal_extra_yes_no.id'/>";
@@ -174,50 +182,50 @@
                 var extra_position3_thanks = "<t t-esc='extra_position3_thanks.id' />";
 
 
-                document.addEventListener('DOMContentLoaded', function() {
+                document.addEventListener('DOMContentLoaded', function () {
 
                     // hiding the attributes that are presented in the dialog
-                    document.querySelectorAll(".variant_attribute").forEach(function(attribute_element) {
+                    document.querySelectorAll(".variant_attribute").forEach(function (attribute_element) {
                         
                         // hide printing attribute
                         if (attribute_element.dataset.attribute_id === ptal_printing_id) {
-                            attribute_element.style.display = "none";
+                            // attribute_element.style.display = "block";
                         }
 
                         // hide extra printing attribute
                         if (attribute_element.dataset.attribute_id === extra_y_n_attr_id) {
-                            attribute_element.style.display = "none";
+                            attribute_element.style.display = "block";
                         }
 
                         // hide extra printing choice attribute
                         if (attribute_element.dataset.attribute_id === ptal_extra_printing_id) {
-                            attribute_element.style.display = "none";
+                            attribute_element.style.display = "block";
                         }
 
                         // hide extra 2 printing attribute
                         if (attribute_element.dataset.attribute_id === extra2_y_n_attr_id) {
-                            attribute_element.style.display = "none";
+                            attribute_element.style.display = "block";
                         }
 
                         // hide extra 2 printing choice attribute
                         if (attribute_element.dataset.attribute_id === ptal_extra2_printing_id) {
-                            attribute_element.style.display = "none";
+                            attribute_element.style.display = "block";
                         }
 
                         // hide extra 2 printing attribute
                         if (attribute_element.dataset.attribute_id === extra3_y_n_attr_id) {
-                            attribute_element.style.display = "none";
+                            attribute_element.style.display = "block";
                         }
 
                         // hide extra 2 printing choice attribute
                         if (attribute_element.dataset.attribute_id === ptal_extra3_printing_id) {
-                            attribute_element.style.display = "none";
+                            attribute_element.style.display = "block";
                         }
 
                     });
                     
                     // before loading the page
-                    setting_defaults()
+                    // setting_defaults()
                     
                 }); // end of DOM
                 
@@ -301,7 +309,7 @@
                             button_2.disabled = false;
                         }
                     })
-                    // display all positions for second table
+                    // display all positions for third table
                     let table_3 = document.querySelector("#table-of-locactions-3");
                     table_3.querySelectorAll("td").forEach(function(td) {
                         let button_3 = td.querySelector("button");
@@ -309,7 +317,7 @@
                             button_3.disabled = false;
                         }
                     })
-                    // display all positions for second table
+                    // display all positions for fourth table
                     let table_4 = document.querySelector("#table-of-locactions-4");
                     table_4.querySelectorAll("td").forEach(function(td) {
                         let button_4 = td.querySelector("button");
@@ -327,14 +335,14 @@
                                 let attr_line_name = `ptal-${ptal_extra_printing_line_id}`;
                                 let relevant_position = document.querySelector(`select[name=${attr_line_name}]`);
                                 if (element.value === extra_no_id) {
-                                    relevant_position.value = extra_position_thanks;
+                                    // relevant_position.value = extra_position_thanks;
                                 }
                             }
-                            element.value = extra_no_id;
+                            // element.value = extra_no_id;
                         }
                         // default is "no thanks" for extra 1 position
                         if (ptal_extra_printing_id === element.dataset.attribute_id) {
-                            element.value = extra_position_thanks;
+                            // element.value = extra_position_thanks;
                         }
 
                         // default is no for extra 2 logo
@@ -344,14 +352,14 @@
                                 let attr_line_name = `ptal-${ptal_extra2_printing_line_id}`;
                                 let relevant_position = document.querySelector(`select[name=${attr_line_name}]`);
                                 if (element.value === extra2_no_id) {
-                                    relevant_position.value = extra_position2_thanks;
+                                    // relevant_position.value = extra_position2_thanks;
                                 }
                             }
-                            element.value =  extra2_no_id
+                            // element.value =  extra2_no_id
                         }
                         // default is "no thanks" for extra 2 position
                         if (ptal_extra2_printing_id === element.dataset.attribute_id) {
-                            element.value =  extra_position2_thanks
+                            // element.value =  extra_position2_thanks
                         }
 
                         // default is no for extra 3 logo
@@ -364,7 +372,7 @@
                                     relevant_position.value = extra_position3_thanks;
                                 }
                             }
-                            element.value =  extra3_no_id
+                            // element.value =  extra3_no_id
                         }
                         // default is "no thanks" for extra 3 position
                         if (ptal_extra3_printing_id === element.dataset.attribute_id) {
@@ -374,8 +382,10 @@
                 }
 
 
-                function choose_option(position) {
+                function choose_option(position, positions) {
 
+                    update_url(positions, position);
+                    
                     // if there is no extra position attribute for this product
                     if (extra_y_n_attr_line_id === "") {
                         document.querySelector("#extra_logo_choice").style.display = "none";
@@ -385,13 +395,6 @@
                         // else if there is extra position attribute for this product
                         document.querySelector("#extra_logo_choice").style.display = "block";
                     }
-                    
-                    // assign a correct value to the first logo attribute
-                    document.querySelectorAll("select").forEach(function(element) {
-                        if (ptal_printing_id === element.dataset.attribute_id) {
-                            element.value = position;
-                        }
-                    });
 
                     // hide selected position after clicking
                     let table_1 = document.querySelector("#table-of-locactions-1");
@@ -427,7 +430,9 @@
                 }
 
 
-                function choose_extra_option(position) {
+                function choose_extra_option(position, positions) {
+
+                    update_url(positions, position);
 
                     // if there is no extra 2 position attribute for this product
                     if (extra2_y_n_attr_line_id === "") {
@@ -473,7 +478,9 @@
                     })
                 }
 
-                function choose_extra2_option(position) {
+                function choose_extra2_option(position, positions) {
+
+                    update_url(positions, position);
 
                     // if there is no extra 3 position attribute for this product
                     if (extra3_y_n_attr_line_id === "") {
@@ -512,7 +519,9 @@
                     })
                 }
 
-                function choose_extra3_option(position) {
+                function choose_extra3_option(position, positions) {
+
+                    update_url(positions, position);
 
                     document.querySelector("#extra3_logo_choice").style.display = "none";
 
@@ -535,6 +544,26 @@
                     })
 
                     document.querySelector("dialog").close();
+                }
+
+                function update_url(positions, position) {
+                    let custom_url = location.href;
+                    let custom_url_slice = custom_url.split("attr=")
+                    let custom_url_arr = custom_url_slice[1].split(",");
+                    
+                    let new_url = custom_url_slice[0] + "attr=";
+                    for (i in custom_url_arr) {
+                        
+                        for (j in positions) {
+                            // update the attribute value
+                            if (custom_url_arr[i] === positions[j].toString()) {
+                                custom_url_arr[i] = position.toString()
+                            }
+                        }
+                        new_url = new_url + custom_url_arr[i] + ","
+                    }
+                    // remove the last comma (not needed)
+                    location.href = new_url.slice(0, -1);
                 }
                                 
             </script>
