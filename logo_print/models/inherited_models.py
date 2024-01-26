@@ -109,12 +109,22 @@ class ProductTemplate(models.Model):
         if self.id in p_t_at_line_ids.mapped("id"):
             att_xml_id = self.attribute_id.get_metadata()[0].get('xmlid')
 
-            if self.display_name in p_t_at_line_ids.mapped("display_name"):
-                raise ValidationError(f"This \"{self.display_name}\" name is already used. \nIt is against other functionalities to duplicate the same name of some attributes.")
-            
             if att_xml_id in xml_ids:
-                raise ValidationError(f"The record of {self.display_name} can only be used once in a product template")
-        
-        print(p_t_at_line_ids.mapped("display_name"))
+                check_xml_line = p_t_at_line_ids.filtered(
+                lambda line: line.attribute_id.get_metadata()[0].get('xmlid') == self.attribute_id.get_metadata()[0].get('xmlid')
+                )
+
+                if len(check_xml_line.mapped("id")) > 1:
+                    raise ValidationError(f"The record of {self.display_name} can only be used once in a product template")
+            
+
+            critical_lines = p_t_at_line_ids.filtered(lambda line: line.attribute_id.get_metadata()[0].get('xmlid') in xml_ids)
+            check_name_line = critical_lines.filtered(lambda line: line.display_name == self.display_name)
+
+            if len(check_name_line.mapped("id")) >= 1:
+                forbidden_name_lines = p_t_at_line_ids.filtered(lambda line: line.display_name == self.display_name)
+
+                if len(forbidden_name_lines.mapped("id")) > 1:
+                    raise ValidationError(f"This \"{self.display_name}\" name is already used. \nIt is against other functionalities to duplicate the same name of some attributes.")
 
     
