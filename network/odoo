@@ -19,6 +19,11 @@ server {
 }
 
 server {
+        # forward IP address to the domain name
+        if ($host = 143.110.145.152) {
+                return 302 $scheme://kobros-tech.com$request_uri;
+        }
+        
         listen 443;
         server_name kobros-tech.com odoo.kobros-tech.com;
         proxy_read_timeout 720s;
