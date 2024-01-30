@@ -5,6 +5,17 @@ from odoo.exceptions import ValidationError
 import string
 
 
+ATTR_XML_IDS = [
+            "logo_print.product_attribute_logo_position",
+            "logo_print.product_attribute_extra1",
+            "logo_print.product_attribute_logo_position_1",
+            "logo_print.product_attribute_extra2",
+            "logo_print.product_attribute_logo_position_2",
+            "logo_print.product_attribute_extra3",
+            "logo_print.product_attribute_logo_position_3",
+        ]
+
+
 class ProductAttribute(models.Model):
 
     # ---------------------------------------- Private Attributes ---------------------------------
@@ -18,6 +29,17 @@ class ProductAttribute(models.Model):
 
     # Special
     active = fields.Boolean("Active", default=True)
+
+    # ------------------------------------------ CRUD Methods -------------------------------------
+
+    @api.ondelete(at_uninstall=False)
+    def _prevent_deleting_critical_vals(self):
+        
+        # Calls ATTR_XML_IDS list
+        
+        for rec in self:
+            if rec.get_metadata()[0].get('xmlid') in ATTR_XML_IDS:
+                raise ValidationError(f"The record of {rec.display_name} with id {rec.id} is a critical one which the Logo Print module is based on.")
 
 
 class PrintingAttribute(models.Model):
@@ -55,6 +77,27 @@ class PrintingAttribute(models.Model):
             if rec.position_id.name:
                 cased_name = rec.position_id.name
                 rec.name = string.capwords(cased_name)
+    
+    # ------------------------------------------ CRUD Methods -------------------------------------
+
+    @api.ondelete(at_uninstall=False)
+    def _prevent_deleting_critical_vals(self):
+        
+        xml_ids = [
+            "logo_print.product_attribute_extra1_yes",
+            "logo_print.product_attribute_extra1_no",
+            "logo_print.product_attribute_extra2_yes",
+            "logo_print.product_attribute_extra2_no",
+            "logo_print.product_attribute_extra3_yes",
+            "logo_print.product_attribute_extra3_no",
+            "logo_print.product_attribute_logo_position_1_thanks",
+            "logo_print.product_attribute_logo_position_2_thanks",
+            "logo_print.product_attribute_logo_position_3_thanks",
+        ]
+
+        for rec in self:
+            if rec.get_metadata()[0].get('xmlid') in xml_ids:
+                raise ValidationError(f"The record of {rec.name} is a critical one which the Logo Print module is based on.")
 
 
 class SaleOrderLine(models.Model):
@@ -94,22 +137,14 @@ class ProductTemplate(models.Model):
     def _check_position_id(self):
         # Method to make a single record of logo positions attributes and their boolean attributes too
 
-        xml_ids = [
-            "logo_print.product_attribute_logo_position",
-            "logo_print.product_attribute_extra1",
-            "logo_print.product_attribute_logo_position_1",
-            "logo_print.product_attribute_extra2",
-            "logo_print.product_attribute_logo_position_2",
-            "logo_print.product_attribute_extra3",
-            "logo_print.product_attribute_logo_position_3",
-        ]
+        # Calls ATTR_XML_IDS list
 
         p_t_at_line_ids = self.product_tmpl_id.attribute_line_ids
 
         if self.id in p_t_at_line_ids.mapped("id"):
             att_xml_id = self.attribute_id.get_metadata()[0].get('xmlid')
 
-            if att_xml_id in xml_ids:
+            if att_xml_id in ATTR_XML_IDS:
                 check_xml_line = p_t_at_line_ids.filtered(
                 lambda line: line.attribute_id.get_metadata()[0].get('xmlid') == self.attribute_id.get_metadata()[0].get('xmlid')
                 )
@@ -118,7 +153,7 @@ class ProductTemplate(models.Model):
                     raise ValidationError(f"The record of {self.display_name} can only be used once in a product template")
             
 
-            critical_lines = p_t_at_line_ids.filtered(lambda line: line.attribute_id.get_metadata()[0].get('xmlid') in xml_ids)
+            critical_lines = p_t_at_line_ids.filtered(lambda line: line.attribute_id.get_metadata()[0].get('xmlid') in ATTR_XML_IDS)
             check_name_line = critical_lines.filtered(lambda line: line.display_name == self.display_name)
 
             if len(check_name_line.mapped("id")) >= 1:

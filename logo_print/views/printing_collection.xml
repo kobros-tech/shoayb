@@ -13,7 +13,9 @@
             <xpath expr="//field[@name='html_color']" position="after">
                 
                 <field name="position_id" attrs="{'column_invisible': [('parent.relate', '!=', True)] }"/>
-                <field name="collection_image" widget="image" attrs="{'column_invisible': [('parent.relate', '!=', True)] }"/>
+                <field name="collection_image" 
+                    widget="image" attrs="{'column_invisible': [('parent.relate', '!=', True)] }" 
+                    options="{'size': [150, 150]}"/>
             </xpath>
             
         </field>
