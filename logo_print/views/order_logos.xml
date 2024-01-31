@@ -9,7 +9,7 @@
         <field name="arch" type="xml">
             <xpath expr="//notebook" position="inside">
                 <page string="Order Submitted Logos" name="order_submitted_logos">
-                    <field name="logo_ids" mode="tree">
+                    <field name="logo_ids" mode="tree" readonly="1">
                         <tree>
                             <field name="line_id" optional="show"/>
                             <field name="name" optional="show"/>
