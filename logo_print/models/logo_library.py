@@ -27,6 +27,7 @@ class LogoLibrary(models.Model):
         string="Order Line", 
         required=True,
         ondelete="cascade", 
+        delegate=True,
     )
 
     # Related
