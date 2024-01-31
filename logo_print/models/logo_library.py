@@ -15,9 +15,9 @@ class LogoLibrary(models.Model):
     # --------------------------------------- Fields Declaration ----------------------------------
 
     # Basic
-    name = fields.Char("Logo Title", 
-        # default=lambda self: self._default_logo_name(),
-        )
+    name = fields.Char(
+        "Logo Title", 
+    )
     date_time= fields.Datetime(default=lambda s: fields.Datetime.now(),)
     image = fields.Image()
     position = fields.Char("Logo Position")
@@ -25,6 +25,7 @@ class LogoLibrary(models.Model):
     # Relational
     line_id = fields.Many2one("sale.order.line", 
         string="Order Line", 
+        required=True,
         ondelete="cascade", 
     )
 
@@ -49,23 +50,19 @@ class LogoLibrary(models.Model):
         depends=['order_id'],
         store=True
         )
-    
+        
 
     # ------------------------------------------ CRUD Methods -------------------------------------
 
-    # @api.model
-    # def create(self, vals):
-    #     # Code before create: should use the 'vals' dict
-    #     new_record = super().create(vals)
-    #     # Code after create: can use the 'new_record'
-    #     # created
-    #     print("**********************************************************************")
-    #     print(new_record)
-    #     print("**********************************************************************")
-    #     try new_record.line_id:
-    #         new_record.name = f"{new_record.line_id.display_name} - Logo{new_record.id}"
-    #     except:
-    #         raise UserError("Make sure to make and save sale order, then try again")
+    @api.model
+    def create(self, vals):
+        # Code before create: should use the 'vals' dict
+        new_record = super().create(vals)
+        # Code after create: can use the 'new_record'
+        # created
+        new_record.name = f"{new_record.line_id.display_name} - Logo{new_record.id}"
+
+        return new_record
 
 
 class PositionLibrary(models.Model):
