@@ -8,3 +8,5 @@ access_logo_print_library_positions_public,access.logo_print.library_positions,l
 
 access_product_attribute_sale_manager,product.attribute manager,product.model_product_attribute,logos_group_manager,1,1,1,1
 access_product_attribute_value_sale_manager,product.attribute manager value,product.model_product_attribute_value,logos_group_manager,1,1,1,1
+
+custom_ir_config_parameter_system,custom_ir_config_parameter_system,base.model_ir_config_parameter,base.group_public,1,0,0,0
