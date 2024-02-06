@@ -138,28 +138,28 @@ class ProductTemplate(models.Model):
         # Method to make a single record of logo positions attributes and their boolean attributes too
 
         # Calls ATTR_XML_IDS list
+        for rec in self:
+            p_t_at_line_ids = rec.product_tmpl_id.attribute_line_ids
 
-        p_t_at_line_ids = self.product_tmpl_id.attribute_line_ids
+            if rec.id in p_t_at_line_ids.mapped("id"):
+                att_xml_id = rec.attribute_id.get_metadata()[0].get('xmlid')
 
-        if self.id in p_t_at_line_ids.mapped("id"):
-            att_xml_id = self.attribute_id.get_metadata()[0].get('xmlid')
+                if att_xml_id in ATTR_XML_IDS:
+                    check_xml_line = p_t_at_line_ids.filtered(
+                    lambda line: line.attribute_id.get_metadata()[0].get('xmlid') == rec.attribute_id.get_metadata()[0].get('xmlid')
+                    )
 
-            if att_xml_id in ATTR_XML_IDS:
-                check_xml_line = p_t_at_line_ids.filtered(
-                lambda line: line.attribute_id.get_metadata()[0].get('xmlid') == self.attribute_id.get_metadata()[0].get('xmlid')
-                )
+                    if len(check_xml_line.mapped("id")) > 1:
+                        raise ValidationError(f"The record of {rec.display_name} can only be used once in a product template")
+                
 
-                if len(check_xml_line.mapped("id")) > 1:
-                    raise ValidationError(f"The record of {self.display_name} can only be used once in a product template")
-            
+                critical_lines = p_t_at_line_ids.filtered(lambda line: line.attribute_id.get_metadata()[0].get('xmlid') in ATTR_XML_IDS)
+                check_name_line = critical_lines.filtered(lambda line: line.display_name == rec.display_name)
 
-            critical_lines = p_t_at_line_ids.filtered(lambda line: line.attribute_id.get_metadata()[0].get('xmlid') in ATTR_XML_IDS)
-            check_name_line = critical_lines.filtered(lambda line: line.display_name == self.display_name)
+                if len(check_name_line.mapped("id")) >= 1:
+                    forbidden_name_lines = p_t_at_line_ids.filtered(lambda line: line.display_name == rec.display_name)
 
-            if len(check_name_line.mapped("id")) >= 1:
-                forbidden_name_lines = p_t_at_line_ids.filtered(lambda line: line.display_name == self.display_name)
-
-                if len(forbidden_name_lines.mapped("id")) > 1:
-                    raise ValidationError(f"This \"{self.display_name}\" name is already used. \nIt is against other functionalities to duplicate the same name of some attributes.")
+                    if len(forbidden_name_lines.mapped("id")) > 1:
+                        raise ValidationError(f"This \"{rec.display_name}\" name is already used. \nIt is against other functionalities to duplicate the same name of some attributes.")
 
     
