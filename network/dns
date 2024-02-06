@@ -7,3 +7,32 @@ TXT,@,v=spf1 mx ip4:138.68.161.90 -all,3600
 TXT,dkim._domainkey.odoo,v=DKIM1;p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAqu3aRo9IdgzWs1bQi7IBPwrr6N9iJ/vz2KUqlx2jMi53lUQpMZfOmRPXc4oWhux1xwlNwXWawVhzn/9N7LJq8kKdf3IwI51ztk2k7ziG5KGem/E91uzWHxstUQO4pG6FC92PA1VUjpOzA+FJ0Ny0eTVtDRugoEyT1k59Jxz6b+XkmY47kcMp47P8UXrAVKf3wScvA1f6NgT2YfLe7PEzRVyCBJiKeIi5O32ODUVHr+9ArlWZzAMkXWsjINuxkHbvF6cFqoo8Ze3w61aDiuMVYSY5u1TrfHEQYVnUNF19nS6Nq6BjaHk27eq8/znPX7O3pcbrMRnMwfh7s4eFcIbLBwIDAQAB:3600,3600
 TXT,_dmarc,v=DMARC1; p=reject; sp=none; adkim=s; aspf=s; rua=mailto:dmarc@odoo.kobros-tech.com; ruf=mailto:dmarc@odoo.kobros-tech.com,3600
 
+
+# clamav stopping solution
+
+# for file not existed
+sudo touch /var/lib/clamav/clamd.sock
+sudo chown clamav:clamav /var/lib/clamav/clamd.sock
+
+# open configuration file and update this line
+/etc/clamav/clamd.conf
+LocalSocket /var/lib/clamav/clamd.sock
+
+sudo touch /run/clamav/clamd.sock
+sudo chown clamav:clamav /run/clamav/clamd.sock
+sudo systemctl restart clamav-daemon.service
+
+sudo systemctl stop clamav-freshclam.service
+sudo freshclam
+sudo systemctl start clamav-freshclam.service
+
+# make a swap to overcome the lack of memory
+dd if=/dev/zero of=/swapfile1 bs=1024 count=1048576
+chown root:root /swapfile1
+chmod 0600 /swapfile1
+mkswap /swapfile1
+swapon /swapfile1
+echo "/swapfile1 none swap sw 0 0" >> /etc/fstab
+
+sudo systemctl restart clamav-daemon.service
+
