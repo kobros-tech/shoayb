@@ -1,0 +1,447 @@
+<odoo>
+
+    <!-- submit logo in cart template -->
+    <template id="submit_logo_in_cart" inherit_id="website_sale.cart_lines">
+        <xpath expr="//table[@id='cart_products']//thead//tr//th" position="before">
+            <th class="td-img">
+                Logo
+            </th>
+        </xpath>
+        <xpath expr="//table[@id='cart_products']//tbody//tr//td" position="before">
+            <td id="first_table_data" class="text-center">
+
+                <!-- tsting json testing json testing json -->
+                
+                <dialog class="rounded" t-attf-id="dialog_logos_{{line.id}}">
+                    <form t-attf-id="form_json_submit_{{line.id}}" >
+                        
+                        <t t-set="submissions_for_positions" t-value="line.logo_submit_query()"/>
+                        <t t-set="product" t-value="line.product_id"/>
+
+                        <!-- <h2><span>Add logo for: <t t-out="submissions_for_positions[position_0]"/> position</span></h2> -->
+                        <div>
+                            <!-- <h2 t-attf-id="line_json_input_title_{{line.id}}"></h2> -->
+                        </div>
+                        <!-- check for additional logo availability -->
+                        <t t-if="len(list(submissions_for_positions.keys())) >= 1">
+                            <t t-set="position_0" t-value="list(submissions_for_positions.keys())[0]"/>
+
+                            <div t-attf-id="div_0_proceed_{{line.id}}">
+                                <t t-set="position_0_logo" 
+                                    t-value="line.logo_ids.filtered(lambda logo: logo.position == submissions_for_positions[position_0])[:1]"/>
+                                
+                                <!-- check for existance of logo submission -->
+                                <t t-if="position_0_logo.image">
+                                    <h2><span>Logo for <t t-out="submissions_for_positions[position_0]"/> position is successfully submitted</span></h2>
+                                    <div class="logo_upload">
+                                        <img t-attf-id="line_json_img_preview_{{line.id}}"
+                                            t-att-src="image_data_uri(position_0_logo.image)"
+                                            class="img-thumbnail mx-auto rounded d-block"
+                                            style="width: 100px"
+                                            t-att-alt="line.name_short"/>
+                                    </div>
+                                </t>
+                                <t t-else="">
+                                    <h2><span>Add logo for: <t t-out="submissions_for_positions[position_0]"/> position</span></h2>
+                                    <div class="logo_upload" style="display: none;">
+                                        <img t-attf-id="line_json_img_preview_{{line.id}}" 
+                                            src="" class="img-thumbnail mx-auto rounded d-block" 
+                                            style="width: 100px" />
+                                    </div>
+                                </t>
+                                <br/>
+                                <div>
+                                    <input t-attf-id="line_json_input_file_{{line.id}}" type="file" accept="image/*" title="Insert logo" class="fa fa-paperclip rounded-pill s_website_form_input mx-auto logo_upload" />
+                                </div>
+                                <br/>
+                                <div>
+                                    <button t-attf-id="line_json_submit_{{line.id}}" class="btn btn-primary mx-auto logo_upload" style="display: none;">Submit your logo</button>
+                                </div>
+                            </div>
+                        </t>
+                        
+                        <!-- check for additional logo availability -->
+                        <t t-if="len(list(submissions_for_positions.keys())) >= 3">
+                            <t t-set="position_1_check" t-value="list(submissions_for_positions.keys())[1]"/>
+                            <t t-set="position_1" t-value="list(submissions_for_positions.keys())[2]"/>
+
+                            <!-- hide if the customer did not choose yes for additional logo -->
+                            <t t-if="submissions_for_positions[position_1_check] == True">
+                                <div t-attf-id="div_1_proceed_{{line.id}}" style="display: none;">
+                                    <t t-set="position_1_logo" 
+                                        t-value="line.logo_ids.filtered(lambda logo: logo.position == submissions_for_positions[position_1])[:1]"/>
+
+                                    <!-- check for existance of logo submission -->
+                                    <t t-if="position_1_logo.image">
+                                        <h2><span>Logo for <t t-out="submissions_for_positions[position_1]"/> position is successfully submitted</span></h2>
+                                        <div class="logo_upload">
+                                            <img t-attf-id="line_json_extra1_img_preview_{{line.id}}"
+                                                t-att-src="image_data_uri(position_1_logo.image)"
+                                                class="img-thumbnail mx-auto rounded d-block"
+                                                style="width: 100px"
+                                                t-att-alt="line.name_short"/>
+                                        </div>
+                                    </t>
+                                    <t t-else="">
+                                        <h2><span>Add logo for: <t t-out="submissions_for_positions[position_1]"/> position</span></h2>
+                                        <div class="logo_upload" style="display: none;">
+                                            <img t-attf-id="line_json_extra1_img_preview_{{line.id}}" 
+                                                src="" class="img-thumbnail mx-auto rounded d-block" 
+                                                style="width: 100px" />
+                                        </div>
+                                    </t>
+                                    <br/>
+                                    <div>
+                                        <input t-attf-id="line_json_extra1_input_file_{{line.id}}" type="file" accept="image/*" title="Insert additional logo 1" class="fa fa-paperclip rounded-pill s_website_form_input mx-auto logo_upload"/>
+                                    </div>
+                                    <br/>
+                                    <div>
+                                        <button t-attf-id="line_json_extra1_submit_{{line.id}}" class="btn btn-primary mx-auto logo_upload" style="display: none;">Submit your additional logo No.1</button>
+                                    </div>
+                                </div>
+                            </t>
+                            <t t-else="">
+                                <div t-attf-id="div_1_proceed_{{line.id}}" style="display: none;">
+                                    <h2>Not Selected</h2>
+                                </div>
+                            </t>
+                        </t>
+                        
+                        <!-- check for additional logo availability -->
+                        <t t-if="len(list(submissions_for_positions.keys())) >= 5">
+                            <t t-set="position_2_check" t-value="list(submissions_for_positions.keys())[3]"/>
+                            <t t-set="position_2" t-value="list(submissions_for_positions.keys())[4]"/>
+
+                            <!-- hide if the customer did not choose yes for additional logo -->
+                            <t t-if="submissions_for_positions[position_2_check] == True">
+                                <div t-attf-id="div_2_proceed_{{line.id}}" style="display: none;">
+                                    <t t-set="position_2_logo" 
+                                        t-value="line.logo_ids.filtered(lambda logo: logo.position == submissions_for_positions[position_2])[:1]"/>
+
+                                    <!-- check for existance of logo submission -->
+                                    <t t-if="position_2_logo.image">
+                                        <h2><span>Logo for <t t-out="submissions_for_positions[position_2]"/> position is successfully submitted</span></h2>
+                                        <div class="logo_upload">
+                                            <img t-attf-id="line_json_extra2_img_preview_{{line.id}}"
+                                                t-att-src="image_data_uri(position_2_logo.image)"
+                                                class="img-thumbnail mx-auto rounded d-block"
+                                                style="width: 100px"
+                                                t-att-alt="line.name_short"/>
+                                        </div>
+                                    </t>
+                                    <t t-else="">
+                                        <h2><span>Add logo for: <t t-out="submissions_for_positions[position_2]"/> position</span></h2>
+                                        <div class="logo_upload" style="display: none;">
+                                            <img t-attf-id="line_json_extra2_img_preview_{{line.id}}" 
+                                                src="" class="img-thumbnail mx-auto rounded d-block" 
+                                                style="width: 100px" />
+                                        </div>
+                                    </t>
+                                    <br/>
+                                    <div>
+                                        <input t-attf-id="line_json_extra2_input_file_{{line.id}}" type="file" accept="image/*" title="Insert additional logo 2" class="fa fa-paperclip rounded-pill s_website_form_input mx-auto logo_upload"/>
+                                    </div>
+                                    <br/>
+                                    <div>
+                                        <button t-attf-id="line_json_extra2_submit_{{line.id}}" class="btn btn-primary mx-auto logo_upload" style="display: none;">Submit your additional logo No.2</button>
+                                    </div>
+                                </div>
+                            </t>
+                            <t t-else="">
+                                <div t-attf-id="div_2_proceed_{{line.id}}" style="display: none;">
+                                    <h2>Not Selected</h2>
+                                </div>
+                            </t>
+                        </t>
+
+                        <!-- check for additional logo availability -->
+                        <t t-if="len(list(submissions_for_positions.keys())) >= 7">
+                            <t t-set="position_3_check" t-value="list(submissions_for_positions.keys())[5]"/>
+                            <t t-set="position_3" t-value="list(submissions_for_positions.keys())[6]"/>
+
+                            <!-- hide if the customer did not choose yes for additional logo -->
+                            <t t-if="submissions_for_positions[position_3_check] == True">
+                                <div t-attf-id="div_3_proceed_{{line.id}}" style="display: none;">
+                                    <t t-set="position_3_logo" 
+                                        t-value="line.logo_ids.filtered(lambda logo: logo.position == submissions_for_positions[position_3])[:1]"/>
+
+                                    <!-- check for existance of logo submission -->
+                                    <t t-if="position_3_logo.image">
+                                        <h2><span>Logo for <t t-out="submissions_for_positions[position_3]"/> position is successfully submitted</span></h2>
+                                        <div class="logo_upload">
+                                            <img t-attf-id="line_json_extra3_img_preview_{{line.id}}"
+                                                t-att-src="image_data_uri(position_3_logo.image)"
+                                                class="img-thumbnail mx-auto rounded d-block"
+                                                style="width: 100px"
+                                                t-att-alt="line.name_short"/>
+                                        </div>
+                                    </t>
+                                    <t t-else="">
+                                        <h2><span>Add logo for: <t t-out="submissions_for_positions[position_3]"/> position</span></h2>
+                                        <div class="logo_upload" style="display: none;">
+                                            <img t-attf-id="line_json_extra3_img_preview_{{line.id}}" 
+                                                src="" class="img-thumbnail mx-auto rounded d-block" 
+                                                style="width: 100px" />
+                                        </div>
+                                    </t>
+                                    <br/>
+                                    <div>
+                                        <input t-attf-id="line_json_extra3_input_file_{{line.id}}" type="file" accept="image/*" title="Insert additional logo 3" class="fa fa-paperclip rounded-pill s_website_form_input mx-auto logo_upload"/>
+                                    </div>
+                                    <br/>
+                                    <div>
+                                        <button t-attf-id="line_json_extra3_submit_{{line.id}}" class="btn btn-primary mx-auto logo_upload" style="display: none;">Submit your additional logo No.3</button>
+                                    </div>
+                                </div>
+                            </t>
+                            <t t-else="">
+                                <div t-attf-id="div_3_proceed_{{line.id}}" style="display: none;">
+                                    <h2>Not Selected</h2>
+                                </div>
+                            </t>
+                        </t>
+                        
+                    </form>
+                    <br/>
+                    <div class="row">
+                        <div class="col-4">
+                            <button t-attf-onclick="close_dialog_logos({{line.id}})" value="close" class="btn btn-secondary rounded-pill">Close</button>
+                        </div>
+                        <div class="col-3"></div>
+                        <div class="col-4">
+                            <button t-attf-id="line_json_proceed_{{line.id}}" class="btn btn-primary logo_upload">Proceed</button>
+                            <button t-attf-id="line_json_proceed1_{{line.id}}" class="btn btn-primary logo_upload" style="display: none;">Proceed</button>
+                            <button t-attf-id="line_json_proceed2_{{line.id}}" class="btn btn-primary logo_upload" style="display: none;">Proceed</button>
+                            <button t-attf-id="line_json_proceed3_{{line.id}}" class="btn btn-primary logo_upload" style="display: none;">Proceed</button>
+                        </div>
+                        <div class="col-1"></div>
+                    </div>
+                    
+                </dialog>
+                <button t-attf-id="submit_button_{{line.id}}" type="submit" t-attf-onclick="logo_submit({{line.id}})" class="btn fa fa-paperclip rounded-pill s_website_form_input"></button>
+                
+                
+                <!-- validating submitted logos -->
+                <script>
+
+                    // open the dialog
+                    function logo_submit(line_id) {
+
+                        let proceed_id = `#line_json_proceed_${line_id}`;
+                        let proceed1_id = `#line_json_proceed1_${line_id}`;
+                        let proceed2_id = `#line_json_proceed2_${line_id}`;
+                        let proceed3_id = `#line_json_proceed3_${line_id}`;
+
+                        let proceed_div_id = `#div_0_proceed_${line_id}`;
+                        let proceed_div_1_id = `#div_1_proceed_${line_id}`;
+                        let proceed_div_2_id = `#div_2_proceed_${line_id}`;
+                        let proceed_div_3_id = `#div_3_proceed_${line_id}`;
+
+                        let id = `#submit_button_${line_id}`;
+                        let form_id = `#form_json_submit_${line_id}`;
+
+                        let input_id = `#line_json_input_file_${line_id}`;
+                        let extra1_input_id = `#line_json_extra1_input_file_${line_id}`;
+                        let extra2_input_id = `#line_json_extra2_input_file_${line_id}`;
+                        let extra3_input_id = `#line_json_extra3_input_file_${line_id}`;
+
+                        let submit_id = `#line_json_submit_${line_id}`;
+                        let extra1_submit_id = `#line_json_extra1_submit_${line_id}`;
+                        let extra2_submit_id = `#line_json_extra2_submit_${line_id}`;
+                        let extra3_submit_id = `#line_json_extra3_submit_${line_id}`;
+
+                        let title_id = `#line_json_input_title_${line_id}`;
+
+                        let img_id = `#line_json_img_preview_${line_id}`;
+                        let extra1_img_id = `#line_json_extra1_img_preview_${line_id}`;
+                        let extra2_img_id = `#line_json_extra2_img_preview_${line_id}`;
+                        let extra3_img_id = `#line_json_extra3_img_preview_${line_id}`;
+
+                        let chooseFile = document.querySelector(input_id);
+                        if (document.querySelector(extra1_input_id)) {
+                            let chooseFile_extra1 = document.querySelector(extra1_input_id);
+                        }
+                        if (document.querySelector(extra2_input_id)) {
+                            let chooseFile_extra2 = document.querySelector(extra2_input_id);
+                        }
+                        if (document.querySelector(extra3_input_id)) {
+                            let chooseFile_extra3 = document.querySelector(extra3_input_id);
+                        }
+
+                        let imgPreview = document.querySelector(img_id);
+                        let imgPreview_extra1 = document.querySelector(extra1_img_id);
+                        let imgPreview_extra2 = document.querySelector(extra2_img_id);
+                        let imgPreview_extra3 = document.querySelector(extra3_img_id);
+
+
+                        // show the dialog with the title of the first logo position
+                        let dialog_ID = `dialog[id=\"dialog_logos_${line_id}\"]`;
+                        document.querySelector(dialog_ID).showModal();
+
+                        // Hide all but show only first division
+                        document.querySelector(proceed_div_id).style.display = "block";
+                        if (document.querySelector(proceed_div_1_id)) {
+                            document.querySelector(proceed_div_1_id).style.display = "none";
+                        }
+                        if (document.querySelector(proceed_div_2_id)) {
+                            document.querySelector(proceed_div_2_id).style.display = "none";
+                        }
+                        if (document.querySelector(proceed_div_3_id)) {
+                            document.querySelector(proceed_div_3_id).style.display = "none";
+                        }
+                        document.querySelector(proceed_id).style.display = "block";
+                        document.querySelector(proceed1_id).style.display = "none";
+                        document.querySelector(proceed2_id).style.display = "none";
+                        document.querySelector(proceed3_id).style.display = "none";
+
+                        // show submitted logo
+                        document.querySelector(input_id).addEventListener('change', function () {
+                            show_logo_selected(chooseFile, imgPreview, submit_id);
+                        })
+                        // show submitted extra 1 logo
+                        if (document.querySelector(extra1_input_id)) {
+                            document.querySelector(extra1_input_id).addEventListener('change', function () {
+                                show_logo_selected(chooseFile_extra1, imgPreview_extra1, extra1_submit_id);
+                            })
+                        }
+                        // show submitted extra 2 logo
+                        if (document.querySelector(extra2_input_id)) {
+                            document.querySelector(extra2_input_id).addEventListener('change', function () {
+                                show_logo_selected(chooseFile_extra2, imgPreview_extra2, extra2_submit_id);
+                            })
+                        }
+                        // show submitted extra 3 logo
+                        if (document.querySelector(extra3_input_id)) {
+                            document.querySelector(extra3_input_id).addEventListener('change', function () {
+                                show_logo_selected(chooseFile_extra3, imgPreview_extra3, extra3_submit_id);
+                            })
+                        }
+
+                        // proceed without submitting
+                        document.querySelector(proceed_id).addEventListener('click', function () {
+                            // Prevents the page from reloading
+                            event.preventDefault();
+
+                            proceeding()
+                        });
+                        document.querySelector(proceed1_id).addEventListener('click', function () {
+                            // Prevents the page from reloading
+                            event.preventDefault();
+
+                            proceeding_1()
+                        });
+                        document.querySelector(proceed2_id).addEventListener('click', function () {
+                            // Prevents the page from reloading
+                            event.preventDefault();
+
+                            proceeding_2()
+                        });
+                        document.querySelector(proceed3_id).addEventListener('click', function () {
+                            // Prevents the page from reloading
+                            event.preventDefault();
+
+                            proceeding_3()
+                        });
+
+                        function proceeding() {
+                            if (document.querySelector(proceed_div_id)) {
+                                document.querySelector(proceed_div_id).style.display = "none";
+                                document.querySelector(proceed_id).style.display = "none";
+                            }
+
+                            if (document.querySelector(proceed_div_1_id)) {
+                                document.querySelector(proceed_div_1_id).style.display = "block";
+                                document.querySelector(proceed1_id).style.display = "block";
+                            }
+                            else {
+                                close_dialog_logos(line_id)
+                            }
+                        }
+
+                        function proceeding_1() {
+                            if (document.querySelector(proceed_div_1_id)) {
+                                document.querySelector(proceed_div_1_id).style.display = "none";
+                                document.querySelector(proceed1_id).style.display = "none";
+                            }
+
+                            if (document.querySelector(proceed_div_2_id)) {
+                                document.querySelector(proceed_div_2_id).style.display = "block";
+                                document.querySelector(proceed2_id).style.display = "block";
+                            }
+                            else {
+                                close_dialog_logos(line_id)
+                            }
+                        }
+
+                        function proceeding_2() {
+                            if (document.querySelector(proceed_div_2_id)) {
+                                document.querySelector(proceed_div_2_id).style.display = "none";
+                                document.querySelector(proceed2_id).style.display = "none";
+                            }
+
+                            if (document.querySelector(proceed_div_3_id)) {
+                                document.querySelector(proceed_div_3_id).style.display = "block";
+                                document.querySelector(proceed3_id).style.display = "block";
+                            }
+                            else {
+                                close_dialog_logos(line_id)
+                            }
+                        }
+
+                        function proceeding_3() {
+                            if (document.querySelector(proceed_div_3_id)) {
+                                document.querySelector(proceed_div_3_id).style.display = "none";
+                                document.querySelector(proceed3_id).style.display = "none";
+                            }
+                            
+                            close_dialog_logos(line_id)
+                            
+                        }
+
+                        function show_logo_selected(chooseFile, imgPreview, next_button) {
+                            let files = chooseFile.files[0];
+                            if (files) {
+                                let fileReader = new FileReader();
+                                fileReader.readAsDataURL(files);
+                                fileReader.addEventListener("load", function () {
+                                    imgPreview.style.display = "block";
+                                    let link = `${this.result}`;
+                                    imgPreview.src = link;
+                                    imgPreview.parentNode.style.display = "block";
+                                });
+                                if (next_button) {
+                                    document.querySelector(next_button).style.display = "block";
+                                }
+                            }
+                        }
+                        
+                        return false;
+                        
+                    }
+
+                    // read file image and convert it to base 64 string
+                    async function str_64(files) {
+                        let link = "";
+                        let fileReader = new FileReader();
+                        fileReader.readAsDataURL(files);
+                        fileReader.addEventListener("load", async function () {
+                            link = await `${this.result}`;
+                            console.log("the link: ", link)
+                        })
+                    }
+
+                    // close the dialog
+                    function close_dialog_logos(line_id) {
+                        // close the relevant dialog
+                        let dialog_ID = `dialog[id=\"dialog_logos_${line_id}\"]`;
+                        document.querySelector(dialog_ID).close();
+                    }
+
+                </script><!-- end of validating submitted logos -->
+                
+            </td>
+            
+        </xpath>
+    </template>
+
+</odoo>

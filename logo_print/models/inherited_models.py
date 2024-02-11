@@ -112,6 +112,68 @@ class SaleOrderLine(models.Model):
     logo_ids = fields.One2many("library", "line_id", string="Submitted Logos")
 
 
+    def logo_submit_query(self):
+        additional_ids = [
+            "logo_print.product_attribute_extra1",
+            "logo_print.product_attribute_extra2",
+            "logo_print.product_attribute_extra3",
+        ]
+
+        positions_ids = [
+            "logo_print.product_attribute_logo_position_1",
+            "logo_print.product_attribute_logo_position_2",
+            "logo_print.product_attribute_logo_position_3",
+        ]
+
+        submit_ids = [
+            "logo_print.product_attribute_extra1_yes",
+            "logo_print.product_attribute_extra2_yes",
+            "logo_print.product_attribute_extra3_yes",
+        ]
+
+        self.ensure_one()
+
+        description = self.get_description_following_lines()
+
+        descrip_dict = {}
+        for i in description:
+            key_value = i.split(":")
+            if len(key_value) == 2:
+                descrip_dict[key_value[0]] = key_value[1].strip()
+        
+        submissions_positions = {}
+
+        position = self.env.ref("logo_print.product_attribute_logo_position").name
+
+        
+        position_value = descrip_dict[position]
+        submissions_positions[position] = position_value
+
+        for attr in self.product_id.attribute_line_ids:
+            # verify the permission to submit logos
+            if attr.attribute_id.get_metadata()[0].get('xmlid') in additional_ids:
+                options = attr.attribute_id.value_ids
+                for option in options:
+                    if descrip_dict[attr.display_name]:
+                        if option.name == descrip_dict[attr.display_name]:
+                            if option.get_metadata()[0].get('xmlid') in submit_ids:
+                                submissions_positions[attr.display_name] = True
+                            else:
+                                submissions_positions[attr.display_name] = False
+            
+            # verify the submission position
+            if attr.attribute_id.get_metadata()[0].get('xmlid') in positions_ids:
+                if descrip_dict[attr.attribute_id.display_name]:
+                    related_position = descrip_dict[attr.attribute_id.display_name]
+                    submissions_positions[attr.attribute_id.display_name] = related_position
+
+        print(position, position_value)
+        print(submissions_positions)
+        print(descrip_dict)
+        print("*****************************************************************************************")
+        return submissions_positions
+
+
 class SaleOrder(models.Model):
 
     # ---------------------------------------- Private Attributes ---------------------------------
@@ -162,4 +224,3 @@ class ProductTemplate(models.Model):
                     if len(forbidden_name_lines.mapped("id")) > 1:
                         raise ValidationError(f"This \"{rec.display_name}\" name is already used. \nIt is against other functionalities to duplicate the same name of some attributes.")
 
-    

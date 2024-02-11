@@ -27,12 +27,14 @@
         'views/printing_collection.xml',
         'views/logo_library_menus.xml',
         'views/template.xml',
+        'views/template2.xml',
         'views/order_logos.xml',
     ],
     'assets': {
         'web.assets_frontend':[            
             'logo_print/static/src/js/validate.js',
-            'logo_print/static/**/*',
+            # 'logo_print/static/**/*',
+            'logo_print/static/src/css/logo_dialog.css',
         ],  
     }
 }

@@ -140,480 +140,480 @@
         
         <script>
 
-                // the primary required position
-                var ptal_printing_id = "<t t-esc='ptal_printing.attribute_id.id'/>";
-                
-                // testing
-                // testing_product_url = "<t t-esc='product.website_url'/>"
-                // testing_base_url = "<t t-esc="base_url"/>"
-                // testing_combination = "<t t-esc="combination.ids"/>"
+            // the primary required position
+            var ptal_printing_id = "<t t-esc='ptal_printing.attribute_id.id'/>";
+                            
+            // testing
+            // testing_product_url = "<t t-esc='product.website_url'/>"
+            // testing_base_url = "<t t-esc="base_url"/>"
+            // testing_combination = "<t t-esc="combination.ids"/>"
 
-                ptavs_extra_printing = "<t t-esc="ptavs_extra_printing.ids" />"
-                ptavs_extra2_printing = "<t t-esc="ptavs_extra2_printing.ids" />"
-                ptavs_extra3_printing = "<t t-esc="ptavs_extra3_printing.ids" />"
+            ptavs_extra_printing = "<t t-esc="ptavs_extra_printing.ids" />"
+            ptavs_extra2_printing = "<t t-esc="ptavs_extra2_printing.ids" />"
+            ptavs_extra3_printing = "<t t-esc="ptavs_extra3_printing.ids" />"
 
-                // the extra 1 choice yes/no
-                var extra_y_n_attr_line_id = "<t t-esc='ptal_extra_yes_no.id'/>";
-                var extra_y_n_attr_id = "<t t-esc='ptal_extra_yes_no.attribute_id.id'/>";
-                var extra_yes_id = "<t t-esc='extra_logo_yes.id'/>";
-                var extra_no_id = "<t t-esc='extra_logo_no.id'/>";
-                // the extra 1 choice position
-                var ptal_extra_printing_id = "<t t-esc='ptal_extra_printing.attribute_id.id'/>";
-                var ptal_extra_printing_line_id = "<t t-esc='ptal_extra_printing.id'/>";
-                var extra_position_thanks = "<t t-esc='extra_position_thanks.id' />";
+            // the extra 1 choice yes/no
+            var extra_y_n_attr_line_id = "<t t-esc='ptal_extra_yes_no.id'/>";
+            var extra_y_n_attr_id = "<t t-esc='ptal_extra_yes_no.attribute_id.id'/>";
+            var extra_yes_id = "<t t-esc='extra_logo_yes.id'/>";
+            var extra_no_id = "<t t-esc='extra_logo_no.id'/>";
+            // the extra 1 choice position
+            var ptal_extra_printing_id = "<t t-esc='ptal_extra_printing.attribute_id.id'/>";
+            var ptal_extra_printing_line_id = "<t t-esc='ptal_extra_printing.id'/>";
+            var extra_position_thanks = "<t t-esc='extra_position_thanks.id' />";
 
-                // the extra 2 choice yes/no
-                var extra2_y_n_attr_line_id = "<t t-esc='ptal_extra2_yes_no.id'/>";
-                var extra2_y_n_attr_id = "<t t-esc='ptal_extra2_yes_no.attribute_id.id'/>";
-                var extra2_yes_id = "<t t-esc='extra2_logo_yes.id'/>";
-                var extra2_no_id = "<t t-esc='extra2_logo_no.id'/>";
-                // the extra 2 choice position
-                var ptal_extra2_printing_id = "<t t-esc='ptal_extra2_printing.attribute_id.id'/>";
-                var ptal_extra2_printing_line_id = "<t t-esc='ptal_extra2_printing.id'/>";
-                var extra_position2_thanks = "<t t-esc='extra_position2_thanks.id' />";
+            // the extra 2 choice yes/no
+            var extra2_y_n_attr_line_id = "<t t-esc='ptal_extra2_yes_no.id'/>";
+            var extra2_y_n_attr_id = "<t t-esc='ptal_extra2_yes_no.attribute_id.id'/>";
+            var extra2_yes_id = "<t t-esc='extra2_logo_yes.id'/>";
+            var extra2_no_id = "<t t-esc='extra2_logo_no.id'/>";
+            // the extra 2 choice position
+            var ptal_extra2_printing_id = "<t t-esc='ptal_extra2_printing.attribute_id.id'/>";
+            var ptal_extra2_printing_line_id = "<t t-esc='ptal_extra2_printing.id'/>";
+            var extra_position2_thanks = "<t t-esc='extra_position2_thanks.id' />";
 
-                // the extra 3 choice yes/no
-                var extra3_y_n_attr_line_id = "<t t-esc='ptal_extra3_yes_no.id'/>";
-                var extra3_y_n_attr_id = "<t t-esc='ptal_extra3_yes_no.attribute_id.id'/>";
-                var extra3_yes_id = "<t t-esc='extra3_logo_yes.id'/>";
-                var extra3_no_id = "<t t-esc='extra3_logo_no.id'/>";
-                // the extra 3 choice position
-                var ptal_extra3_printing_id = "<t t-esc='ptal_extra3_printing.attribute_id.id'/>";
-                var ptal_extra3_printing_line_id = "<t t-esc='ptal_extra3_printing.id'/>";
-                var extra_position3_thanks = "<t t-esc='extra_position3_thanks.id' />";
+            // the extra 3 choice yes/no
+            var extra3_y_n_attr_line_id = "<t t-esc='ptal_extra3_yes_no.id'/>";
+            var extra3_y_n_attr_id = "<t t-esc='ptal_extra3_yes_no.attribute_id.id'/>";
+            var extra3_yes_id = "<t t-esc='extra3_logo_yes.id'/>";
+            var extra3_no_id = "<t t-esc='extra3_logo_no.id'/>";
+            // the extra 3 choice position
+            var ptal_extra3_printing_id = "<t t-esc='ptal_extra3_printing.attribute_id.id'/>";
+            var ptal_extra3_printing_line_id = "<t t-esc='ptal_extra3_printing.id'/>";
+            var extra_position3_thanks = "<t t-esc='extra_position3_thanks.id' />";
 
 
-                document.addEventListener('DOMContentLoaded', function () {
+            document.addEventListener('DOMContentLoaded', function () {
 
-                    // hiding the attributes that are presented in the dialog
-                    document.querySelectorAll(".variant_attribute").forEach(function (attribute_element) {
-                        
-                        // hide printing attribute
-                        if (attribute_element.dataset.attribute_id === ptal_printing_id) {
-                            attribute_element.style.display = "none";
-                        }
-
-                        // hide extra printing attribute
-                        if (attribute_element.dataset.attribute_id === extra_y_n_attr_id) {
-                            attribute_element.style.display = "none";
-                        }
-
-                        // hide extra printing choice attribute
-                        if (attribute_element.dataset.attribute_id === ptal_extra_printing_id) {
-                            attribute_element.style.display = "none";
-                        }
-
-                        // hide extra 2 printing attribute
-                        if (attribute_element.dataset.attribute_id === extra2_y_n_attr_id) {
-                            attribute_element.style.display = "none";
-                        }
-
-                        // hide extra 2 printing choice attribute
-                        if (attribute_element.dataset.attribute_id === ptal_extra2_printing_id) {
-                            attribute_element.style.display = "none";
-                        }
-
-                        // hide extra 3 printing attribute
-                        if (attribute_element.dataset.attribute_id === extra3_y_n_attr_id) {
-                            attribute_element.style.display = "none";
-                        }
-
-                        // hide extra 3 printing choice attribute
-                        if (attribute_element.dataset.attribute_id === ptal_extra3_printing_id) {
-                            attribute_element.style.display = "none";
-                        }
-
-                    });
+                // hiding the attributes that are presented in the dialog
+                document.querySelectorAll(".variant_attribute").forEach(function (attribute_element) {
                     
-                    // before loading the page
-                    // this function is no longer needed as updating the url with the attributes values is caaling the combination cache
-                    setting_defaults()
-                    
-                }); // end of DOM
+                    // hide printing attribute
+                    if (attribute_element.dataset.attribute_id === ptal_printing_id) {
+                        attribute_element.style.display = "block";
+                    }
+
+                    // hide extra printing attribute
+                    if (attribute_element.dataset.attribute_id === extra_y_n_attr_id) {
+                        attribute_element.style.display = "block";
+                    }
+
+                    // hide extra printing choice attribute
+                    if (attribute_element.dataset.attribute_id === ptal_extra_printing_id) {
+                        attribute_element.style.display = "block";
+                    }
+
+                    // hide extra 2 printing attribute
+                    if (attribute_element.dataset.attribute_id === extra2_y_n_attr_id) {
+                        attribute_element.style.display = "block";
+                    }
+
+                    // hide extra 2 printing choice attribute
+                    if (attribute_element.dataset.attribute_id === ptal_extra2_printing_id) {
+                        attribute_element.style.display = "block";
+                    }
+
+                    // hide extra 3 printing attribute
+                    if (attribute_element.dataset.attribute_id === extra3_y_n_attr_id) {
+                        attribute_element.style.display = "block";
+                    }
+
+                    // hide extra 3 printing choice attribute
+                    if (attribute_element.dataset.attribute_id === ptal_extra3_printing_id) {
+                        attribute_element.style.display = "block";
+                    }
+
+                });
                 
-                
-                document.addEventListener('DOMContentLoaded', function() {
-
-                    // defaults for opening the dialog
-                    document.querySelector("#second_logo_table").style.display = "none";
-                    document.querySelector("#third_logo_table").style.display = "none";
-                    document.querySelector("#fourth_logo_table").style.display = "none";
-                    document.querySelector("#extra2_logo_choice").style.display = "none";
-                    document.querySelector("#extra3_logo_choice").style.display = "none";
-
-                    // This functionality is specific for "Add Second Location" button
-                    document.querySelector("#extra_logo_choice").onclick = function() {
-                        document.querySelector("#first_logo_table").style.display = "none";
-                        document.querySelector("#second_logo_table").style.display = "block";
-                        document.querySelector("#extra_logo_choice").style.display = "none";
-
-                        // set the value of extra logo attribute be yes
-                        document.querySelectorAll("select").forEach(function (element) {
-                            if (extra_y_n_attr_id === element.dataset.attribute_id) {
-                                element.value = extra_yes_id;
-
-                                // update the url with the attribute yes value
-                                let positions = [extra_no_id,extra_yes_id];
-                                let position = extra_yes_id;
-                                update_url(positions, position)
-                            }
-                        })
-
-                        return false;
-                    }
-
-                    // This functionality is specific for "Add Third Location" button
-                    document.querySelector("#extra2_logo_choice").onclick = function() {
-                        document.querySelector("#second_logo_table").style.display = "none";
-                        document.querySelector("#third_logo_table").style.display = "block";
-                        document.querySelector("#extra2_logo_choice").style.display = "none";
-
-                        // set the value of extra 2 logo attribute be yes
-                        document.querySelectorAll("select").forEach(function (element) {
-                            if (extra2_y_n_attr_id === element.dataset.attribute_id) {
-                                element.value = extra2_yes_id;
-
-                                // update the url with the attribute yes value
-                                let positions = [extra2_no_id, extra2_yes_id];
-                                let position = extra_yes_id;
-                                update_url(positions, position)
-                            }
-                        })
-
-                        return false;
-                    }
-
-                    // This functionality is specific for "Add Third Location" button
-                    document.querySelector("#extra3_logo_choice").onclick = function() {
-                        document.querySelector("#third_logo_table").style.display = "none";
-                        document.querySelector("#fourth_logo_table").style.display = "block";
-                        document.querySelector("#extra3_logo_choice").style.display = "none";
-
-                        // set the value of extra 3 logo attribute be yes
-                        document.querySelectorAll("select").forEach(function (element) {
-                            if (extra3_y_n_attr_id === element.dataset.attribute_id) {
-                                element.value = extra3_yes_id;
-
-                                // update the url with the attribute yes value
-                                let positions = [extra3_no_id, extra3_yes_id];
-                                let position = extra_yes_id;
-                                update_url(positions, position)
-                            }
-                        })
-
-                        return false;
-                    }
-
-                }); // end of DOM
-
-
+                // before loading the page
                 // this function is no longer needed as updating the url with the attributes values is caaling the combination cache
-                // set defaults of all extra logos be "no" and "no thanks"
-                function setting_defaults() {
+                setting_defaults()
+                
+            }); // end of DOM
 
-                    // display all positions for first table
-                    let table_1 = document.querySelector("#table-of-locactions-1");
-                    table_1.querySelectorAll("td").forEach(function(td) {
-                        let button_1 = td.querySelector("button");
-                        if (button_1.disabled == true) {
-                            button_1.disabled = false;
-                        }
-                    })
-                    // display all positions for second table
-                    let table_2 = document.querySelector("#table-of-locactions-2");
-                    table_2.querySelectorAll("td").forEach(function(td) {
-                        let button_2 = td.querySelector("button");
-                        if (button_2.disabled == true) {
-                            button_2.disabled = false;
-                        }
-                    })
-                    // display all positions for third table
-                    let table_3 = document.querySelector("#table-of-locactions-3");
-                    table_3.querySelectorAll("td").forEach(function(td) {
-                        let button_3 = td.querySelector("button");
-                        if (button_3.disabled == true) {
-                            button_3.disabled = false;
-                        }
-                    })
-                    // display all positions for fourth table
-                    let table_4 = document.querySelector("#table-of-locactions-4");
-                    table_4.querySelectorAll("td").forEach(function(td) {
-                        let button_4 = td.querySelector("button");
-                        if (button_4.disabled == true) {
-                            button_4.disabled = false;
-                        }
-                    })
-                    
-                    
+
+            document.addEventListener('DOMContentLoaded', function() {
+
+                // defaults for opening the dialog
+                document.querySelector("#second_logo_table").style.display = "none";
+                document.querySelector("#third_logo_table").style.display = "none";
+                document.querySelector("#fourth_logo_table").style.display = "none";
+                document.querySelector("#extra2_logo_choice").style.display = "none";
+                document.querySelector("#extra3_logo_choice").style.display = "none";
+
+                // This functionality is specific for "Add Second Location" button
+                document.querySelector("#extra_logo_choice").onclick = function() {
+                    document.querySelector("#first_logo_table").style.display = "none";
+                    document.querySelector("#second_logo_table").style.display = "block";
+                    document.querySelector("#extra_logo_choice").style.display = "none";
+
+                    // set the value of extra logo attribute be yes
                     document.querySelectorAll("select").forEach(function (element) {
-                        // default is no for extra 1 logo
                         if (extra_y_n_attr_id === element.dataset.attribute_id) {
-                            element.onchange = function() {
-                                // extra position changes according to this element
-                                let attr_line_name = `ptal-${ptal_extra_printing_line_id}`;
-                                let relevant_position = document.querySelector(`select[name=${attr_line_name}]`);
-                                if (element.value === extra_no_id) {
-                                    relevant_position.value = extra_position_thanks;
-                                }
-                            }
-                            element.value = extra_no_id;
-                        }
-                        // default is "no thanks" for extra 1 position
-                        if (ptal_extra_printing_id === element.dataset.attribute_id) {
-                            element.value = extra_position_thanks;
-                        }
+                            element.value = extra_yes_id;
 
-                        // default is no for extra 2 logo
+                            // update the url with the attribute yes value
+                            let positions = [extra_no_id,extra_yes_id];
+                            let position = extra_yes_id;
+                            update_url(positions, position)
+                        }
+                    })
+
+                    return false;
+                }
+
+                // This functionality is specific for "Add Third Location" button
+                document.querySelector("#extra2_logo_choice").onclick = function() {
+                    document.querySelector("#second_logo_table").style.display = "none";
+                    document.querySelector("#third_logo_table").style.display = "block";
+                    document.querySelector("#extra2_logo_choice").style.display = "none";
+
+                    // set the value of extra 2 logo attribute be yes
+                    document.querySelectorAll("select").forEach(function (element) {
                         if (extra2_y_n_attr_id === element.dataset.attribute_id) {
-                            element.onchange = function() {
-                                // extra position 2 changes according to this element
-                                let attr_line_name = `ptal-${ptal_extra2_printing_line_id}`;
-                                let relevant_position = document.querySelector(`select[name=${attr_line_name}]`);
-                                if (element.value === extra2_no_id) {
-                                    relevant_position.value = extra_position2_thanks;
-                                }
-                            }
-                            element.value =  extra2_no_id
-                        }
-                        // default is "no thanks" for extra 2 position
-                        if (ptal_extra2_printing_id === element.dataset.attribute_id) {
-                            element.value =  extra_position2_thanks
-                        }
+                            element.value = extra2_yes_id;
 
-                        // default is no for extra 3 logo
-                        if (extra3_y_n_attr_id === element.dataset.attribute_id) {
-                            element.onchange = function() {
-                                // extra position 3 changes according to this element
-                                let attr_line_name = `ptal-${ptal_extra3_printing_line_id}`;
-                                let relevant_position = document.querySelector(`select[name=${attr_line_name}]`);
-                                if (element.value === extra3_no_id) {
-                                    relevant_position.value = extra_position3_thanks;
-                                }
-                            }
-                            element.value =  extra3_no_id
+                            // update the url with the attribute yes value
+                            let positions = [extra2_no_id, extra2_yes_id];
+                            let position = extra_yes_id;
+                            update_url(positions, position)
                         }
-                        // default is "no thanks" for extra 3 position
-                        if (ptal_extra3_printing_id === element.dataset.attribute_id) {
-                            element.value =  extra_position3_thanks
-                        }
-                    });               
+                    })
+
+                    return false;
                 }
 
-
-                function choose_option(position, positions) {
-
-                    update_url(positions, position);
-                    
-                    // if there is no extra position attribute for this product
-                    if (extra_y_n_attr_line_id === "") {
-                        document.querySelector("#extra_logo_choice").style.display = "none";
-                        document.querySelector("dialog").close();
-                    }
-                    else {
-                        // else if there is extra position attribute for this product
-                        document.querySelector("#extra_logo_choice").style.display = "block";
-                    }
-
-                    // hide selected position after clicking
-                    let table_1 = document.querySelector("#table-of-locactions-1");
-                    let disable_name = "";
-                    table_1.querySelectorAll("td").forEach(function(td) {
-                        td.querySelector("button").disabled = true;
-
-                        if (td.dataset.value_id === position.toString()) {
-                            disable_name = td.dataset.value_name
-                        }
-                    })
-
-                    let table_2 = document.querySelector("#table-of-locactions-2");
-                    table_2.querySelectorAll("td").forEach(function(td) {
-                        if (td.dataset.value_name.toUpperCase() === disable_name.toUpperCase()) {
-                            td.querySelector("button").disabled = true;
-                        }
-                    })
-
-                    let table_3 = document.querySelector("#table-of-locactions-3");
-                    table_3.querySelectorAll("td").forEach(function(td) {
-                        if (td.dataset.value_name.toUpperCase() === disable_name.toUpperCase()) {
-                            td.querySelector("button").disabled = true;
-                        }
-                    })
-                    let table_4 = document.querySelector("#table-of-locactions-4");
-                    table_4.querySelectorAll("td").forEach(function(td) {
-                        if (td.dataset.value_name.toUpperCase() === disable_name.toUpperCase()) {
-                            td.querySelector("button").disabled = true;
-                        }
-                    })
-                    
-                }
-
-
-                function choose_extra_option(position, positions) {
-
-                    update_url(positions, position);
-
-                    // if there is no extra 2 position attribute for this product
-                    if (extra2_y_n_attr_line_id === "") {
-                        document.querySelector("#extra2_logo_choice").style.display = "none";
-                        document.querySelector("dialog").close();
-                    }
-                    else {
-                        // else if there is extra 2 position attribute for this product
-                        document.querySelector("#extra_logo_choice").style.display = "none";
-                        document.querySelector("#extra2_logo_choice").style.display = "block";
-                    }
-
-                    // assign a correct value to the second logo attribute
-                    document.querySelectorAll("select").forEach(function(element) {
-                        if (element.dataset.attribute_id === ptal_extra_printing_id) {
-                            element.value = position;
-                        }
-                    });
-
-                    // hide selected position after clicking
-                    let table_2 = document.querySelector("#table-of-locactions-2");
-                    let disable_name = "";
-                    table_2.querySelectorAll("td").forEach(function(td) {
-                        td.querySelector("button").disabled = true;
-
-                        if (td.dataset.value_id === position.toString()) {
-                            disable_name = td.dataset.value_name
-                        }
-                    })
-
-                    let table_3 = document.querySelector("#table-of-locactions-3");
-                    table_3.querySelectorAll("td").forEach(function(td) {
-                        if (td.dataset.value_name.toUpperCase() === disable_name.toUpperCase()) {
-                            td.querySelector("button").disabled = true;
-                        }
-                    })
-
-                    let table_4 = document.querySelector("#table-of-locactions-4");
-                    table_4.querySelectorAll("td").forEach(function(td) {
-                        if (td.dataset.value_name.toUpperCase() === disable_name.toUpperCase()) {
-                            td.querySelector("button").disabled = true;
-                        }
-                    })
-                }
-
-                function choose_extra2_option(position, positions) {
-
-                    update_url(positions, position);
-
-                    // if there is no extra 3 position attribute for this product
-                    if (extra3_y_n_attr_line_id === "") {
-                        document.querySelector("#extra3_logo_choice").style.display = "none";
-                        document.querySelector("dialog").close();
-                    }
-                    else {
-                        // else if there is extra 3 position attribute for this product
-                        document.querySelector("#extra2_logo_choice").style.display = "none";
-                        document.querySelector("#extra3_logo_choice").style.display = "block";
-                    }
-
-                    // assign a correct value to the third logo attribute
-                    document.querySelectorAll("select").forEach(function(element) {
-                        if (element.dataset.attribute_id === ptal_extra2_printing_id) {
-                            element.value = position;
-                        }
-                    });
-
-                    // hide selected position after clicking
-                    let table_3 = document.querySelector("#table-of-locactions-3");
-                    let disable_name = "";
-                    table_3.querySelectorAll("td").forEach(function(td) {
-                        td.querySelector("button").disabled = true;
-
-                        if (td.dataset.value_id === position.toString()) {
-                            disable_name = td.dataset.value_name
-                        }
-                    })
-
-                    let table_4 = document.querySelector("#table-of-locactions-4");
-                    table_4.querySelectorAll("td").forEach(function(td) {
-                        if (td.dataset.value_name.toUpperCase() === disable_name.toUpperCase()) {
-                            td.querySelector("button").disabled = true;
-                        }
-                    })
-                }
-
-                function choose_extra3_option(position, positions) {
-
-                    update_url(positions, position);
-
+                // This functionality is specific for "Add Third Location" button
+                document.querySelector("#extra3_logo_choice").onclick = function() {
+                    document.querySelector("#third_logo_table").style.display = "none";
+                    document.querySelector("#fourth_logo_table").style.display = "block";
                     document.querySelector("#extra3_logo_choice").style.display = "none";
 
-                    // assign a correct value to the fourth logo attribute
-                    document.querySelectorAll("select").forEach(function(element) {
-                        if (element.dataset.attribute_id === ptal_extra3_printing_id) {
-                            element.value = position;
-                        }
-                    });
+                    // set the value of extra 3 logo attribute be yes
+                    document.querySelectorAll("select").forEach(function (element) {
+                        if (extra3_y_n_attr_id === element.dataset.attribute_id) {
+                            element.value = extra3_yes_id;
 
-                    // hide selected position after clicking
-                    let table_4 = document.querySelector("#table-of-locactions-4");
-                    let disable_name = "";
-                    table_4.querySelectorAll("td").forEach(function(td) {
-                        td.querySelector("button").disabled = true;
-
-                        if (td.dataset.value_id === position.toString()) {
-                            disable_name = td.dataset.value_name
+                            // update the url with the attribute yes value
+                            let positions = [extra3_no_id, extra3_yes_id];
+                            let position = extra_yes_id;
+                            update_url(positions, position)
                         }
                     })
 
+                    return false;
+                }
+
+            }); // end of DOM
+
+
+            // this function is no longer needed as updating the url with the attributes values is caaling the combination cache
+            // set defaults of all extra logos be "no" and "no thanks"
+            function setting_defaults() {
+
+                // display all positions for first table
+                let table_1 = document.querySelector("#table-of-locactions-1");
+                table_1.querySelectorAll("td").forEach(function(td) {
+                    let button_1 = td.querySelector("button");
+                    if (button_1.disabled == true) {
+                        button_1.disabled = false;
+                    }
+                })
+                // display all positions for second table
+                let table_2 = document.querySelector("#table-of-locactions-2");
+                table_2.querySelectorAll("td").forEach(function(td) {
+                    let button_2 = td.querySelector("button");
+                    if (button_2.disabled == true) {
+                        button_2.disabled = false;
+                    }
+                })
+                // display all positions for third table
+                let table_3 = document.querySelector("#table-of-locactions-3");
+                table_3.querySelectorAll("td").forEach(function(td) {
+                    let button_3 = td.querySelector("button");
+                    if (button_3.disabled == true) {
+                        button_3.disabled = false;
+                    }
+                })
+                // display all positions for fourth table
+                let table_4 = document.querySelector("#table-of-locactions-4");
+                table_4.querySelectorAll("td").forEach(function(td) {
+                    let button_4 = td.querySelector("button");
+                    if (button_4.disabled == true) {
+                        button_4.disabled = false;
+                    }
+                })
+                
+                
+                document.querySelectorAll("select").forEach(function (element) {
+                    // default is no for extra 1 logo
+                    if (extra_y_n_attr_id === element.dataset.attribute_id) {
+                        element.onchange = function() {
+                            // extra position changes according to this element
+                            let attr_line_name = `ptal-${ptal_extra_printing_line_id}`;
+                            let relevant_position = document.querySelector(`select[name=${attr_line_name}]`);
+                            if (element.value === extra_no_id) {
+                                relevant_position.value = extra_position_thanks;
+                            }
+                        }
+                        element.value = extra_no_id;
+                    }
+                    // default is "no thanks" for extra 1 position
+                    if (ptal_extra_printing_id === element.dataset.attribute_id) {
+                        element.value = extra_position_thanks;
+                    }
+
+                    // default is no for extra 2 logo
+                    if (extra2_y_n_attr_id === element.dataset.attribute_id) {
+                        element.onchange = function() {
+                            // extra position 2 changes according to this element
+                            let attr_line_name = `ptal-${ptal_extra2_printing_line_id}`;
+                            let relevant_position = document.querySelector(`select[name=${attr_line_name}]`);
+                            if (element.value === extra2_no_id) {
+                                relevant_position.value = extra_position2_thanks;
+                            }
+                        }
+                        element.value =  extra2_no_id
+                    }
+                    // default is "no thanks" for extra 2 position
+                    if (ptal_extra2_printing_id === element.dataset.attribute_id) {
+                        element.value =  extra_position2_thanks
+                    }
+
+                    // default is no for extra 3 logo
+                    if (extra3_y_n_attr_id === element.dataset.attribute_id) {
+                        element.onchange = function() {
+                            // extra position 3 changes according to this element
+                            let attr_line_name = `ptal-${ptal_extra3_printing_line_id}`;
+                            let relevant_position = document.querySelector(`select[name=${attr_line_name}]`);
+                            if (element.value === extra3_no_id) {
+                                relevant_position.value = extra_position3_thanks;
+                            }
+                        }
+                        element.value =  extra3_no_id
+                    }
+                    // default is "no thanks" for extra 3 position
+                    if (ptal_extra3_printing_id === element.dataset.attribute_id) {
+                        element.value =  extra_position3_thanks
+                    }
+                });               
+            }
+
+
+            function choose_option(position, positions) {
+
+                update_url(positions, position);
+                
+                // if there is no extra position attribute for this product
+                if (extra_y_n_attr_line_id === "") {
+                    document.querySelector("#extra_logo_choice").style.display = "none";
                     document.querySelector("dialog").close();
                 }
+                else {
+                    // else if there is extra position attribute for this product
+                    document.querySelector("#extra_logo_choice").style.display = "block";
+                }
 
-                function update_url(positions, position) {
-                    let custom_url = location.href;
-                    let custom_url_slice = custom_url.split("attr=")
-                    let custom_url_arr = custom_url_slice[1].split(",");
-                    
-                    let new_url = custom_url_slice[0] + "attr=";
-                    for (i in custom_url_arr) {
-                        
-                        for (j in positions) {
-                            // update the attribute value
-                            if (custom_url_arr[i] === positions[j].toString()) {
-                                custom_url_arr[i] = position.toString()
-                            }
-                        }
-                        new_url = new_url + custom_url_arr[i] + ","
+                // hide selected position after clicking
+                let table_1 = document.querySelector("#table-of-locactions-1");
+                let disable_name = "";
+                table_1.querySelectorAll("td").forEach(function(td) {
+                    td.querySelector("button").disabled = true;
+
+                    if (td.dataset.value_id === position.toString()) {
+                        disable_name = td.dataset.value_name
                     }
-                    // remove the last comma (not needed)
-                    location.href = new_url.slice(0, -1);
-                }
+                })
 
-                function dialog(positions1, positions2, positions3) {
-                    // before opening return all extra values to "no" and "no thanks"
-                    document.querySelectorAll("select").forEach(function (element) {
-                        if (ptal_printing_id === element.dataset.attribute_id) {
-                            
-                            // before opening the dialog
-                            setting_defaults()
-                        }
-                    });
+                let table_2 = document.querySelector("#table-of-locactions-2");
+                table_2.querySelectorAll("td").forEach(function(td) {
+                    if (td.dataset.value_name.toUpperCase() === disable_name.toUpperCase()) {
+                        td.querySelector("button").disabled = true;
+                    }
+                })
+
+                let table_3 = document.querySelector("#table-of-locactions-3");
+                table_3.querySelectorAll("td").forEach(function(td) {
+                    if (td.dataset.value_name.toUpperCase() === disable_name.toUpperCase()) {
+                        td.querySelector("button").disabled = true;
+                    }
+                })
+                let table_4 = document.querySelector("#table-of-locactions-4");
+                table_4.querySelectorAll("td").forEach(function(td) {
+                    if (td.dataset.value_name.toUpperCase() === disable_name.toUpperCase()) {
+                        td.querySelector("button").disabled = true;
+                    }
+                })
+                
+            }
 
 
-                    document.querySelector("#first_logo_table").style.display = "block";
-                    document.querySelector("#second_logo_table").style.display = "none";
-                    document.querySelector("#third_logo_table").style.display = "none";
-                    document.querySelector("#fourth_logo_table").style.display = "none";
-                    document.querySelector("#extra_logo_choice").style.display = "none";
+            function choose_extra_option(position, positions) {
+
+                update_url(positions, position);
+
+                // if there is no extra 2 position attribute for this product
+                if (extra2_y_n_attr_line_id === "") {
                     document.querySelector("#extra2_logo_choice").style.display = "none";
-                    document.querySelector("#extra3_logo_choice").style.display = "none";
-                    document.querySelector("dialog[id='dialog_positions']").showModal();
-
-                    update_url(positions1, extra_position_thanks)
-                    update_url(positions2, extra_position2_thanks)
-                    update_url(positions3, extra_position3_thanks)
-
-                    update_url([extra_no_id, extra_yes_id], extra_no_id)
-                    update_url([extra2_no_id, extra2_yes_id], extra2_no_id)
-                    update_url([extra3_no_id, extra3_yes_id], extra3_no_id)
+                    document.querySelector("dialog").close();
                 }
+                else {
+                    // else if there is extra 2 position attribute for this product
+                    document.querySelector("#extra_logo_choice").style.display = "none";
+                    document.querySelector("#extra2_logo_choice").style.display = "block";
+                }
+
+                // assign a correct value to the second logo attribute
+                document.querySelectorAll("select").forEach(function(element) {
+                    if (element.dataset.attribute_id === ptal_extra_printing_id) {
+                        element.value = position;
+                    }
+                });
+
+                // hide selected position after clicking
+                let table_2 = document.querySelector("#table-of-locactions-2");
+                let disable_name = "";
+                table_2.querySelectorAll("td").forEach(function(td) {
+                    td.querySelector("button").disabled = true;
+
+                    if (td.dataset.value_id === position.toString()) {
+                        disable_name = td.dataset.value_name
+                    }
+                })
+
+                let table_3 = document.querySelector("#table-of-locactions-3");
+                table_3.querySelectorAll("td").forEach(function(td) {
+                    if (td.dataset.value_name.toUpperCase() === disable_name.toUpperCase()) {
+                        td.querySelector("button").disabled = true;
+                    }
+                })
+
+                let table_4 = document.querySelector("#table-of-locactions-4");
+                table_4.querySelectorAll("td").forEach(function(td) {
+                    if (td.dataset.value_name.toUpperCase() === disable_name.toUpperCase()) {
+                        td.querySelector("button").disabled = true;
+                    }
+                })
+            }
+
+            function choose_extra2_option(position, positions) {
+
+                update_url(positions, position);
+
+                // if there is no extra 3 position attribute for this product
+                if (extra3_y_n_attr_line_id === "") {
+                    document.querySelector("#extra3_logo_choice").style.display = "none";
+                    document.querySelector("dialog").close();
+                }
+                else {
+                    // else if there is extra 3 position attribute for this product
+                    document.querySelector("#extra2_logo_choice").style.display = "none";
+                    document.querySelector("#extra3_logo_choice").style.display = "block";
+                }
+
+                // assign a correct value to the third logo attribute
+                document.querySelectorAll("select").forEach(function(element) {
+                    if (element.dataset.attribute_id === ptal_extra2_printing_id) {
+                        element.value = position;
+                    }
+                });
+
+                // hide selected position after clicking
+                let table_3 = document.querySelector("#table-of-locactions-3");
+                let disable_name = "";
+                table_3.querySelectorAll("td").forEach(function(td) {
+                    td.querySelector("button").disabled = true;
+
+                    if (td.dataset.value_id === position.toString()) {
+                        disable_name = td.dataset.value_name
+                    }
+                })
+
+                let table_4 = document.querySelector("#table-of-locactions-4");
+                table_4.querySelectorAll("td").forEach(function(td) {
+                    if (td.dataset.value_name.toUpperCase() === disable_name.toUpperCase()) {
+                        td.querySelector("button").disabled = true;
+                    }
+                })
+            }
+
+            function choose_extra3_option(position, positions) {
+
+                update_url(positions, position);
+
+                document.querySelector("#extra3_logo_choice").style.display = "none";
+
+                // assign a correct value to the fourth logo attribute
+                document.querySelectorAll("select").forEach(function(element) {
+                    if (element.dataset.attribute_id === ptal_extra3_printing_id) {
+                        element.value = position;
+                    }
+                });
+
+                // hide selected position after clicking
+                let table_4 = document.querySelector("#table-of-locactions-4");
+                let disable_name = "";
+                table_4.querySelectorAll("td").forEach(function(td) {
+                    td.querySelector("button").disabled = true;
+
+                    if (td.dataset.value_id === position.toString()) {
+                        disable_name = td.dataset.value_name
+                    }
+                })
+
+                document.querySelector("dialog").close();
+            }
+
+            function update_url(positions, position) {
+                let custom_url = location.href;
+                let custom_url_slice = custom_url.split("attr=")
+                let custom_url_arr = custom_url_slice[1].split(",");
+                
+                let new_url = custom_url_slice[0] + "attr=";
+                for (i in custom_url_arr) {
+                    
+                    for (j in positions) {
+                        // update the attribute value
+                        if (custom_url_arr[i] === positions[j].toString()) {
+                            custom_url_arr[i] = position.toString()
+                        }
+                    }
+                    new_url = new_url + custom_url_arr[i] + ","
+                }
+                // remove the last comma (not needed)
+                location.href = new_url.slice(0, -1);
+            }
+
+            function dialog(positions1, positions2, positions3) {
+                // before opening return all extra values to "no" and "no thanks"
+                document.querySelectorAll("select").forEach(function (element) {
+                    if (ptal_printing_id === element.dataset.attribute_id) {
+                        
+                        // before opening the dialog
+                        setting_defaults()
+                    }
+                });
+
+
+                document.querySelector("#first_logo_table").style.display = "block";
+                document.querySelector("#second_logo_table").style.display = "none";
+                document.querySelector("#third_logo_table").style.display = "none";
+                document.querySelector("#fourth_logo_table").style.display = "none";
+                document.querySelector("#extra_logo_choice").style.display = "none";
+                document.querySelector("#extra2_logo_choice").style.display = "none";
+                document.querySelector("#extra3_logo_choice").style.display = "none";
+                document.querySelector("dialog[id='dialog_positions']").showModal();
+
+                update_url(positions1, extra_position_thanks)
+                update_url(positions2, extra_position2_thanks)
+                update_url(positions3, extra_position3_thanks)
+
+                update_url([extra_no_id, extra_yes_id], extra_no_id)
+                update_url([extra2_no_id, extra2_yes_id], extra2_no_id)
+                update_url([extra3_no_id, extra3_yes_id], extra3_no_id)
+            }
                                 
-            </script>
+        </script>
         
     </template>
 
@@ -653,527 +653,9 @@
             </div>
             <br/>
         
-            <script>
-                
-            </script>
         </xpath>
     </template>
 
-    <!-- submit logo in cart template -->
-    <template id="submit_logo_in_cart" inherit_id="website_sale.cart_lines">
-        <xpath expr="//table[@id='cart_products']//thead//tr//th" position="before">
-            <th class="td-img">
-                Logo
-            </th>
-        </xpath>
-        <xpath expr="//table[@id='cart_products']//tbody//tr//td" position="before">
-            <td id="first_table_data" class="text-center">
-
-                <!-- tsting json testing json testing json -->
-                
-                <dialog class="rounded" t-attf-id="dialog_logos_{{line.id}}">
-                    <form t-attf-id="form_json_submit_{{line.id}}" >
-                        <div>
-                            <h2 t-attf-id="line_json_input_title_{{line.id}}"></h2>
-                        </div>
-                        <div class="logo_upload" style="display: none;">
-                            <img t-attf-id="line_json_img_preview_{{line.id}}" src="" class="img-thumbnail mx-auto rounded d-block" style="width: 100px" />
-                        </div>
-                        <div class="logo_upload" style="display: none;">
-                            <img t-attf-id="line_json_extra1_img_preview_{{line.id}}" src="" class="img-thumbnail mx-auto rounded d-block" style="width: 100px" />
-                        </div>
-                        <div class="logo_upload" style="display: none;">
-                            <img t-attf-id="line_json_extra2_img_preview_{{line.id}}" src="" class="img-thumbnail mx-auto rounded d-block" style="width: 100px" />
-                        </div>
-                        <div class="logo_upload" style="display: none;">
-                            <img t-attf-id="line_json_extra3_img_preview_{{line.id}}" src="" class="img-thumbnail mx-auto rounded d-block" style="width: 100px" />
-                        </div>
-                        <div>
-                            <input t-attf-id="line_json_input_file_{{line.id}}" type="file" accept="image/*" title="Insert logo" class="fa fa-paperclip rounded-pill s_website_form_input mx-auto logo_upload" />
-                            <input t-attf-id="line_json_extra1_input_file_{{line.id}}" type="file" accept="image/*" title="Insert additional logo 1" class="fa fa-paperclip rounded-pill s_website_form_input mx-auto logo_upload" style="display: none;"/>
-                            <input t-attf-id="line_json_extra2_input_file_{{line.id}}" type="file" accept="image/*" title="Insert additional logo 2" class="fa fa-paperclip rounded-pill s_website_form_input mx-auto logo_upload" style="display: none;"/>
-                            <input t-attf-id="line_json_extra3_input_file_{{line.id}}" type="file" accept="image/*" title="Insert additional logo 3" class="fa fa-paperclip rounded-pill s_website_form_input mx-auto logo_upload" style="display: none;"/>
-                        </div>
-                        <br/>
-                        <div>
-                            <button t-attf-id="line_json_submit_{{line.id}}" class="btn btn-primary mx-auto logo_upload" style="display: none;">Submit your logo</button>
-                            <button t-attf-id="line_json_extra1_submit_{{line.id}}" class="btn btn-primary mx-auto logo_upload" style="display: none;">Submit your additional logo No.1</button>
-                            <button t-attf-id="line_json_extra2_submit_{{line.id}}" class="btn btn-primary mx-auto logo_upload" style="display: none;">Submit your additional logo No.2</button>
-                            <button t-attf-id="line_json_extra3_submit_{{line.id}}" class="btn btn-primary mx-auto logo_upload" style="display: none;">Submit your additional logo No.3</button>
-                        </div>
-                    </form>
-                    <br/>
-                    <div class="row">
-                        <div class="col-4">
-                            <button t-attf-onclick="close_dialog_logos({{line.id}})" value="close" class="btn btn-secondary rounded-pill">Close</button>
-                        </div>
-                        <div class="col-4"></div>
-                        <div class="col-4">
-                            <button t-attf-id="line_json_proceed_{{line.id}}" class="btn btn-primary mx-xl-5 logo_upload" style="display: none;">Proceed</button>
-                            <button t-attf-id="line_json_proceed1_{{line.id}}" class="btn btn-primary mx-xl-5 logo_upload" style="display: none;">Proceed</button>
-                            <button t-attf-id="line_json_proceed2_{{line.id}}" class="btn btn-primary mx-xl-5 logo_upload" style="display: none;">Proceed</button>
-                            <button t-attf-id="line_json_proceed3_{{line.id}}" class="btn btn-primary mx-xl-5 logo_upload" style="display: none;">Proceed</button>
-                        </div>
-                    </div>
-                    
-                </dialog>
-                <button t-attf-id="submit_button_{{line.id}}" type="submit" t-attf-onclick="logo_submit({{line.id}})" class="btn fa fa-paperclip rounded-pill s_website_form_input"></button>
-                
-                <script>
-
-                    var descrip = {};
-
-                    // open the dialog
-                    function logo_submit(line_id) {
-
-                        let proceed_id = `#line_json_proceed_${line_id}`;
-                        let proceed1_id = `#line_json_proceed1_${line_id}`;
-                        let proceed2_id = `#line_json_proceed2_${line_id}`;
-                        let proceed3_id = `#line_json_proceed3_${line_id}`;
-                        console.log("prceed 2 id: ", proceed2_id)
-
-                        let id = `#submit_button_${line_id}`;
-                        let form_id = `#form_json_submit_${line_id}`;
-
-                        let input_id = `#line_json_input_file_${line_id}`;
-                        let extra1_input_id = `#line_json_extra1_input_file_${line_id}`;
-                        let extra2_input_id = `#line_json_extra2_input_file_${line_id}`;
-                        let extra3_input_id = `#line_json_extra3_input_file_${line_id}`;
-
-                        let submit_id = `#line_json_submit_${line_id}`;
-                        let extra1_submit_id = `#line_json_extra1_submit_${line_id}`;
-                        let extra2_submit_id = `#line_json_extra2_submit_${line_id}`;
-                        let extra3_submit_id = `#line_json_extra3_submit_${line_id}`;
-
-                        let title_id = `#line_json_input_title_${line_id}`;
-
-                        let img_id = `#line_json_img_preview_${line_id}`;
-                        let extra1_img_id = `#line_json_extra1_img_preview_${line_id}`;
-                        let extra2_img_id = `#line_json_extra2_img_preview_${line_id}`;
-                        let extra3_img_id = `#line_json_extra3_img_preview_${line_id}`;
-
-                        let chooseFile = document.querySelector(input_id);
-                        let chooseFile_extra1 = document.querySelector(extra1_input_id);
-                        let chooseFile_extra2 = document.querySelector(extra2_input_id);
-                        let chooseFile_extra3 = document.querySelector(extra3_input_id);
-
-                        let imgPreview = document.querySelector(img_id);
-                        let imgPreview_extra1 = document.querySelector(extra1_img_id);
-                        let imgPreview_extra2 = document.querySelector(extra2_img_id);
-                        let imgPreview_extra3 = document.querySelector(extra3_img_id);
-
-                        // show the dialog with the title of the first logo position
-                        let dialog_ID = `dialog[id=\"dialog_logos_${line_id}\"]`;
-                        document.querySelector(dialog_ID).showModal();
-
-                        // get description of specific line in order to submit the correct number of logos
-                        fetch(`/logo/get/${line_id}`)
-                        .then(function (response) {
-                            return response.json()
-                        })
-                        .then(async function (description) {
-                            descrip = await description;
-
-                            document.querySelector(input_id).style.display = "block";
-
-                            // add the title for the first position by opening the dialog
-                            if (descrip["submissions"][descrip["logo position"]]) {
-                                document.querySelector(title_id).innerHTML = await `Logo for: ${descrip["logo position"]} position is submitted`;
-                                imgPreview.src = "data:image/png;base64," + descrip["submissions"][descrip["logo position"]];
-                                imgPreview.parentNode.style.display = "block";
-                                document.querySelector(proceed_id).style.display = "block";
-                            }
-                            else {
-                                document.querySelector(title_id).innerHTML = await `Add logo for: ${descrip["logo position"]} position`;
-                            }
-                        })
-
-                        // show submitted logo
-                        document.querySelector(input_id).addEventListener('change', function () {
-                            show_logo_selected(chooseFile, imgPreview, submit_id);
-                        })
-                        // show submitted extra 1 logo
-                        document.querySelector(extra1_input_id).addEventListener('change', function () {
-                            show_logo_selected(chooseFile_extra1, imgPreview_extra1, extra1_submit_id);
-                        })
-                        // show submitted extra 2 logo
-                        document.querySelector(extra2_input_id).addEventListener('change', function () {
-                            show_logo_selected(chooseFile_extra2, imgPreview_extra2, extra2_submit_id);
-                        })
-                        // show submitted extra 3 logo
-                        document.querySelector(extra3_input_id).addEventListener('change', function () {
-                            show_logo_selected(chooseFile_extra3, imgPreview_extra3, extra3_submit_id);
-                        })
-
-                        async function proceeding() {
-                            imgPreview.parentNode.style.display = "none";
-
-                            if (descrip["additional logo 1"]) {
-
-                                if (descrip["additional logo 1"].toUpperCase() === "yes".toUpperCase()) {
-                                    document.querySelector(submit_id).style.display = "none";
-                                    document.querySelector(input_id).style.display = "none";
-                                    document.querySelector(extra1_input_id).style.display = "block";
-
-                                    if (descrip["submissions"][descrip["additional logo position 1"]]) {
-                                        document.querySelector(title_id).innerHTML = await `Logo for: ${descrip["additional logo position 1"]} position is submitted`;
-                                        imgPreview_extra1.src = "data:image/png;base64," + descrip["submissions"][descrip["additional logo position 1"]];
-                                        imgPreview_extra1.parentNode.style.display = "block";
-                                        document.querySelector(proceed1_id).style.display = "block";
-                                    }
-                                    else {
-                                        document.querySelector(title_id).innerHTML = await `Add logo for: ${descrip["additional logo position 1"]} position`;
-                                    }
-                                }
-                            }
-                            else {
-                                document.querySelector(submit_id).style.display = "none";
-                                document.querySelector(input_id).style.display = "none";
-                                document.querySelector(title_id).innerHTML = "<span>Logos for all required positions</span><br/><span>have been uploaded</span><br/><span>Thanks</span>";
-                            }
-
-                            document.querySelector(proceed_id).style.display = "none";
-                        }
-
-                        async function proceeding_1() {
-                            imgPreview_extra1.parentNode.style.display = "none";
-
-                            if (descrip["additional logo 2"]) {
-
-                                if (descrip["additional logo 2"].toUpperCase() === "yes".toUpperCase()) {
-                                    document.querySelector(extra1_submit_id).style.display = "none";
-                                    document.querySelector(extra1_input_id).style.display = "none";
-                                    document.querySelector(extra2_input_id).style.display = "block";
-
-                                    if (descrip["submissions"][descrip["additional logo position 2"]]) {
-                                        document.querySelector(title_id).innerHTML = await `Logo for: ${descrip["additional logo position 2"]} position is submitted`;
-                                        imgPreview_extra2.src = "data:image/png;base64," + descrip["submissions"][descrip["additional logo position 2"]];
-                                        imgPreview_extra2.parentNode.style.display = "block";
-                                        document.querySelector(proceed2_id).style.display = "block";
-                                    }
-                                    else {
-                                        document.querySelector(title_id).innerHTML = await `Add logo for: ${descrip["additional logo position 2"]} position`;
-                                    }
-                                }
-                            }
-                            else {
-                                document.querySelector(extra1_submit_id).style.display = "none";
-                                document.querySelector(extra1_input_id).style.display = "none";
-                                document.querySelector(title_id).innerHTML = "<span>Logos for all selected positions</span><br/><span>are uploaded</span><br/><span>thanks</span>";
-                            }
-
-                            document.querySelector(proceed1_id).style.display = "none";
-                        }
-
-                        async function proceeding_2() {
-                            imgPreview_extra2.parentNode.style.display = "none";
-
-                            if (descrip["additional logo 3"]) {
-                                
-                                if (descrip["additional logo 3"].toUpperCase() === "yes".toUpperCase()) {
-                                    document.querySelector(extra2_submit_id).style.display = "none";
-                                    document.querySelector(extra2_input_id).style.display = "none";
-                                    document.querySelector(extra3_input_id).style.display = "block";
-
-                                    if (descrip["submissions"][descrip["additional logo position 3"]]) {
-                                        document.querySelector(title_id).innerHTML = await `Logo for: ${descrip["additional logo position 3"]} position is submitted`;
-                                        imgPreview_extra3.src = "data:image/png;base64," + descrip["submissions"][descrip["additional logo position 3"]];
-                                        imgPreview_extra3.parentNode.style.display = "block";
-                                        document.querySelector(proceed3_id).style.display = "block";
-                                    }
-                                    else {
-                                        document.querySelector(title_id).innerHTML = await `Add logo for: ${descrip["additional logo position 3"]} position`;
-                                    }
-                                }
-                            }
-                            else {
-                                document.querySelector(extra2_submit_id).style.display = "none";
-                                document.querySelector(extra2_input_id).style.display = "none";
-                                document.querySelector(title_id).innerHTML = "<span>Logos for all selected positions</span><br/><span>are uploaded</span><br/><span>Thanks</span>";
-                            }
-
-                            document.querySelector(proceed2_id).style.display = "none";
-                        }
-
-                        async function proceeding_3() {
-                            imgPreview_extra3.parentNode.style.display = "none";
-
-                            document.querySelector(extra3_submit_id).style.display = "none";
-                            document.querySelector(extra3_input_id).style.display = "none";
-                            document.querySelector(title_id).innerHTML = "<span>Logos for all selected positions</span><br/><span>are uploaded</span><br/><span>thanks</span>";
-
-                            document.querySelector(proceed3_id).style.display = "none";
-                        }
-
-                        // proceed without submitting
-                        document.querySelector(proceed_id).addEventListener('click', function () {
-                            // Prevents the page from reloading
-                            event.preventDefault();
-
-                            proceeding()
-                        });
-                        document.querySelector(proceed1_id).addEventListener('click', function () {
-                            // Prevents the page from reloading
-                            event.preventDefault();
-
-                            proceeding_1()
-                        });
-                        document.querySelector(proceed2_id).addEventListener('click', function () {
-                            // Prevents the page from reloading
-                            event.preventDefault();
-
-                            proceeding_2()
-                        });
-                        document.querySelector(proceed3_id).addEventListener('click', function () {
-                            // Prevents the page from reloading
-                            event.preventDefault();
-
-                            proceeding_3()
-                        });
-
-                        // submit the logo
-                        document.querySelector(submit_id).addEventListener('click',
-                            async function posting(event) {
-                                // Prevents the page from reloading
-                                event.preventDefault();
-
-                                proceeding()
-
-                                let file = document.querySelector(input_id).files[0];
-                                
-                                if (file) {
-                                    let fileReader = new FileReader();
-                                    fileReader.readAsDataURL(file);
-                                    fileReader.addEventListener("load", async function () {
-                                        // get image binaries without it's data padding
-                                        let str_64 = await `${this.result}`.split(',')[1];
-
-                                        // PUT request for already submitted logos, POST request for new logo submission
-                                        if (descrip["submissions"][descrip["logo position"]]) {
-
-                                            fetch(`/logo/post/${line_id}`, {
-                                                method: 'PUT',
-                                                body: JSON.stringify({
-                                                    file: str_64,
-                                                    logo_position: descrip["logo position"]
-                                                })
-                                            })
-                                        }
-                                        else {
-                                            fetch(`/logo/post/${line_id}`, {
-                                                method: 'POST',
-                                                body: JSON.stringify({
-                                                    file: str_64,
-                                                    logo_position: descrip["logo position"]
-                                                })
-                                            })
-                                            .then(function (response) {
-                                                return response.json();
-                                            })
-                                            .then(function (data) {
-                                                console.log("This data: " + data + "\n------ Is sent to server");
-                                                console.log(data);
-                                            });
-                                        }
-                                    })
-                                }
-                            }
-                        )
-
-                        // submit the extra 1 logo
-                        document.querySelector(extra1_submit_id).addEventListener('click',
-                            async function posting(event) {
-                                // Prevents the page from reloading
-                                event.preventDefault();
-
-                                proceeding_1()
-
-                                let file = document.querySelector(extra1_input_id).files[0];
-
-                                if (file) {
-                                    let fileReader = new FileReader();
-                                    fileReader.readAsDataURL(file);
-                                    fileReader.addEventListener("load", async function () {
-                                        // get image binaries without it's data padding
-                                        let str_64 = await `${this.result}`.split(',')[1];
-
-                                        // PUT request for already submitted logos, POST request for new logo submission
-                                        if (descrip["submissions"][descrip["additional logo position 1"]]) {
-                                            fetch(`/logo/post/${line_id}`, {
-                                                method: 'PUT',
-                                                body: JSON.stringify({
-                                                    file: str_64,
-                                                    logo_position: descrip["additional logo position 1"]
-                                                })
-                                            })
-                                        }
-                                        else {
-                                            fetch(`/logo/post/${line_id}`, {
-                                                method: 'POST',
-                                                body: JSON.stringify({
-                                                    file: str_64,
-                                                    logo_position: descrip["additional logo position 1"]
-                                                })
-                                            })
-                                            .then(function (response) {
-                                                return response.json();
-                                            })
-                                            .then(function (data) {
-                                                console.log("This data: " + data + "\n------ Is sent to server");
-                                            });
-                                        }
-                                    })
-                                }
-                            }
-                        )
-
-                        // submit the extra 2 logo
-                        document.querySelector(extra2_submit_id).addEventListener('click',
-                            async function posting(event) {
-                                // Prevents the page from reloading
-                                event.preventDefault();
-
-                                proceeding_2()
-
-                                // make post request via fetch to upload the extra 2 logo
-                                let file = document.querySelector(extra2_input_id).files[0];
-
-                                if (file) {
-                                    let fileReader = new FileReader();
-                                    fileReader.readAsDataURL(file);
-                                    fileReader.addEventListener("load", async function () {
-                                        // get image binaries without it's data padding
-                                        let str_64 = await `${this.result}`.split(',')[1];
-
-                                        // PUT request for already submitted logos, POST request for new logo submission
-                                        if (descrip["submissions"][descrip["additional logo position 2"]]) {
-                                            fetch(`/logo/post/${line_id}`, {
-                                                method: 'PUT',
-                                                body: JSON.stringify({
-                                                    file: str_64,
-                                                    logo_position: descrip["additional logo position 2"]
-                                                })
-                                            })
-                                        }
-                                        else {
-                                            fetch(`/logo/post/${line_id}`, {
-                                                method: 'POST',
-                                                body: JSON.stringify({
-                                                    file: str_64,
-                                                    logo_position: descrip["additional logo position 2"]
-                                                })
-                                            })
-                                            .then(function (response) {
-                                                return response.json();
-                                            })
-                                            .then(function (data) {
-                                                console.log("This data: " + data + "\n------ Is sent to server");
-                                            });
-                                        }
-                                    })
-                                }
-                            }
-                        )
-
-                        // submit the extra 3 logo
-                        document.querySelector(extra3_submit_id).addEventListener('click',
-                            async function posting(event) {
-                                // Prevents the page from reloading
-                                event.preventDefault();
-
-                                proceeding_3()
-
-                                // make post request via fetch to upload the extra 3 logo
-                                let file = document.querySelector(extra3_input_id).files[0];
-
-                                if (file) {
-                                    let fileReader = new FileReader();
-                                    fileReader.readAsDataURL(file);
-                                    fileReader.addEventListener("load", async function () {
-                                        // get image binaries without it's data padding
-                                        let str_64 = await `${this.result}`.split(',')[1];
-
-                                        if (descrip["submissions"][descrip["additional logo position 3"]]) {
-                                            fetch(`/logo/post/${line_id}`, {
-                                                method: 'PUT',
-                                                body: JSON.stringify({
-                                                    file: str_64,
-                                                    logo_position: descrip["additional logo position 3"]
-                                                })
-                                            })
-                                        }
-                                        else {
-                                            fetch(`/logo/post/${line_id}`, {
-                                                method: 'POST',
-                                                body: JSON.stringify({
-                                                    file: str_64,
-                                                    logo_position: descrip["additional logo position 3"]
-                                                })
-                                            })
-                                            .then(function (response) {
-                                                return response.json();
-                                            })
-                                            .then(function (data) {
-                                                console.log("This data: " + data + "\n------ Is sent to server");
-                                            });
-                                        }
-                                    })
-                                }
-                            }
-                        )
-
-
-                        function show_logo_selected(chooseFile, imgPreview, next_button) {
-
-                            let files = chooseFile.files[0];
-                            if (files) {
-                                let fileReader = new FileReader();
-                                fileReader.readAsDataURL(files);
-                                fileReader.addEventListener("load", function () {
-                                    imgPreview.style.display = "block";
-                                    let link = `${this.result}`;
-                                    imgPreview.src = link;
-                                    imgPreview.parentNode.style.display = "block";
-                                });
-
-                                if (next_button) {
-                                    document.querySelector(next_button).style.display = "block";
-                                }
-                            }
-                        }
-                        
-                        return false;
-                    }
-
-                    // read file image and convert it to base 64 string
-                    async function str_64(files) {
-                        let link = "";
-                        let fileReader = new FileReader();
-                        fileReader.readAsDataURL(files);
-                        fileReader.addEventListener("load", async function () {
-                            link = await `${this.result}`;
-                            console.log("the link: ", link)
-                        })
-                    }
-
-                    // close the dialog
-                    function close_dialog_logos(line_id) {
-                        // close the relevant dialog
-                        let dialog_ID = `dialog[id=\"dialog_logos_${line_id}\"]`;
-                        document.querySelector(dialog_ID).close();
-                    }
-                    
-                </script><!-- end of tsting json end of testing json end of testing json -->
-
-                <!-- validating submitted logos -->
-                <script>
-                
-                </script><!-- end of validating submitted logos -->
-                
-            </td>
-            
-        </xpath>
-    </template>
 
     <!-- hode add to cart button from anonymous users -->
     <template id="product_cart_hide" inherit_id="website_sale.product">

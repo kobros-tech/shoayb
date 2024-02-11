@@ -25,14 +25,14 @@ class LogoRecord(WebsiteSale):
     #     user = request.env.user
     #     print(f"{user.name}: ")
 
-    #     # logo position
-    #     position = post.get("order")
-
     #     print("-----------------------load-----------------------------")
     #     print("----------------------------------------------------")
     #     print("-------------------------GET---------------------------")
-    #     print(order)
-    #     print(position)
+    #     print("order", order)
+    #     print("order line", order.order_line)
+    #     for line in order.order_line:
+    #         print("product line", line.product_id)
+    #         print("product line attributes", line.product_id.attribute_line_ids.mapped("display_name"))
     #     print("----------------------------------------------------")
     #     print("----------------------------------------------------")
 
