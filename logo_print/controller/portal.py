@@ -221,15 +221,27 @@ class LogoRecord(WebsiteSale):
         body = {'result': "The logo is submitted successfully"}
 
         if request.httprequest.method == "POST":
-            # Create new record
-            new_record = request.env["library"].create(vals)
-            return Response(json.dumps(body), headers=headers, status=201)
+            if len(line.logo_ids.filtered(lambda logo: logo.position == vals['position'])) == 0:
+                # Create new record
+                new_record = request.env["library"].create(vals)
+                return Response(json.dumps(body), headers=headers, status=201)
 
-        elif request.httprequest.method == "PUT":
-            logo_rec = line.logo_ids.filtered(lambda logo: logo.position == vals['position'])[:1]
-            if logo_rec:
-                logo_rec.image = vals['image']
-                return Response(json.dumps(body), headers=headers, status=204)
+            elif len(line.logo_ids.filtered(lambda logo: logo.position == vals['position'])) >= 1:
+                # Update existing record
+                logo_rec = line.logo_ids.filtered(lambda logo: logo.position == vals['position'])[:1]
+                if logo_rec:
+                    logo_rec.image = vals['image']
+                    return Response(json.dumps(body), headers=headers, status=201)
+                
+
+        # elif request.httprequest.method == "PUT":
+        #     logo_rec = line.logo_ids.filtered(lambda logo: logo.position == vals['position'])[:1]
+        #     if logo_rec:
+        #         logo_rec.image = vals['image']
+        #         return Response(json.dumps(body), headers=headers, status=204)
+        #     else:
+        #         result = {'error': "There is no record to update for this position"}
+        #         return Response(json.dumps(result), headers=headers, status=400)
 
     
     @http.route(["/logo/get/<model('sale.order.line'):line>"], type="http", methods=["GET"], auth="user", cors='*')

@@ -225,196 +225,196 @@
 //                             proceeding_3()
 //                         });
 
-//                         // submit the logo
-//                         document.querySelector(submit_id).addEventListener('click',
-//                             async function posting(event) {
-//                                 // Prevents the page from reloading
-//                                 event.preventDefault();
+                        // // submit the logo
+                        // document.querySelector(submit_id).addEventListener('click',
+                        //     async function posting(event) {
+                        //         // Prevents the page from reloading
+                        //         event.preventDefault();
 
-//                                 proceeding()
+                        //         proceeding()
 
-//                                 let file = document.querySelector(input_id).files[0];
+                        //         let file = document.querySelector(input_id).files[0];
                                 
-//                                 if (file) {
-//                                     let fileReader = new FileReader();
-//                                     fileReader.readAsDataURL(file);
-//                                     fileReader.addEventListener("load", async function () {
-//                                         // get image binaries without it's data padding
-//                                         let str_64 = await `${this.result}`.split(',')[1];
+                        //         if (file) {
+                        //             let fileReader = new FileReader();
+                        //             fileReader.readAsDataURL(file);
+                        //             fileReader.addEventListener("load", async function () {
+                        //                 // get image binaries without it's data padding
+                        //                 let str_64 = await `${this.result}`.split(',')[1];
 
-//                                         // PUT request for already submitted logos, POST request for new logo submission
-//                                         if (descrip["submissions"][descrip["logo position"]]) {
+                        //                 // PUT request for already submitted logos, POST request for new logo submission
+                        //                 if (descrip["submissions"][descrip["logo position"]]) {
 
-//                                             fetch(`/logo/post/${line_id}`, {
-//                                                 method: 'PUT',
-//                                                 body: JSON.stringify({
-//                                                     file: str_64,
-//                                                     logo_position: descrip["logo position"]
-//                                                 })
-//                                             })
-//                                         }
-//                                         else {
-//                                             fetch(`/logo/post/${line_id}`, {
-//                                                 method: 'POST',
-//                                                 body: JSON.stringify({
-//                                                     file: str_64,
-//                                                     logo_position: descrip["logo position"]
-//                                                 })
-//                                             })
-//                                             .then(function (response) {
-//                                                 return response.json();
-//                                             })
-//                                             .then(function (data) {
-//                                                 console.log("This data: " + data + "\n------ Is sent to server");
-//                                                 console.log(data);
-//                                             });
-//                                         }
-//                                     })
-//                                 }
-//                             }
-//                         )
+                        //                     fetch(`/logo/post/${line_id}`, {
+                        //                         method: 'PUT',
+                        //                         body: JSON.stringify({
+                        //                             file: str_64,
+                        //                             logo_position: descrip["logo position"]
+                        //                         })
+                        //                     })
+                        //                 }
+                        //                 else {
+                        //                     fetch(`/logo/post/${line_id}`, {
+                        //                         method: 'POST',
+                        //                         body: JSON.stringify({
+                        //                             file: str_64,
+                        //                             logo_position: descrip["logo position"]
+                        //                         })
+                        //                     })
+                        //                     .then(function (response) {
+                        //                         return response.json();
+                        //                     })
+                        //                     .then(function (data) {
+                        //                         console.log("This data: " + data + "\n------ Is sent to server");
+                        //                         console.log(data);
+                        //                     });
+                        //                 }
+                        //             })
+                        //         }
+                        //     }
+                        // )
 
-//                         // submit the extra 1 logo
-//                         document.querySelector(extra1_submit_id).addEventListener('click',
-//                             async function posting(event) {
-//                                 // Prevents the page from reloading
-//                                 event.preventDefault();
+                        // // submit the extra 1 logo
+                        // document.querySelector(extra1_submit_id).addEventListener('click',
+                        //     async function posting(event) {
+                        //         // Prevents the page from reloading
+                        //         event.preventDefault();
 
-//                                 proceeding_1()
+                        //         proceeding_1()
 
-//                                 let file = document.querySelector(extra1_input_id).files[0];
+                        //         let file = document.querySelector(extra1_input_id).files[0];
 
-//                                 if (file) {
-//                                     let fileReader = new FileReader();
-//                                     fileReader.readAsDataURL(file);
-//                                     fileReader.addEventListener("load", async function () {
-//                                         // get image binaries without it's data padding
-//                                         let str_64 = await `${this.result}`.split(',')[1];
+                        //         if (file) {
+                        //             let fileReader = new FileReader();
+                        //             fileReader.readAsDataURL(file);
+                        //             fileReader.addEventListener("load", async function () {
+                        //                 // get image binaries without it's data padding
+                        //                 let str_64 = await `${this.result}`.split(',')[1];
 
-//                                         // PUT request for already submitted logos, POST request for new logo submission
-//                                         if (descrip["submissions"][descrip["additional logo position 1"]]) {
-//                                             fetch(`/logo/post/${line_id}`, {
-//                                                 method: 'PUT',
-//                                                 body: JSON.stringify({
-//                                                     file: str_64,
-//                                                     logo_position: descrip["additional logo position 1"]
-//                                                 })
-//                                             })
-//                                         }
-//                                         else {
-//                                             fetch(`/logo/post/${line_id}`, {
-//                                                 method: 'POST',
-//                                                 body: JSON.stringify({
-//                                                     file: str_64,
-//                                                     logo_position: descrip["additional logo position 1"]
-//                                                 })
-//                                             })
-//                                             .then(function (response) {
-//                                                 return response.json();
-//                                             })
-//                                             .then(function (data) {
-//                                                 console.log("This data: " + data + "\n------ Is sent to server");
-//                                             });
-//                                         }
-//                                     })
-//                                 }
-//                             }
-//                         )
+                        //                 // PUT request for already submitted logos, POST request for new logo submission
+                        //                 if (descrip["submissions"][descrip["additional logo position 1"]]) {
+                        //                     fetch(`/logo/post/${line_id}`, {
+                        //                         method: 'PUT',
+                        //                         body: JSON.stringify({
+                        //                             file: str_64,
+                        //                             logo_position: descrip["additional logo position 1"]
+                        //                         })
+                        //                     })
+                        //                 }
+                        //                 else {
+                        //                     fetch(`/logo/post/${line_id}`, {
+                        //                         method: 'POST',
+                        //                         body: JSON.stringify({
+                        //                             file: str_64,
+                        //                             logo_position: descrip["additional logo position 1"]
+                        //                         })
+                        //                     })
+                        //                     .then(function (response) {
+                        //                         return response.json();
+                        //                     })
+                        //                     .then(function (data) {
+                        //                         console.log("This data: " + data + "\n------ Is sent to server");
+                        //                     });
+                        //                 }
+                        //             })
+                        //         }
+                        //     }
+                        // )
 
-//                         // submit the extra 2 logo
-//                         document.querySelector(extra2_submit_id).addEventListener('click',
-//                             async function posting(event) {
-//                                 // Prevents the page from reloading
-//                                 event.preventDefault();
+                        // // submit the extra 2 logo
+                        // document.querySelector(extra2_submit_id).addEventListener('click',
+                        //     async function posting(event) {
+                        //         // Prevents the page from reloading
+                        //         event.preventDefault();
 
-//                                 proceeding_2()
+                        //         proceeding_2()
 
-//                                 // make post request via fetch to upload the extra 2 logo
-//                                 let file = document.querySelector(extra2_input_id).files[0];
+                        //         // make post request via fetch to upload the extra 2 logo
+                        //         let file = document.querySelector(extra2_input_id).files[0];
 
-//                                 if (file) {
-//                                     let fileReader = new FileReader();
-//                                     fileReader.readAsDataURL(file);
-//                                     fileReader.addEventListener("load", async function () {
-//                                         // get image binaries without it's data padding
-//                                         let str_64 = await `${this.result}`.split(',')[1];
+                        //         if (file) {
+                        //             let fileReader = new FileReader();
+                        //             fileReader.readAsDataURL(file);
+                        //             fileReader.addEventListener("load", async function () {
+                        //                 // get image binaries without it's data padding
+                        //                 let str_64 = await `${this.result}`.split(',')[1];
 
-//                                         // PUT request for already submitted logos, POST request for new logo submission
-//                                         if (descrip["submissions"][descrip["additional logo position 2"]]) {
-//                                             fetch(`/logo/post/${line_id}`, {
-//                                                 method: 'PUT',
-//                                                 body: JSON.stringify({
-//                                                     file: str_64,
-//                                                     logo_position: descrip["additional logo position 2"]
-//                                                 })
-//                                             })
-//                                         }
-//                                         else {
-//                                             fetch(`/logo/post/${line_id}`, {
-//                                                 method: 'POST',
-//                                                 body: JSON.stringify({
-//                                                     file: str_64,
-//                                                     logo_position: descrip["additional logo position 2"]
-//                                                 })
-//                                             })
-//                                             .then(function (response) {
-//                                                 return response.json();
-//                                             })
-//                                             .then(function (data) {
-//                                                 console.log("This data: " + data + "\n------ Is sent to server");
-//                                             });
-//                                         }
-//                                     })
-//                                 }
-//                             }
-//                         )
+                        //                 // PUT request for already submitted logos, POST request for new logo submission
+                        //                 if (descrip["submissions"][descrip["additional logo position 2"]]) {
+                        //                     fetch(`/logo/post/${line_id}`, {
+                        //                         method: 'PUT',
+                        //                         body: JSON.stringify({
+                        //                             file: str_64,
+                        //                             logo_position: descrip["additional logo position 2"]
+                        //                         })
+                        //                     })
+                        //                 }
+                        //                 else {
+                        //                     fetch(`/logo/post/${line_id}`, {
+                        //                         method: 'POST',
+                        //                         body: JSON.stringify({
+                        //                             file: str_64,
+                        //                             logo_position: descrip["additional logo position 2"]
+                        //                         })
+                        //                     })
+                        //                     .then(function (response) {
+                        //                         return response.json();
+                        //                     })
+                        //                     .then(function (data) {
+                        //                         console.log("This data: " + data + "\n------ Is sent to server");
+                        //                     });
+                        //                 }
+                        //             })
+                        //         }
+                        //     }
+                        // )
 
-//                         // submit the extra 3 logo
-//                         document.querySelector(extra3_submit_id).addEventListener('click',
-//                             async function posting(event) {
-//                                 // Prevents the page from reloading
-//                                 event.preventDefault();
+                        // // submit the extra 3 logo
+                        // document.querySelector(extra3_submit_id).addEventListener('click',
+                        //     async function posting(event) {
+                        //         // Prevents the page from reloading
+                        //         event.preventDefault();
 
-//                                 proceeding_3()
+                        //         proceeding_3()
 
-//                                 // make post request via fetch to upload the extra 3 logo
-//                                 let file = document.querySelector(extra3_input_id).files[0];
+                        //         // make post request via fetch to upload the extra 3 logo
+                        //         let file = document.querySelector(extra3_input_id).files[0];
 
-//                                 if (file) {
-//                                     let fileReader = new FileReader();
-//                                     fileReader.readAsDataURL(file);
-//                                     fileReader.addEventListener("load", async function () {
-//                                         // get image binaries without it's data padding
-//                                         let str_64 = await `${this.result}`.split(',')[1];
+                        //         if (file) {
+                        //             let fileReader = new FileReader();
+                        //             fileReader.readAsDataURL(file);
+                        //             fileReader.addEventListener("load", async function () {
+                        //                 // get image binaries without it's data padding
+                        //                 let str_64 = await `${this.result}`.split(',')[1];
 
-//                                         if (descrip["submissions"][descrip["additional logo position 3"]]) {
-//                                             fetch(`/logo/post/${line_id}`, {
-//                                                 method: 'PUT',
-//                                                 body: JSON.stringify({
-//                                                     file: str_64,
-//                                                     logo_position: descrip["additional logo position 3"]
-//                                                 })
-//                                             })
-//                                         }
-//                                         else {
-//                                             fetch(`/logo/post/${line_id}`, {
-//                                                 method: 'POST',
-//                                                 body: JSON.stringify({
-//                                                     file: str_64,
-//                                                     logo_position: descrip["additional logo position 3"]
-//                                                 })
-//                                             })
-//                                             .then(function (response) {
-//                                                 return response.json();
-//                                             })
-//                                             .then(function (data) {
-//                                                 console.log("This data: " + data + "\n------ Is sent to server");
-//                                             });
-//                                         }
-//                                     })
-//                                 }
-//                             }
-//                         )
+                        //                 if (descrip["submissions"][descrip["additional logo position 3"]]) {
+                        //                     fetch(`/logo/post/${line_id}`, {
+                        //                         method: 'PUT',
+                        //                         body: JSON.stringify({
+                        //                             file: str_64,
+                        //                             logo_position: descrip["additional logo position 3"]
+                        //                         })
+                        //                     })
+                        //                 }
+                        //                 else {
+                        //                     fetch(`/logo/post/${line_id}`, {
+                        //                         method: 'POST',
+                        //                         body: JSON.stringify({
+                        //                             file: str_64,
+                        //                             logo_position: descrip["additional logo position 3"]
+                        //                         })
+                        //                     })
+                        //                     .then(function (response) {
+                        //                         return response.json();
+                        //                     })
+                        //                     .then(function (data) {
+                        //                         console.log("This data: " + data + "\n------ Is sent to server");
+                        //                     });
+                        //                 }
+                        //             })
+                        //         }
+                        //     }
+                        // )
 
 
 //                         function show_logo_selected(chooseFile, imgPreview, next_button) {

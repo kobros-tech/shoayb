@@ -38,7 +38,7 @@
                                             t-att-src="image_data_uri(position_0_logo.image)"
                                             class="img-thumbnail mx-auto rounded d-block"
                                             style="width: 100px"
-                                            t-att-alt="line.name_short"/>
+                                            t-att-alt="submissions_for_positions[position_0]"/>
                                     </div>
                                 </t>
                                 <t t-else="">
@@ -46,7 +46,8 @@
                                     <div class="logo_upload" style="display: none;">
                                         <img t-attf-id="line_json_img_preview_{{line.id}}" 
                                             src="" class="img-thumbnail mx-auto rounded d-block" 
-                                            style="width: 100px" />
+                                            style="width: 100px" 
+                                            t-att-alt="submissions_for_positions[position_0]"/>
                                     </div>
                                 </t>
                                 <br/>
@@ -79,7 +80,7 @@
                                                 t-att-src="image_data_uri(position_1_logo.image)"
                                                 class="img-thumbnail mx-auto rounded d-block"
                                                 style="width: 100px"
-                                                t-att-alt="line.name_short"/>
+                                                t-att-alt="submissions_for_positions[position_1]"/>
                                         </div>
                                     </t>
                                     <t t-else="">
@@ -87,7 +88,8 @@
                                         <div class="logo_upload" style="display: none;">
                                             <img t-attf-id="line_json_extra1_img_preview_{{line.id}}" 
                                                 src="" class="img-thumbnail mx-auto rounded d-block" 
-                                                style="width: 100px" />
+                                                style="width: 100px" 
+                                                t-att-alt="submissions_for_positions[position_1]"/>
                                         </div>
                                     </t>
                                     <br/>
@@ -126,7 +128,7 @@
                                                 t-att-src="image_data_uri(position_2_logo.image)"
                                                 class="img-thumbnail mx-auto rounded d-block"
                                                 style="width: 100px"
-                                                t-att-alt="line.name_short"/>
+                                                t-att-alt="submissions_for_positions[position_2]"/>
                                         </div>
                                     </t>
                                     <t t-else="">
@@ -134,7 +136,8 @@
                                         <div class="logo_upload" style="display: none;">
                                             <img t-attf-id="line_json_extra2_img_preview_{{line.id}}" 
                                                 src="" class="img-thumbnail mx-auto rounded d-block" 
-                                                style="width: 100px" />
+                                                style="width: 100px" 
+                                                t-att-alt="submissions_for_positions[position_2]"/>
                                         </div>
                                     </t>
                                     <br/>
@@ -173,7 +176,7 @@
                                                 t-att-src="image_data_uri(position_3_logo.image)"
                                                 class="img-thumbnail mx-auto rounded d-block"
                                                 style="width: 100px"
-                                                t-att-alt="line.name_short"/>
+                                                t-att-alt="submissions_for_positions[position_3]"/>
                                         </div>
                                     </t>
                                     <t t-else="">
@@ -181,7 +184,8 @@
                                         <div class="logo_upload" style="display: none;">
                                             <img t-attf-id="line_json_extra3_img_preview_{{line.id}}" 
                                                 src="" class="img-thumbnail mx-auto rounded d-block" 
-                                                style="width: 100px" />
+                                                style="width: 100px" 
+                                                t-att-alt="submissions_for_positions[position_3]"/>
                                         </div>
                                     </t>
                                     <br/>
@@ -226,7 +230,7 @@
 
                     // open the dialog
                     function logo_submit(line_id) {
-
+                        
                         let proceed_id = `#line_json_proceed_${line_id}`;
                         let proceed1_id = `#line_json_proceed1_${line_id}`;
                         let proceed2_id = `#line_json_proceed2_${line_id}`;
@@ -296,23 +300,27 @@
 
                         // show submitted logo
                         document.querySelector(input_id).addEventListener('change', function () {
+                            let chooseFile = document.querySelector(input_id);
                             show_logo_selected(chooseFile, imgPreview, submit_id);
                         })
                         // show submitted extra 1 logo
                         if (document.querySelector(extra1_input_id)) {
                             document.querySelector(extra1_input_id).addEventListener('change', function () {
+                                let chooseFile_extra1 = document.querySelector(extra1_input_id);
                                 show_logo_selected(chooseFile_extra1, imgPreview_extra1, extra1_submit_id);
                             })
                         }
                         // show submitted extra 2 logo
                         if (document.querySelector(extra2_input_id)) {
                             document.querySelector(extra2_input_id).addEventListener('change', function () {
+                                let chooseFile_extra2 = document.querySelector(extra2_input_id);
                                 show_logo_selected(chooseFile_extra2, imgPreview_extra2, extra2_submit_id);
                             })
                         }
                         // show submitted extra 3 logo
                         if (document.querySelector(extra3_input_id)) {
                             document.querySelector(extra3_input_id).addEventListener('change', function () {
+                                let chooseFile_extra3 = document.querySelector(extra3_input_id);
                                 show_logo_selected(chooseFile_extra3, imgPreview_extra3, extra3_submit_id);
                             })
                         }
@@ -398,6 +406,153 @@
                             
                         }
 
+                        // submit the logo
+                        if (document.querySelector(submit_id)) {
+                            document.querySelector(submit_id).addEventListener('click',
+                                async function posting(event) {
+                                    // Prevents the page from reloading
+                                    event.preventDefault();
+
+                                    let file = document.querySelector(input_id).files[0];
+                                    
+                                    if (file) {
+                                        let fileReader = new FileReader();
+                                        fileReader.readAsDataURL(file);
+                                        fileReader.addEventListener("load", async function () {
+                                            // get image binaries without it's data padding
+                                            let str_64 = await `${this.result}`.split(',')[1];
+                                            
+                                            fetch(`/logo/post/${line_id}`, {
+                                                method: 'POST',
+                                                body: JSON.stringify({
+                                                    file: str_64,
+                                                    logo_position: imgPreview.alt
+                                                })
+                                            })
+                                            .then(function (response) {
+                                                return response.json();
+                                            })
+                                            .then(function (data) {
+                                                console.log("This data: " + data + "\n------ Is sent to server");
+                                                console.log(data);
+                                            });  
+                                        })
+                                    }
+                                    proceeding()
+                                }
+                            )
+                        }
+                        
+                        // submit the extra 1 logo
+                        if (document.querySelector(extra1_submit_id)) {
+                            document.querySelector(extra1_submit_id).addEventListener('click',
+                                async function posting(event) {
+                                    // Prevents the page from reloading
+                                    event.preventDefault();
+
+                                    let file = document.querySelector(extra1_input_id).files[0];
+
+                                    if (file) {
+                                        let fileReader = new FileReader();
+                                        fileReader.readAsDataURL(file);
+                                        fileReader.addEventListener("load", async function () {
+                                            // get image binaries without it's data padding
+                                            let str_64 = await `${this.result}`.split(',')[1];
+                                            
+                                            fetch(`/logo/post/${line_id}`, {
+                                                method: 'POST',
+                                                body: JSON.stringify({
+                                                    file: str_64,
+                                                    logo_position: imgPreview_extra1.alt
+                                                })
+                                            })
+                                            .then(function (response) {
+                                                return response.json();
+                                            })
+                                            .then(function (data) {
+                                                console.log("This data: " + data + "\n------ Is sent to server");
+                                            });
+                                        })
+                                    }
+                                    proceeding_1()
+                                }
+                            )
+                        }
+                        
+                        // submit the extra 2 logo
+                        if (document.querySelector(extra2_submit_id)) {
+                            document.querySelector(extra2_submit_id).addEventListener('click',
+                                async function posting(event) {
+                                    // Prevents the page from reloading
+                                    event.preventDefault();
+
+                                    // make post request via fetch to upload the extra 2 logo
+                                    let file = document.querySelector(extra2_input_id).files[0];
+
+                                    if (file) {
+                                        let fileReader = new FileReader();
+                                        fileReader.readAsDataURL(file);
+                                        fileReader.addEventListener("load", async function () {
+                                            // get image binaries without it's data padding
+                                            let str_64 = await `${this.result}`.split(',')[1];
+                                            
+                                            fetch(`/logo/post/${line_id}`, {
+                                                method: 'POST',
+                                                body: JSON.stringify({
+                                                    file: str_64,
+                                                    logo_position: imgPreview_extra2.alt
+                                                })
+                                            })
+                                            .then(function (response) {
+                                                return response.json();
+                                            })
+                                            .then(function (data) {
+                                                console.log("This data: " + data + "\n------ Is sent to server");
+                                            });
+                                        })
+                                    }
+                                    proceeding_2()
+                                }
+                            )
+                        }
+                        
+                        // submit the extra 3 logo
+                        if (document.querySelector(extra3_submit_id)) {
+                            document.querySelector(extra3_submit_id).addEventListener('click',
+                                async function posting(event) {
+                                    // Prevents the page from reloading
+                                    event.preventDefault();
+
+                                    // make post request via fetch to upload the extra 3 logo
+                                    let file = document.querySelector(extra3_input_id).files[0];
+
+                                    if (file) {
+                                        let fileReader = new FileReader();
+                                        fileReader.readAsDataURL(file);
+                                        fileReader.addEventListener("load", async function () {
+                                            // get image binaries without it's data padding
+                                            let str_64 = await `${this.result}`.split(',')[1];
+
+                                            fetch(`/logo/post/${line_id}`, {
+                                                method: 'POST',
+                                                body: JSON.stringify({
+                                                    file: str_64,
+                                                    logo_position: imgPreview_extra3.alt
+                                                })
+                                            })
+                                            .then(function (response) {
+                                                return response.json();
+                                            })
+                                            .then(function (data) {
+                                                console.log("This data: " + data + "\n------ Is sent to server");
+                                            });
+                                        })
+                                    }
+                                    proceeding_3()
+                                }
+                            )
+                        }
+                        
                         function show_logo_selected(chooseFile, imgPreview, next_button) {
                             let files = chooseFile.files[0];
                             if (files) {
