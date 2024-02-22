@@ -69,7 +69,8 @@ dialog {
   
 
   a.btn.btn-primary.btn_cta {
-    background-color: #db6f30;
+    background-color: #bdfcc7;
+    color: black;
 }
 
 .btn.btn-primary:hover,
@@ -88,7 +89,8 @@ a.btn.btn-primary.btn_cta.onmouseup
 }
 
   .btn {
-    background-color: #db6f30;
+    background-color: #bdfcc7;
+    color: black;
 }
 
 .btn:hover {
@@ -98,7 +100,8 @@ a.btn.btn-primary.btn_cta.onmouseup
 
 
 .btn-primary {
-    background-color: #db6f30;
+    background-color: #bdfcc7;
+    color: black;
 }
 
 .btn-primary:hover {
@@ -107,7 +110,8 @@ a.btn.btn-primary.btn_cta.onmouseup
 }
 
 .btn_cta {
-    background-color: #db6f30;
+    background-color: #bdfcc7;
+    color: black;
 }
 
 .btn_cta:hover {

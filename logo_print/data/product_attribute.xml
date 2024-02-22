@@ -5,7 +5,7 @@
         <!-- Data for boolean choices of products attributes -->
         <record model="product.attribute" id="product_attribute_color">
             <field name="name">Color</field>
-            <field name="display_type">color</field>
+            <field name="display_type">pills</field>
             <field name="create_variant">always</field>
             <field name="sequence">0</field>
         </record>
@@ -13,12 +13,12 @@
         <record model="product.attribute" id="product_attribute_size">
             <field name="name">Size</field>
             <field name="display_type">radio</field>
-            <field name="create_variant">no_variant</field>
+            <field name="create_variant">dynamic</field>
             <field name="sequence">1</field>
         </record>
 
         <record model="product.attribute" id="product_attribute_emb_print">
-            <field name="name">Embroidery or print</field>
+            <field name="name">Embroidery or Print</field>
             <field name="display_type">radio</field>
             <field name="create_variant">no_variant</field>
             <field name="sequence">2</field>
@@ -33,7 +33,7 @@
         </record>
 
         <record model="product.attribute" id="product_attribute_new_previous">
-            <field name="name">new logo or previous logo</field>
+            <field name="name">New Logo or Previous Logo</field>
             <field name="display_type">radio</field>
             <field name="create_variant">no_variant</field>
             <field name="visibility">hidden</field>
@@ -49,7 +49,7 @@
         </record>
 
         <record model="product.attribute" id="product_attribute_text_logo">
-            <field name="name">text or logo</field>
+            <field name="name">Text or Logo</field>
             <field name="display_type">radio</field>
             <field name="create_variant">no_variant</field>
             <field name="sequence">4</field>
@@ -83,11 +83,11 @@
         </record>
         <record model="product.attribute.value" id="product_attribute_extra1_no">
             <field name="attribute_id" ref="product_attribute_extra1"/>
-            <field name="name">no</field>
+            <field name="name">No</field>
         </record>
         <record model="product.attribute.value" id="product_attribute_extra1_yes">
             <field name="attribute_id" ref="product_attribute_extra1"/>
-            <field name="name">yes</field>
+            <field name="name">Yes</field>
         </record>
 
         <record model="product.attribute" id="product_attribute_logo_position_1">
@@ -113,11 +113,11 @@
         </record>
         <record model="product.attribute.value" id="product_attribute_extra2_no">
             <field name="attribute_id" ref="product_attribute_extra2"/>
-            <field name="name">no</field>
+            <field name="name">No</field>
         </record>
         <record model="product.attribute.value" id="product_attribute_extra2_yes">
             <field name="attribute_id" ref="product_attribute_extra2"/>
-            <field name="name">yes</field>
+            <field name="name">Yes</field>
         </record>
 
         <record model="product.attribute" id="product_attribute_logo_position_2">
@@ -143,11 +143,11 @@
         </record>
         <record model="product.attribute.value" id="product_attribute_extra3_no">
             <field name="attribute_id" ref="product_attribute_extra3"/>
-            <field name="name">no</field>
+            <field name="name">No</field>
         </record>
         <record model="product.attribute.value" id="product_attribute_extra3_yes">
             <field name="attribute_id" ref="product_attribute_extra3"/>
-            <field name="name">yes</field>
+            <field name="name">Yes</field>
         </record>
 
         <record model="product.attribute" id="product_attribute_logo_position_3">

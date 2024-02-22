@@ -190,37 +190,37 @@
                     
                     // hide printing attribute
                     if (attribute_element.dataset.attribute_id === ptal_printing_id) {
-                        attribute_element.style.display = "block";
+                        attribute_element.style.display = "none";
                     }
 
                     // hide extra printing attribute
                     if (attribute_element.dataset.attribute_id === extra_y_n_attr_id) {
-                        attribute_element.style.display = "block";
+                        attribute_element.style.display = "none";
                     }
 
                     // hide extra printing choice attribute
                     if (attribute_element.dataset.attribute_id === ptal_extra_printing_id) {
-                        attribute_element.style.display = "block";
+                        attribute_element.style.display = "none";
                     }
 
                     // hide extra 2 printing attribute
                     if (attribute_element.dataset.attribute_id === extra2_y_n_attr_id) {
-                        attribute_element.style.display = "block";
+                        attribute_element.style.display = "none";
                     }
 
                     // hide extra 2 printing choice attribute
                     if (attribute_element.dataset.attribute_id === ptal_extra2_printing_id) {
-                        attribute_element.style.display = "block";
+                        attribute_element.style.display = "none";
                     }
 
                     // hide extra 3 printing attribute
                     if (attribute_element.dataset.attribute_id === extra3_y_n_attr_id) {
-                        attribute_element.style.display = "block";
+                        attribute_element.style.display = "none";
                     }
 
                     // hide extra 3 printing choice attribute
                     if (attribute_element.dataset.attribute_id === ptal_extra3_printing_id) {
-                        attribute_element.style.display = "block";
+                        attribute_element.style.display = "none";
                     }
 
                 });
