@@ -24,7 +24,7 @@ server {
                 return 302 $scheme://hureup.com$request_uri;
         }
 
-        listen 443;
+        listen 443 ssl;
         server_name hureup.com;
         proxy_read_timeout 720s;
         proxy_connect_timeout 720s;
@@ -37,7 +37,7 @@ server {
         proxy_set_header X-Real-IP $remote_addr;
 
         # SSL parameters
-        ssl on;
+        # ssl on;
         ssl_certificate /etc/letsencrypt/live/hureup.com/fullchain.pem;
         ssl_certificate_key /etc/letsencrypt/live/hureup.com/privkey.pem;
         ssl_session_timeout 30m;
